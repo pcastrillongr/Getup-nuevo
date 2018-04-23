@@ -41,8 +41,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Typeface weatherFont;
     private ImageView home;
     private ImageView trabajo;
-    PlaceAutocompleteFragment placeAutoCompletesalida;
-    PlaceAutocompleteFragment placeAutoCompletedestino;
+    PlaceAutocompleteFragment placeautocompletesalida;
+    PlaceAutocompleteFragment placeautocompletedestino;
 
 
 
@@ -51,10 +51,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_maps);
 
-        placeAutoCompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
-        placeAutoCompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+        placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
+        placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
             @Override
             public void onPlaceSelected(Place place) {
@@ -66,8 +67,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
-        placeAutoCompletedestino= (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete2);
-        placeAutoCompletedestino.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+        placeautocompletedestino = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete2);
+        placeautocompletedestino.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
 
                                                                 @Override
