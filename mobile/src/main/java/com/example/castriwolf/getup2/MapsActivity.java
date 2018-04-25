@@ -10,12 +10,16 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.Status;
@@ -31,6 +35,22 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -43,7 +63,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView trabajo;
     PlaceAutocompleteFragment placeautocompletesalida;
     PlaceAutocompleteFragment placeautocompletedestino;
-
+    String salida;
+    String destino;
+    Button calcular;
+    TextView distancia;
+    TextView km;
 
 
 
@@ -54,12 +78,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         setContentView(R.layout.activity_maps);
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        distancia=(TextView) findViewById(R.id.km);
+        km=(TextView) findViewById(R.id.tiempo);
+
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
         placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
             @Override
             public void onPlaceSelected(Place place) {
 
+                salida=place.getName().toString();
+                Log.i("Mensaje",salida);
             }
 
             @Override
@@ -74,6 +105,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                                 @Override
                                                                 public void onPlaceSelected(Place place) {
 
+                                                                    destino=place.getName().toString();
+                                                                    Log.i("mensaje",destino);
+
                                                                 }
 
                                                                 @Override
@@ -84,14 +118,68 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
-        home = findViewById(R.id.imghome);
-        trabajo = findViewById(R.id.imgtrabajo);
-        home.setVisibility(View.VISIBLE);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-    }
+
+
+
+        calcular=(Button)findViewById(R.id.calculartiempo);
+        calcular.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+
+                                            String path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=fr-FR&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
+                                            Gson gson = new Gson();
+                                            HttpURLConnection con = null;
+                                            StringBuilder sb = new StringBuilder();
+                                            try {
+                                                URL u = new URL(path);
+                                                con = (HttpURLConnection) u.openConnection();
+
+                                                con.connect();
+
+
+                                                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                                                String line;
+                                                while ((line = br.readLine()) != null) {
+                                                    sb.append(line + "\n");
+                                                    Log.i("mensaje", String.valueOf(sb));
+                                                }
+                                                br.close();
+
+
+                                            } catch (MalformedURLException ex) {
+                                                ex.printStackTrace();
+                                            } catch (IOException ex) {
+                                                ex.printStackTrace();
+                                            } finally {
+                                                if (con != null) {
+                                                    try {
+                                                        con.disconnect();
+                                                    } catch (Exception ex) {
+                                                        ex.printStackTrace();
+                                                    }
+                                                }
+                                            }
+                                            JSONObject jsonObject = null;
+                                            String total="";
+                                            try {
+                                                jsonObject = new JSONObject(sb.toString());
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            try {
+                                                total = jsonObject.getString("distance");
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                            Log.i("Mensaje", total);
+
+                                        }
+
+
+                                    });}
 
 
     /**
@@ -103,6 +191,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -123,6 +213,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
+
+
+
 
     private void actualizarUbicacion(Location location) {
 

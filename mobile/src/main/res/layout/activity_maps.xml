@@ -10,68 +10,6 @@
     android:background="#8fd2ca"
     tools:layout_editor_absoluteY="81dp">
 
-    <ImageView
-        android:id="@+id/imgtrabajo"
-        android:layout_width="55dp"
-        android:layout_height="44dp"
-        android:layout_above="@+id/map"
-        android:layout_alignStart="@+id/imghome"
-        android:layout_marginBottom="23dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.192"
-        app:srcCompat="@drawable/goingtowork2" />
-
-    <ImageView
-        android:id="@+id/next"
-        android:layout_width="79dp"
-        android:layout_height="46dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_toEndOf="@+id/imageView13"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/next" />
-
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_alignBottom="@+id/next"
-        android:layout_alignParentStart="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/next"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.986"
-        app:srcCompat="@drawable/iconoletras" />
-
-    <ImageView
-        android:id="@+id/imghome"
-        android:layout_width="56dp"
-        android:layout_height="44dp"
-        android:layout_above="@+id/imgtrabajo"
-        android:layout_marginBottom="16dp"
-        android:layout_toStartOf="@+id/place_autocomplete"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.075"
-        app:srcCompat="@drawable/home" />
-
 
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
@@ -79,9 +17,9 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="299dp"
-        android:layout_above="@+id/imageView13"
+        android:layout_height="250dp"
         android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         map:layout_constraintBottom_toBottomOf="parent"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintHorizontal_bias="0.0"
@@ -95,30 +33,96 @@
         android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
         android:layout_width="273dp"
         android:layout_height="37dp"
-        android:layout_alignBottom="@+id/imghome"
+        android:layout_above="@+id/place_autocomplete2"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="29dp"
         app:layout_constraintBottom_toTopOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.855"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintVertical_bias="0.0" />
 
     <fragment
         android:id="@+id/place_autocomplete2"
         android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
         android:layout_width="273dp"
         android:layout_height="37dp"
-        android:layout_below="@+id/imghome"
-        android:layout_toEndOf="@+id/imgtrabajo"
+        android:layout_alignBottom="@+id/trabajo"
+        android:layout_alignEnd="@+id/place_autocomplete"
+        android:layout_alignStart="@+id/place_autocomplete"
         app:layout_constraintBottom_toTopOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.855"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"
-        app:layout_constraintVertical_bias="0.0"
-        />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView2"
+        android:layout_alignStart="@+id/trabajo"
+        android:text="Tiempo Recorrdido" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="17dp"
+        android:text="Km:" />
+
+    <Button
+        android:id="@+id/calculartiempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/map"
+        android:text="CALCULAR RECORRIDO" />
+
+    <TextView
+        android:id="@+id/tiempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/home"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/trabajo"
+        android:layout_alignStart="@+id/trabajo"
+        app:srcCompat="@drawable/home" />
+
+    <ImageView
+        android:id="@+id/trabajo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/map"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="13dp"
+        android:layout_toStartOf="@+id/place_autocomplete"
+        app:srcCompat="@drawable/goingtowork2" />
+
+    <ImageView
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="18dp"
+        app:srcCompat="@drawable/next" />
+
+    <TextView
+        android:id="@+id/km"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tiempo"
+        android:layout_toStartOf="@+id/calculartiempo" />
 
 </RelativeLayout>
