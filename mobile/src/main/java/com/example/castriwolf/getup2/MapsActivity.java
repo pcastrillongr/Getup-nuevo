@@ -192,6 +192,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Polyline line=mMap.addPolyline(new PolylineOptions()
                         .add(new LatLng(punto1.getLatLng().latitude,punto1.getLatLng().longitude),
                                 new LatLng(punto2.getLatLng().latitude,punto2.getLatLng().longitude)).width(5).color(Color.RED));
+                mMap.getUiSettings().setZoomControlsEnabled(true);
+                mMap.moveCamera(CameraUpdateFactory.newLatLng((punto1.getLatLng())));
+                mMap.getMaxZoomLevel();
+
             }
 
 
