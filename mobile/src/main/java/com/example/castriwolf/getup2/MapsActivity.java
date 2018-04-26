@@ -35,11 +35,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -61,13 +58,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Typeface weatherFont;
     private ImageView home;
     private ImageView trabajo;
-    PlaceAutocompleteFragment placeautocompletesalida;
-    PlaceAutocompleteFragment placeautocompletedestino;
-    String salida;
-    String destino;
-    Button calcular;
-    TextView distancia;
-    TextView km;
+    private PlaceAutocompleteFragment placeautocompletesalida;
+    private PlaceAutocompleteFragment placeautocompletedestino;
+    private String salida;
+    private  String destino;
+    private Button calcular;
+    private TextView distancia;
+    private TextView tiempo;
 
 
 
@@ -81,7 +78,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         distancia=(TextView) findViewById(R.id.km);
-        km=(TextView) findViewById(R.id.tiempo);
+        tiempo=(TextView) findViewById(R.id.tiempo);
 
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
         placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -130,7 +127,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         public void onClick(View view) {
 
                                             String path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=fr-FR&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
-                                            Gson gson = new Gson();
+
+
                                             HttpURLConnection con = null;
                                             StringBuilder sb = new StringBuilder();
                                             try {
@@ -144,7 +142,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                 String line;
                                                 while ((line = br.readLine()) != null) {
                                                     sb.append(line + "\n");
-                                                    Log.i("mensaje", String.valueOf(sb));
+
                                                 }
                                                 br.close();
 
@@ -162,19 +160,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                     }
                                                 }
                                             }
-                                            JSONObject jsonObject = null;
-                                            String total="";
-                                            try {
-                                                jsonObject = new JSONObject(sb.toString());
+
+
+
+
+
+
+
+                                               try {
+
+                                                   JSONObject jsontiempo = new JSONObject(sb.toString());
+                                                        JSONArray array = jsontiempo.getJSONArray("rows");
+                                                        JSONObject routes = array.getJSONObject(0);
+                                                        JSONArray legs = routes.getJSONArray("elements");
+                                                        JSONObject steps = legs.getJSONObject(0);
+                                                        JSONObject tiempos = steps.getJSONObject("duration");
+                                                   tiempo.setText(tiempos.getString("text"));
+
+
+                                                   JSONObject jsonRespRouteDistance = new JSONObject(sb.toString());
+                                                        JSONArray array2 = jsontiempo.getJSONArray("rows");
+                                                        JSONObject routes2 = array.getJSONObject(0);
+                                                        JSONArray legs2 = routes.getJSONArray("elements");
+                                                        JSONObject steps2 = legs.getJSONObject(0);
+                                                        JSONObject distance = steps.getJSONObject("distance");
+                                                   distancia.setText(distance.getString("text"));
+
+
+
+
+
+
+
+
+                                                   String tiempoDistancia = jsontiempo.get("text").toString();
+
+                                                  // tiempo.setText(tiempoDistancia.toString());
+
+
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
-                                            try {
-                                                total = jsonObject.getString("distance");
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                            Log.i("Mensaje", total);
+
 
                                         }
 
