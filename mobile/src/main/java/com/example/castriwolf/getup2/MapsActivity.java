@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
@@ -35,6 +36,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,20 +56,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private Marker marcador;
-    double lat = 0.0;
-    double lon = 0.0;
+    private double lat = 0.0;
+    private double lon = 0.0;
     private Typeface weatherFont;
     private ImageView home;
     private ImageView trabajo;
     private PlaceAutocompleteFragment placeautocompletesalida;
     private PlaceAutocompleteFragment placeautocompletedestino;
     private String salida;
-    private  String destino;
+    private String destino;
     private Button calcular;
     private TextView distancia;
     private TextView tiempo;
-
-
+    private Place punto1;
+    private Place punto2;
 
 
     @Override
@@ -77,8 +80,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        distancia=(TextView) findViewById(R.id.km);
-        tiempo=(TextView) findViewById(R.id.tiempo);
+        distancia = (TextView) findViewById(R.id.km);
+        tiempo = (TextView) findViewById(R.id.tiempo);
 
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
         placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -86,8 +89,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onPlaceSelected(Place place) {
 
-                salida=place.getName().toString();
-                Log.i("Mensaje",salida);
+                salida = place.getName().toString();
+                punto1=place;
+                Log.i("Mensaje", salida);
             }
 
             @Override
@@ -99,20 +103,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         placeautocompletedestino.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
 
-                                                                @Override
-                                                                public void onPlaceSelected(Place place) {
+            @Override
+            public void onPlaceSelected(Place place) {
 
-                                                                    destino=place.getName().toString();
-                                                                    Log.i("mensaje",destino);
+                destino = place.getName().toString();
+                punto2=place;
+                Log.i("mensaje", destino);
 
-                                                                }
+            }
 
-                                                                @Override
-                                                                public void onError(Status status) {
+            @Override
+            public void onError(Status status) {
 
-                                                                }
-                                                            });
-
+            }
+        });
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -120,84 +124,79 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
 
-
-        calcular=(Button)findViewById(R.id.calculartiempo);
+        calcular = (Button) findViewById(R.id.calculartiempo);
         calcular.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
+            @Override
+            public void onClick(View view) {
 
-                                            String path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=fr-FR&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
-
-
-                                            HttpURLConnection con = null;
-                                            StringBuilder sb = new StringBuilder();
-                                            try {
-                                                URL u = new URL(path);
-                                                con = (HttpURLConnection) u.openConnection();
-
-                                                con.connect();
+                String path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
 
 
-                                                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                                                String line;
-                                                while ((line = br.readLine()) != null) {
-                                                    sb.append(line + "\n");
+                HttpURLConnection con = null;
+                StringBuilder sb = new StringBuilder();
+                try {
+                    URL u = new URL(path);
+                    con = (HttpURLConnection) u.openConnection();
 
-                                                }
-                                                br.close();
-
-
-                                            } catch (MalformedURLException ex) {
-                                                ex.printStackTrace();
-                                            } catch (IOException ex) {
-                                                ex.printStackTrace();
-                                            } finally {
-                                                if (con != null) {
-                                                    try {
-                                                        con.disconnect();
-                                                    } catch (Exception ex) {
-                                                        ex.printStackTrace();
-                                                    }
-                                                }
-                                            }
+                    con.connect();
 
 
+                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line + "\n");
+
+                    }
+                    br.close();
 
 
+                } catch (MalformedURLException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } finally {
+                    if (con != null) {
+                        try {
+                            con.disconnect();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
 
 
+                try {
+
+                    JSONObject jsontiempo = new JSONObject(sb.toString());
+                    JSONArray array = jsontiempo.getJSONArray("rows");
+                    JSONObject routes = array.getJSONObject(0);
+                    JSONArray legs = routes.getJSONArray("elements");
+                    JSONObject steps = legs.getJSONObject(0);
+                    JSONObject tiempos = steps.getJSONObject("duration");
+                    tiempo.setText(tiempos.getString("text"));
 
 
-                                            try {
-
-                                                JSONObject jsontiempo = new JSONObject(sb.toString());
-                                                JSONArray array = jsontiempo.getJSONArray("rows");
-                                                JSONObject routes = array.getJSONObject(0);
-                                                JSONArray legs = routes.getJSONArray("elements");
-                                                JSONObject steps = legs.getJSONObject(0);
-                                                JSONObject tiempos = steps.getJSONObject("duration");
-                                                tiempo.setText(tiempos.getString("text"));
+                    JSONObject jsonRespRouteDistance = new JSONObject(sb.toString());
+                    JSONArray array2 = jsontiempo.getJSONArray("rows");
+                    JSONObject routes2 = array.getJSONObject(0);
+                    JSONArray legs2 = routes.getJSONArray("elements");
+                    JSONObject steps2 = legs.getJSONObject(0);
+                    JSONObject distance = steps.getJSONObject("distance");
+                    distancia.setText(distance.getString("text"));
 
 
-                                                JSONObject jsonRespRouteDistance = new JSONObject(sb.toString());
-                                                JSONArray array2 = jsontiempo.getJSONArray("rows");
-                                                JSONObject routes2 = array.getJSONObject(0);
-                                                JSONArray legs2 = routes.getJSONArray("elements");
-                                                JSONObject steps2 = legs.getJSONObject(0);
-                                                JSONObject distance = steps.getJSONObject("distance");
-                                                distancia.setText(distance.getString("text"));
-                                                
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Polyline line=mMap.addPolyline(new PolylineOptions()
+                        .add(new LatLng(punto1.getLatLng().latitude,punto1.getLatLng().longitude),
+                                new LatLng(punto2.getLatLng().latitude,punto2.getLatLng().longitude)).width(5).color(Color.RED));
+            }
 
 
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-
-
-                                        }
-
-
-                                    });}
+        });
+    }
 
 
     /**
@@ -224,15 +223,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LatLng cordenadas = new LatLng(lat, lon);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(cordenadas, 16);
-        if (marcador != null){marcador.remove();}
+        if (marcador != null) {
+            marcador.remove();
+        }
 
         marcador = mMap.addMarker(new MarkerOptions().position(cordenadas).title("Mi posicion actual").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
         mMap.animateCamera(miUbicacion);
 
 
     }
-
-
 
 
     private void actualizarUbicacion(Location location) {
@@ -270,14 +269,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     };
 
-   private void miUbicacion() {
+    private void miUbicacion() {
 
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
             return;
-        }
-        else {
+        } else {
             LocationManager lctManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             Location location = lctManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             actualizarUbicacion(location);
