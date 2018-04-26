@@ -80,10 +80,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-        distancia = (TextView) findViewById(R.id.km);
-        tiempo = (TextView) findViewById(R.id.tiempo);
+        distancia = findViewById(R.id.km);
+        tiempo = findViewById(R.id.tiempo);
 
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
+        placeautocompletesalida.setText("Tu ubicacion");
         placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
             @Override
@@ -100,6 +101,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         placeautocompletedestino = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete2);
+
         placeautocompletedestino.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
 
@@ -128,8 +130,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         calcular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                String path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
+                String path="";
+                if(salida.equals("Tu ubicacion")){
+                    path= "https://maps.googleapis.com/maps/api/geocode/json?latlng="+salida+"&key=AIzaSyCaF2FhXkGojDicim6di7jS_CzAdGy6dVE";
+                }else{
+                    path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
+                   // AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow
+                }
 
 
                 HttpURLConnection con = null;
@@ -284,6 +291,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Location location = lctManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             actualizarUbicacion(location);
             lctManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 00, locListener);
+          salida=String.valueOf(lat+","+lon);
         }
     }
 
