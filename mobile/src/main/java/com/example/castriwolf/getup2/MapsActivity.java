@@ -177,11 +177,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
                     JSONObject jsonRespRouteDistance = new JSONObject(sb.toString());
-                    JSONArray array2 = jsontiempo.getJSONArray("rows");
-                    JSONObject routes2 = array.getJSONObject(0);
-                    JSONArray legs2 = routes.getJSONArray("elements");
-                    JSONObject steps2 = legs.getJSONObject(0);
-                    JSONObject distance = steps.getJSONObject("distance");
+                    JSONArray array2 = jsonRespRouteDistance.getJSONArray("rows");
+                    JSONObject routes2 = array2.getJSONObject(0);
+                    JSONArray legs2 = routes2.getJSONArray("elements");
+                    JSONObject steps2 = legs2.getJSONObject(0);
+                    JSONObject distance = steps2.getJSONObject("distance");
                     distancia.setText(distance.getString("text"));
 
 
