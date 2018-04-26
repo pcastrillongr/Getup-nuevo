@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
@@ -35,18 +36,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParser;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -68,6 +63,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Button calcular;
     TextView distancia;
     TextView km;
+    Place punto1;
+    Place punto2;
 
 
 
@@ -90,6 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onPlaceSelected(Place place) {
 
                 salida=place.getName().toString();
+                punto1=place;
                 Log.i("Mensaje",salida);
             }
 
@@ -105,6 +103,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                                 @Override
                                                                 public void onPlaceSelected(Place place) {
 
+                                                                    punto2=place;
                                                                     destino=place.getName().toString();
                                                                     Log.i("mensaje",destino);
 
@@ -162,19 +161,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                     }
                                                 }
                                             }
-                                            JSONObject jsonObject = null;
-                                            String total="";
-                                            try {
-                                                jsonObject = new JSONObject(sb.toString());
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                            try {
-                                                total = jsonObject.getString("distance");
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                            Log.i("Mensaje", total);
+
+                                            Polyline line=mMap.addPolyline(new PolylineOptions()
+                                                    .add(new LatLng(punto1.getLatLng().latitude,punto1.getLatLng().longitude),
+                                                            new LatLng(punto2.getLatLng().latitude,punto2.getLatLng().longitude)).width(5).color(Color.RED));
+
+
+
+
+
+
 
                                         }
 
@@ -197,7 +193,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        miUbicacion();
+        
 
     }
 
