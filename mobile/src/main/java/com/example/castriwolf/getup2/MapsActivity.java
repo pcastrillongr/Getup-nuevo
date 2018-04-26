@@ -168,16 +168,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
+                                            try {
+
+                                                JSONObject jsontiempo = new JSONObject(sb.toString());
+                                                JSONArray array = jsontiempo.getJSONArray("rows");
+                                                JSONObject routes = array.getJSONObject(0);
+                                                JSONArray legs = routes.getJSONArray("elements");
+                                                JSONObject steps = legs.getJSONObject(0);
+                                                JSONObject tiempos = steps.getJSONObject("duration");
+                                                tiempo.setText(tiempos.getString("text"));
 
 
-
-
-
-
-
-                                                   String tiempoDistancia = jsontiempo.get("text").toString();
-
-                                                  // tiempo.setText(tiempoDistancia.toString());
+                                                JSONObject jsonRespRouteDistance = new JSONObject(sb.toString());
+                                                JSONArray array2 = jsontiempo.getJSONArray("rows");
+                                                JSONObject routes2 = array.getJSONObject(0);
+                                                JSONArray legs2 = routes.getJSONArray("elements");
+                                                JSONObject steps2 = legs.getJSONObject(0);
+                                                JSONObject distance = steps.getJSONObject("distance");
+                                                distancia.setText(distance.getString("text"));
+                                                
 
 
                                             } catch (JSONException e) {
