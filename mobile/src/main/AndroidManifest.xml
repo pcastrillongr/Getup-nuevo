@@ -30,7 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Crear_Alarma" />
+        <activity android:name=".Crear_Alarma_Paso1" />
         <activity android:name=".Menu_Alarma" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
