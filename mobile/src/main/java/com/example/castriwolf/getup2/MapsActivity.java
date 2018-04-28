@@ -63,8 +63,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView trabajo;
     private PlaceAutocompleteFragment placeautocompletesalida;
     private PlaceAutocompleteFragment placeautocompletedestino;
-    private String salida="";
-    private String destino="";
+    private String salida = "";
+    private String destino = "";
     private Button calcular;
     private TextView distancia;
     private TextView tiempo;
@@ -82,6 +82,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         StrictMode.setThreadPolicy(policy);
         distancia = findViewById(R.id.km);
         tiempo = findViewById(R.id.tiempo);
+        home = findViewById(R.id.imgCasa);
+        home.setVisibility(View.VISIBLE);
+
 
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
         placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -89,9 +92,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onPlaceSelected(Place place) {
 
-                salida=place.getName().toString();
+                salida = place.getName().toString();
                 punto1 = place;
-                Toast.makeText(getApplicationContext(),salida,Toast.LENGTH_LONG);
+                Toast.makeText(getApplicationContext(), salida, Toast.LENGTH_LONG);
                 Log.i("Mensaje", salida);
             }
 
@@ -101,7 +104,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
         placeautocompletedestino = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete2);
-
         placeautocompletedestino.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
 
@@ -255,10 +257,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //este if no funciona correctamente
 
-        if (salida!="0.0,0.0" && destino!="") {
+        if (salida != "0.0,0.0" && destino != "") {
             String path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
             // AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow
-
 
 
             HttpURLConnection con = null;
@@ -332,6 +333,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
 
-
-}
+    }
 }
