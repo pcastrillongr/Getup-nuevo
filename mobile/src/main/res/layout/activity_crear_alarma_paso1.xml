@@ -45,7 +45,7 @@
         tools:layout_editor_absoluteX="59dp"
         tools:layout_editor_absoluteY="267dp" />
 
-    <ToggleButton
+    <ImageButton
         android:id="@+id/toggleButton8"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -67,7 +67,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
     />
 
-    <ToggleButton
+    <ImageButton
         android:id="@+id/toggleButton14"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -88,7 +88,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
     />
 
-    <ToggleButton
+    <ImageButton
         android:id="@+id/toggleButton11"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -107,10 +107,11 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/toggleButton10"
         app:layout_constraintStart_toEndOf="@+id/toggleButton13"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        tools:ignore="UnknownId" />
     />
 
-    <ToggleButton
+    <ImageButton
         android:id="@+id/toggleButton13"
         android:layout_width="40dp"
         android:layout_height="38dp"
@@ -131,7 +132,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
     />
 
-    <ToggleButton
+    <ImageButton
         android:id="@+id/toggleButton10"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -152,7 +153,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline" />
     />
 
-    <ToggleButton
+    <ImageButton
         android:id="@+id/toggleButton12"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -171,7 +172,7 @@
         tools:layout_editor_absoluteX="16dp" />
     />
 
-    <ToggleButton
+    <ImageButton
         android:id="@+id/toggleButton9"
         android:layout_width="40dp"
         android:layout_height="40dp"
