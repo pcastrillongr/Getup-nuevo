@@ -44,9 +44,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -70,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private TextView tiempo;
     private Place punto1;
     private Place punto2;
+    private Polyline line = null;
 
 
     @Override
@@ -87,6 +86,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
+        salida = "Tu ubicación";
         placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
             @Override
@@ -224,6 +224,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             actualizarUbicacion(location);
             lctManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 00, locListener);
             salida = String.valueOf(lat + "," + lon);
+
         }
     }
 
@@ -251,87 +252,163 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Busqueda Json
+     * Busca la informacion entre el punto de
+     * salida y llegada.
      */
 
     private void recorridoJson() {
+        String path="";
+        StringBuilder stringBuilder;
+        if(salida.equals("Tu ubicación")){
+           path ="https://maps.googleapis.com/maps/api/geocode/json?latlng="+salida.toString()+"&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
 
-        //este if no funciona correctamente
+            stringBuilder=traerContenidoStringBuilder(path);
+           traerDireccion(stringBuilder);
+        }
 
         if (salida != "0.0,0.0" && destino != "") {
-            String path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
+            path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
             // AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow
 
 
-            HttpURLConnection con = null;
-            StringBuilder sb = new StringBuilder();
-            try {
-                URL u = new URL(path);
-                con = (HttpURLConnection) u.openConnection();
-
-                con.connect();
+            stringBuilder=traerContenidoStringBuilder(path);
+            parsing(stringBuilder);
 
 
-                BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line + "\n");
 
-                }
-                br.close();
+            /**
+             * Si existe una polilinia ya creada la borramos y creamos otra.
+             */
 
-
-            } catch (MalformedURLException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } finally {
-                if (con != null) {
-                    try {
-                        con.disconnect();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                }
-            }
-
-
-            try {
-
-                JSONObject jsontiempo = new JSONObject(sb.toString());
-                JSONArray array = jsontiempo.getJSONArray("rows");
-                JSONObject routes = array.getJSONObject(0);
-                JSONArray legs = routes.getJSONArray("elements");
-                JSONObject steps = legs.getJSONObject(0);
-                JSONObject tiempos = steps.getJSONObject("duration");
-                tiempo.setText(tiempos.getString("text"));
-
-
-                JSONObject jsonRespRouteDistance = new JSONObject(sb.toString());
-                JSONArray array2 = jsonRespRouteDistance.getJSONArray("rows");
-                JSONObject routes2 = array2.getJSONObject(0);
-                JSONArray legs2 = routes2.getJSONArray("elements");
-                JSONObject steps2 = legs2.getJSONObject(0);
-                JSONObject distance = steps2.getJSONObject("distance");
-                distancia.setText(distance.getString("text"));
-
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            Polyline line = mMap.addPolyline(new PolylineOptions()
-                    .add(new LatLng(punto1.getLatLng().latitude, punto1.getLatLng().longitude),
-                            new LatLng(punto2.getLatLng().latitude, punto2.getLatLng().longitude)).width(5).color(Color.RED));
-            mMap.getUiSettings().setZoomControlsEnabled(true);
-            mMap.moveCamera(CameraUpdateFactory.newLatLng((punto1.getLatLng())));
-            mMap.getMaxZoomLevel();
-
-        } else {
-
-            Toast.makeText(getApplicationContext(), "No has introducido direciones", Toast.LENGTH_LONG).show();
+            pintarPolilinea();
+            agregarMarcadorPolilinea();
 
         }
 
 
+        Toast.makeText(getApplicationContext(), "No has introducido direciones", Toast.LENGTH_LONG).show();
+
     }
+
+    private void traerDireccion(StringBuilder sb) {
+
+        JSONObject jsontiempo = null;
+        try {
+            JSONArray array = jsontiempo.getJSONArray("rows");
+            JSONObject routes = array.getJSONObject(0);
+            JSONArray legs = routes.getJSONArray("elements");
+            JSONObject steps = legs.getJSONObject(0);
+            JSONObject tiempos = steps.getJSONObject("duration");
+            tiempo.setText(tiempos.getString("text"));
+
+            jsontiempo = new JSONObject(sb.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * pintaPolilineas
+     * funcionar para pintar una ralla entre
+     * el punto de salida a la llegada.
+     */
+
+    private void pintarPolilinea() {
+        if (line != null) {
+
+            line.remove();
+
+        }
+
+        line = mMap.addPolyline(new PolylineOptions()
+                .add(new LatLng(punto1.getLatLng().latitude, punto1.getLatLng().longitude),
+                        new LatLng(punto2.getLatLng().latitude, punto2.getLatLng().longitude)).width(5).color(Color.RED));
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        mMap.moveCamera(CameraUpdateFactory.newLatLng((punto1.getLatLng())));
+        mMap.getMinZoomLevel();
+    }
+
+    /**
+     * agregarMarcadorPolilinea
+     * agregas un marcador en el punto de salida
+     * y el punto de llegada.
+     */
+    private void agregarMarcadorPolilinea() {
+
+
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(punto1.getLatLng().latitude, punto1.getLatLng().longitude))
+                .title("Salida"));
+
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(punto2.getLatLng().latitude, punto2.getLatLng().longitude))
+                .title("Destino"));
+
+
+    }
+
+    private StringBuilder traerContenidoStringBuilder(String path){
+
+        HttpURLConnection con = null;
+        StringBuilder sb = new StringBuilder();
+        try {
+            URL u = new URL(path);
+            con = (HttpURLConnection) u.openConnection();
+
+            con.connect();
+
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line + "\n");
+
+            }
+            br.close();
+
+
+        } catch (MalformedURLException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (con != null) {
+                try {
+                    con.disconnect();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        return sb;
+    }
+
+    private void parsing(StringBuilder sb){
+        try {
+
+            JSONObject jsontiempo = new JSONObject(sb.toString());
+            JSONArray array = jsontiempo.getJSONArray("rows");
+            JSONObject routes = array.getJSONObject(0);
+            JSONArray legs = routes.getJSONArray("elements");
+            JSONObject steps = legs.getJSONObject(0);
+            JSONObject tiempos = steps.getJSONObject("duration");
+            tiempo.setText(tiempos.getString("text"));
+
+
+            JSONObject jsonRespRouteDistance = new JSONObject(sb.toString());
+            JSONArray array2 = jsonRespRouteDistance.getJSONArray("rows");
+            JSONObject routes2 = array2.getJSONObject(0);
+            JSONArray legs2 = routes2.getJSONArray("elements");
+            JSONObject steps2 = legs2.getJSONObject(0);
+            JSONObject distance = steps2.getJSONObject("distance");
+            distancia.setText(distance.getString("text"));
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
