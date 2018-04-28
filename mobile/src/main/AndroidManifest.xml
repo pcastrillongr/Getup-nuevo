@@ -48,7 +48,8 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".Crear_Alarma_Paso3" />
-        <activity android:name=".Crear_Alarma_Paso4"></activity>
+        <activity android:name=".Crear_Alarma_Paso4" />
+        <activity android:name=".Crear_Alarma_Paso5"></activity>
     </application>
 
 </manifest>
