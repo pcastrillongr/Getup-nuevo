@@ -89,7 +89,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onPlaceSelected(Place place) {
 
-                salida = place.getName().toString();
+                salida=place.getName().toString();
                 punto1 = place;
                 Toast.makeText(getApplicationContext(),salida,Toast.LENGTH_LONG);
                 Log.i("Mensaje", salida);
@@ -255,10 +255,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         //este if no funciona correctamente
 
-        if (salida!=null && destino!=null) {
+        if (salida!="0.0,0.0" && destino!="") {
             String path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
             // AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow
-    
+
 
 
             HttpURLConnection con = null;
@@ -327,7 +327,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         } else {
 
-            Toast.makeText(getApplicationContext(), "No has introducido direciones", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), "No has introducido direciones", Toast.LENGTH_LONG).show();
 
         }
 
