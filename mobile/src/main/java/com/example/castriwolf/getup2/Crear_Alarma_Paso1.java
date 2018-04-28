@@ -38,7 +38,7 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
          @Override
          public void onClick(View view) {
              toggleButton1.setImageResource(R.drawable.monday2);
-             
+
 
 
 
