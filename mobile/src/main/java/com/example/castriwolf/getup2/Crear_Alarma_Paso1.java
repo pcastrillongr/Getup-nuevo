@@ -1,9 +1,11 @@
 package com.example.castriwolf.getup2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
@@ -14,6 +16,7 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
     private ImageButton toggleButton5;
     private ImageButton toggleButton6;
     private ImageButton toggleButton7;
+    private ImageView next;
 
     private Boolean clunes = false;
     private Boolean cmartes = false;
@@ -36,6 +39,16 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
         toggleButton5 =(ImageButton) findViewById(R.id.toggleButtonViernes);
         toggleButton6 = (ImageButton) findViewById(R.id.toggleButtonSabado);
         toggleButton7 = (ImageButton) findViewById(R.id.toggleButtonDomingo);
+        next=(ImageView)findViewById(R.id.next);
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent go=new Intent(getApplicationContext(),MapsActivity.class);
+                startActivity(go);
+            }
+        });
 
         toggleButton1.setOnClickListener(new View.OnClickListener() {
             @Override

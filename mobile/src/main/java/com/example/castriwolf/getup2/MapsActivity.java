@@ -8,9 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.CountDownTimer;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
@@ -49,13 +52,17 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private Marker marcador;
-    private double lat = 0.0;
-    private double lon = 0.0;
+    private double latsal = 0.0;
+    private double lonsal = 0.0;
+    private double latdes = 0.0;
+    private double londes = 0.0;
     private Typeface weatherFont;
     private ImageView home;
     private ImageView trabajo;
@@ -69,7 +76,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Place punto1;
     private Place punto2;
     private Polyline line = null;
-
+    private ImageView next;
+    private ImageView ubi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +91,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         tiempo = findViewById(R.id.tiempo);
         home = findViewById(R.id.imgCasa);
         home.setVisibility(View.VISIBLE);
+        next = findViewById(R.id.next);
+        next.setVisibility(View.VISIBLE);
+        ubi = findViewById(R.id.ubi);
+        ubi.setVisibility(View.VISIBLE);
+
+        ubi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                miUbicacion();
+                Toast.makeText(getApplicationContext(), "Buscando tu ubicacion", Toast.LENGTH_SHORT).show();
 
 
+                new CountDownTimer(4000, 4000) {
+                    @Override
+                    public void onTick(long l) {
+
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                        Geocoder geocoder= new Geocoder(getApplicationContext(), Locale.getDefault());
+                        try {
+                            List<Address> addresses = geocoder.getFromLocation(latsal, lonsal, 1);
+                            placeautocompletesalida.setText(addresses.get(0).getAddressLine(0));
+                            salida=addresses.get(0).getAddressLine(0);
+                            latsal=addresses.get(0).getLatitude();
+                            lonsal=addresses.get(0).getLongitude();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }.start();
+
+
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent go=new Intent(getApplicationContext(),Crear_Alarma_Paso3.class);
+                startActivity(go);
+            }
+        });
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
         salida = "Tu ubicación";
         placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -157,7 +211,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        miUbicacion();
 
     }
 
@@ -180,9 +233,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void actualizarUbicacion(Location location) {
 
         if (location != null) {
-            lat = location.getLatitude();
-            lon = location.getLongitude();
-            agregarMarcador(lat, lon);
+            latsal = location.getLatitude();
+            lonsal = location.getLongitude();
+            agregarMarcador(latsal, lonsal);
         }
     }
 
@@ -223,7 +276,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Location location = lctManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             actualizarUbicacion(location);
             lctManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 00, locListener);
-            salida = String.valueOf(lat + "," + lon);
+            salida = String.valueOf(latsal + "," + lonsal);
 
         }
     }
@@ -322,11 +375,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         line = mMap.addPolyline(new PolylineOptions()
-                .add(new LatLng(punto1.getLatLng().latitude, punto1.getLatLng().longitude),
+                .add(new LatLng(latsal, lonsal),
                         new LatLng(punto2.getLatLng().latitude, punto2.getLatLng().longitude)).width(5).color(Color.RED));
         mMap.getUiSettings().setZoomControlsEnabled(true);
-        mMap.moveCamera(CameraUpdateFactory.newLatLng((punto1.getLatLng())));
-        mMap.getMinZoomLevel();
+        float minZoomLevel = mMap.getMinZoomLevel();
     }
 
     /**
@@ -338,7 +390,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(punto1.getLatLng().latitude, punto1.getLatLng().longitude))
+                .position(new LatLng(latsal, lonsal))
                 .title("Salida"));
 
         mMap.addMarker(new MarkerOptions()
