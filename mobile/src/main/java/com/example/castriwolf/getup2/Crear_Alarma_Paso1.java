@@ -1,24 +1,27 @@
 package com.example.castriwolf.getup2;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.NumberPicker;
-import android.widget.ToggleButton;
 
 public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
-    ImageButton toggleButton1;
-    ImageButton toggleButton2;
-    ImageButton toggleButton3;
-    ImageButton toggleButton4;
-    ImageButton toggleButton5;
-    ImageButton toggleButton6;
-    ImageButton toggleButton7;
+    private ImageButton toggleButton1;
+    private ImageButton toggleButton2;
+    private ImageButton toggleButton3;
+    private ImageButton toggleButton4;
+    private ImageButton toggleButton5;
+    private ImageButton toggleButton6;
+    private ImageButton toggleButton7;
 
+    private Boolean clunes = false;
+    private Boolean cmartes = false;
+    private Boolean cmiercoles = false;
+    private Boolean cjueves = false;
+    private Boolean cviernes = false;
+    private Boolean csabado = false;
+    private Boolean cdomingo = false;
 
 
     @Override
@@ -26,154 +29,135 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_alarma_paso1);
 
-      //  toggleButton1=(ImageButton) findViewById(R.id.toggleButton8);
-        toggleButton2=(ImageButton) findViewById(R.id.toggleButton9);
-        toggleButton3=(ImageButton) findViewById(R.id.toggleButton10);
-        toggleButton4=(ImageButton) findViewById(R.id.toggleButton11);
-        toggleButton5=(ImageButton) findViewById(R.id.toggleButton12);
-        toggleButton6=(ImageButton) findViewById(R.id.toggleButton13);
-        toggleButton7=(ImageButton) findViewById(R.id.toggleButton14);
+        toggleButton1 =(ImageButton) findViewById(R.id.toggleButtonLunes);
+        toggleButton2 =(ImageButton) findViewById(R.id.toggleButtonMartes);
+        toggleButton3 = (ImageButton) findViewById(R.id.toggleButtonMiercoles);
+        toggleButton4 = (ImageButton) findViewById(R.id.toggleButtonJueves);
+        toggleButton5 =(ImageButton) findViewById(R.id.toggleButtonViernes);
+        toggleButton6 = (ImageButton) findViewById(R.id.toggleButtonSabado);
+        toggleButton7 = (ImageButton) findViewById(R.id.toggleButtonDomingo);
 
-   /*  toggleButton1.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             toggleButton1.setImageResource(R.drawable.monday2);
-
-
-
-
-         }
-     });
-        toggleButton2.setOnClickListener(new View.OnClickListener() {
+        toggleButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleButton2.setImageResource(R.drawable.tueday2);
 
+                if (clunes == false) {
+                    toggleButton1.setImageResource(R.drawable.icons8lunes40verde);
+                    clunes=true;
+                } else {
+                    toggleButton1.setImageResource(R.drawable.icons8lunes40);
+                    clunes=false;
+                }
 
             }
         });
-        toggleButton3.setOnClickListener(new View.OnClickListener() {
+        toggleButton2.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                toggleButton3.setImageResource(R.drawable.wednesday2);
 
+                if (cmartes == false) {
+                    toggleButton2.setImageResource(R.drawable.icons8martes40verde);
+                    cmartes=true;
 
+                } else {
+                    toggleButton2.setImageResource(R.drawable.icons8martes40);
+                    cmartes=false;
+                }
             }
-        });  toggleButton4.setOnClickListener(new View.OnClickListener() {
+        });
+        toggleButton3.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                toggleButton4.setImageResource(R.drawable.thursday2);
 
+                if (cmiercoles == false) {
+                    toggleButton3.setImageResource(R.drawable.icons8miercoles40verde);
+                    cmiercoles=true;
+                } else {
+                    toggleButton3.setImageResource(R.drawable.icons8miercoles40);
+                   cmiercoles=false;
 
-            }
-        });  toggleButton5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleButton5.setImageResource(R.drawable.friday2);
-
+                }
 
             }
         });
-        toggleButton6.setOnClickListener(new View.OnClickListener() {
+        toggleButton4.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                toggleButton6.setImageResource(R.drawable.saturday2);
 
 
-            }
-        });  toggleButton7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleButton7.setImageResource(R.drawable.sunday2);
+                if (cjueves == false) {
+                    toggleButton4.setImageResource(R.drawable.icons8jueves40verde);
+                    cjueves=true;
 
-
-            }
-        });
-
-
-
-
-            toggleButton2.setImageResource(R.drawable.tueday2);
-            toggleButton3.setImageResource(R.drawable.wednesday2);
-            toggleButton4.setImageResource(R.drawable.thursday2);
-            toggleButton5.setImageResource(R.drawable.friday2);
-            toggleButton6.setImageResource(R.drawable.saturday2);
-            toggleButton7.setImageResource(R.drawable.sunday2);
-        }
-*//*  toggleButton1.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-             toggleButton1.setImageResource(R.drawable.monday2);
-
-
-
-
-         }
-     });
-        toggleButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleButton2.setImageResource(R.drawable.tueday2);
-
+                } else {
+                    toggleButton4.setImageResource(R.drawable.icons8jueves40);
+                    cjueves=false;
+                }
 
             }
         });
-        toggleButton3.setOnClickListener(new View.OnClickListener() {
+        toggleButton5.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                toggleButton3.setImageResource(R.drawable.wednesday2);
 
-
+                if (cviernes == false) {
+                    toggleButton5.setImageResource(R.drawable.icons8viernes40verde);
+                    cviernes=true;
+                } else {
+                    toggleButton5.setImageResource(R.drawable.icons8viernes40);
+                    cviernes=false;
+                }
             }
-        });  toggleButton4.setOnClickListener(new View.OnClickListener() {
+        });
+        toggleButton6.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                toggleButton4.setImageResource(R.drawable.thursday2);
 
-
-            }
-        });  toggleButton5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleButton5.setImageResource(R.drawable.friday2);
-
+                if (csabado == false) {
+                    toggleButton6.setImageResource(R.drawable.icons8sabado40verde);
+                    csabado=true;
+                } else {
+                    toggleButton6.setImageResource(R.drawable.icons8sabado40);
+                    csabado=false;
+                }
 
             }
         });
-        toggleButton6.setOnClickListener(new View.OnClickListener() {
+        toggleButton7.setOnClickListener(new View.OnClickListener()
+
+        {
             @Override
             public void onClick(View view) {
-                toggleButton6.setImageResource(R.drawable.saturday2);
 
-
-            }
-        });  toggleButton7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                toggleButton7.setImageResource(R.drawable.sunday2);
-
+                if (cdomingo == false) {
+                    toggleButton7.setImageResource(R.drawable.icons8domingo40verde);
+                    cdomingo=true;
+                } else {
+                    toggleButton7.setImageResource(R.drawable.icons8domingo40);
+                    cdomingo=false;
+                }
 
             }
         });
-
-
-
-
-            toggleButton2.setImageResource(R.drawable.tueday2);
-            toggleButton3.setImageResource(R.drawable.wednesday2);
-            toggleButton4.setImageResource(R.drawable.thursday2);
-            toggleButton5.setImageResource(R.drawable.friday2);
-            toggleButton6.setImageResource(R.drawable.saturday2);
-            toggleButton7.setImageResource(R.drawable.sunday2);
-        }
-*/
-}
-
-    public void tiempo(View view){
 
     }
 
-    public void distancia(View view){
+
+    public void tiempo(View view) {
+
+    }
+
+    public void distancia(View view) {
 
 
     }

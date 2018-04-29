@@ -50,12 +50,12 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/toggleButton8"
+        android:id="@+id/toggleButtonMartes"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/toggleButton12"
-        android:layout_alignBottom="@+id/toggleButton12"
-        android:layout_alignStart="@+id/toggleButton13"
+        android:layout_alignBaseline="@+id/toggleButtonLunes"
+        android:layout_alignBottom="@+id/toggleButtonLunes"
+        android:layout_alignStart="@+id/toggleButtonJueves"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
@@ -65,35 +65,38 @@
         android:textOff=""
         android:textOn=""
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/toggleButton12"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonLunes"
+        app:layout_constraintTop_toTopOf="@+id/guideline" /><![CDATA[
     />
 
+    />
+
+    ]]>
+
     <ImageButton
-        android:id="@+id/toggleButton14"
+        android:id="@+id/toggleButtonDomingo"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/toggleButton10"
+        android:layout_below="@+id/toggleButtonDomingo"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/toggleButton8"
+        android:layout_toEndOf="@+id/toggleButtonMartes"
         android:src="@drawable/icons8domingo40"
         android:text=""
         android:textOff=""
         android:textOn=""
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/toggleButton10"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonSabado"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
-    />
 
     <ImageButton
-        android:id="@+id/toggleButton11"
+        android:id="@+id/toggleButtonViernes"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_alignBaseline="@+id/toggleButton9"
-        android:layout_alignBottom="@+id/toggleButton9"
+        android:layout_alignBaseline="@+id/toggleButtonMiercoles"
+        android:layout_alignBottom="@+id/toggleButtonMiercoles"
 
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
@@ -105,34 +108,34 @@
         android:textOn=""
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintStart_toEndOf="@+id/toggleButton13"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonJueves"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
     />
 
     <ImageButton
-        android:id="@+id/toggleButton13"
+        android:id="@+id/toggleButtonJueves"
         android:layout_width="40dp"
         android:layout_height="38dp"
-        android:layout_below="@+id/toggleButton9"
+        android:layout_below="@+id/toggleButtonMiercoles"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:layout_toStartOf="@+id/toggleButton11"
+        android:layout_toStartOf="@+id/toggleButtonViernes"
         android:src="@drawable/icons8jueves40"
         android:text=""
         android:textOff=""
         android:textOn=""
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/toggleButton9"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonMiercoles"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
     />
 
     <ImageButton
-        android:id="@+id/toggleButton10"
+        android:id="@+id/toggleButtonSabado"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/toggleButton12"
+        android:layout_below="@+id/toggleButtonLunes"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
@@ -142,16 +145,16 @@
         android:textOff=""
         android:textOn=""
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/toggleButton11"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonViernes"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
     />
 
     <ImageButton
-        android:id="@+id/toggleButton12"
+        android:id="@+id/toggleButtonLunes"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/toggleButton13"
+        android:layout_below="@+id/toggleButtonJueves"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="20dp"
@@ -164,7 +167,7 @@
     />
 
     <ImageButton
-        android:id="@+id/toggleButton9"
+        android:id="@+id/toggleButtonMiercoles"
         android:layout_width="42dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
@@ -172,13 +175,13 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:layout_toEndOf="@+id/toggleButton13"
+        android:layout_toEndOf="@+id/toggleButtonJueves"
         android:src="@drawable/icons8miercoles40"
         android:text=""
         android:textOff=""
         android:textOn=""
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintStart_toEndOf="@+id/toggleButton8"
+        app:layout_constraintStart_toEndOf="@+id/toggleButtonMartes"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <android.support.constraint.Guideline
