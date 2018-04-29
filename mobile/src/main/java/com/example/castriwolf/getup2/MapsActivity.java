@@ -187,8 +187,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                recorridoJson();
+                if(salida.equals("")||destino.equals(""))
+                {
 
+                    Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                }else{
+
+                    recorridoJson();
+                }
             }
 
 
@@ -339,7 +346,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
 
-        Toast.makeText(getApplicationContext(), "No has introducido direciones", Toast.LENGTH_LONG).show();
 
     }
 
