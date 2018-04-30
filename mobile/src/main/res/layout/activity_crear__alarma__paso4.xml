@@ -9,7 +9,7 @@
     >
 
     <NumberPicker
-        android:id="@+id/numberpicker"
+        android:id="@+id/numberpicker2"
         android:layout_width="78dp"
         android:layout_height="151dp"
         android:layout_marginBottom="47dp"
@@ -32,7 +32,7 @@
         android:text="Minutos"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/numberPicker"
+        app:layout_constraintStart_toEndOf="@+id/numberpicker2"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_marginStart="77dp"
         android:layout_marginTop="38dp"
         android:text="Tiempo que tardas en el baño"
-        app:layout_constraintBottom_toTopOf="@+id/numberPicker"
+        app:layout_constraintBottom_toTopOf="@+id/numberpicker2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/next"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberpicker"
+        app:layout_constraintTop_toBottomOf="@+id/numberpicker2"
         app:srcCompat="@drawable/shower" />
 
     <ImageView

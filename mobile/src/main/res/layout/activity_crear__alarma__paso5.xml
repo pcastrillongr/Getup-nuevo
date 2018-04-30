@@ -10,7 +10,7 @@
 
 
     <NumberPicker
-        android:id="@+id/numberpicker"
+        android:id="@+id/numberpicker3"
         android:layout_width="78dp"
         android:layout_height="151dp"
         android:layout_marginBottom="47dp"
@@ -33,7 +33,7 @@
         android:text="Minutos"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/numberPicker"
+        app:layout_constraintStart_toEndOf="@+id/numberpicker3"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView

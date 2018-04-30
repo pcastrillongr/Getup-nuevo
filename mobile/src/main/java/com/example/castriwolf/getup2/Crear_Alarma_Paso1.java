@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 
 public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
@@ -26,6 +27,8 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
     private Boolean csabado = false;
     private Boolean cdomingo = false;
 
+    private TimePicker hora;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
         toggleButton5 =(ImageButton) findViewById(R.id.toggleButtonViernes);
         toggleButton6 = (ImageButton) findViewById(R.id.toggleButtonSabado);
         toggleButton7 = (ImageButton) findViewById(R.id.toggleButtonDomingo);
+        hora=findViewById(R.id.timePicker3);
         next=(ImageView)findViewById(R.id.next);
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +50,18 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent go=new Intent(getApplicationContext(),MapsActivity.class);
+
+
+                go.putExtra("Lunes",clunes);
+                go.putExtra("Martes",cmartes);
+                go.putExtra("Miercoles",cmiercoles);
+                go.putExtra("Jueves",cjueves);
+                go.putExtra("Viernes",cviernes);
+                go.putExtra("Sabado",csabado);
+                go.putExtra("Domingo",cdomingo);
+
+                go.putExtra("Hora", String.valueOf(hora));
+
                 startActivity(go);
             }
         });
@@ -166,12 +182,4 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
     }
 
 
-    public void tiempo(View view) {
-
-    }
-
-    public void distancia(View view) {
-
-
-    }
 }

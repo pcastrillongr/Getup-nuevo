@@ -59,6 +59,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private Marker marcador;
+    private Marker marcador2;
     private double latsal = 0.0;
     private double lonsal = 0.0;
     private double latdes = 0.0;
@@ -79,11 +80,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView next;
     private ImageView ubi;
 
+    private boolean lunes;
+    private boolean martes;
+    private boolean miercoles;
+    private boolean jueves;
+    private boolean viernes;
+    private boolean sabado;
+    private boolean domingo;
+    private String hora;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_maps);
+
+      Bundle parametros = this.getIntent().getExtras();
+        lunes=parametros.getBoolean("Lunes");
+        martes=parametros.getBoolean("Martes");
+        miercoles=parametros.getBoolean("Miercoles");
+        jueves=parametros.getBoolean("Jueves");
+        viernes=parametros.getBoolean("Viernes");
+        sabado=parametros.getBoolean("Sabado");
+        domingo=parametros.getBoolean("Domingo");
+        hora = parametros.getString("Hora");
+
+
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -136,6 +158,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View view) {
 
                 Intent go=new Intent(getApplicationContext(),Crear_Alarma_Paso3.class);
+
+                go.putExtra("Lunes",lunes);
+                go.putExtra("Martes",martes);
+                go.putExtra("Miercoles",miercoles);
+                go.putExtra("Jueves",jueves);
+                go.putExtra("Viernes",viernes);
+                go.putExtra("Sabado",sabado);
+                go.putExtra("Domingo",domingo);
+
+                go.putExtra("Hora", String.valueOf(hora));
+
+                go.putExtra("TiempoRecorrido", String.valueOf(tiempo));
+
+
+
+
+
                 startActivity(go);
             }
         });
@@ -395,11 +434,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void agregarMarcadorPolilinea() {
 
 
-        mMap.addMarker(new MarkerOptions()
+        if(marcador != null){
+
+            marcador.remove();
+
+        }
+
+        if(marcador2 != null){
+            marcador2.remove();
+        }
+
+       marcador= mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(latsal, lonsal))
                 .title("Salida"));
 
-        mMap.addMarker(new MarkerOptions()
+       marcador2= mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(punto2.getLatLng().latitude, punto2.getLatLng().longitude))
                 .title("Destino"));
 
