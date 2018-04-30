@@ -13,6 +13,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.StrictMode;
 import android.provider.Settings;
@@ -26,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.castriwolf.getup2.Clases.DirectionsParser;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -48,15 +50,19 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final int LOCATION_REQUEST = 500;
     private GoogleMap mMap;
     private Marker marcador;
     private Marker marcador2;
@@ -95,16 +101,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         setContentView(R.layout.activity_maps);
 
-      Bundle parametros = this.getIntent().getExtras();
-        lunes=parametros.getBoolean("Lunes");
-        martes=parametros.getBoolean("Martes");
-        miercoles=parametros.getBoolean("Miercoles");
-        jueves=parametros.getBoolean("Jueves");
-        viernes=parametros.getBoolean("Viernes");
-        sabado=parametros.getBoolean("Sabado");
-        domingo=parametros.getBoolean("Domingo");
+        Bundle parametros = this.getIntent().getExtras();
+        lunes = parametros.getBoolean("Lunes");
+        martes = parametros.getBoolean("Martes");
+        miercoles = parametros.getBoolean("Miercoles");
+        jueves = parametros.getBoolean("Jueves");
+        viernes = parametros.getBoolean("Viernes");
+        sabado = parametros.getBoolean("Sabado");
+        domingo = parametros.getBoolean("Domingo");
         hora = parametros.getString("Hora");
-
 
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -136,13 +141,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onFinish() {
 
-                        Geocoder geocoder= new Geocoder(getApplicationContext(), Locale.getDefault());
+                        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                         try {
                             List<Address> addresses = geocoder.getFromLocation(latsal, lonsal, 1);
                             placeautocompletesalida.setText(addresses.get(0).getAddressLine(0));
-                            salida=addresses.get(0).getAddressLine(0);
-                            latsal=addresses.get(0).getLatitude();
-                            lonsal=addresses.get(0).getLongitude();
+                            salida = addresses.get(0).getAddressLine(0);
+                            latsal = addresses.get(0).getLatitude();
+                            lonsal = addresses.get(0).getLongitude();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -157,22 +162,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                Intent go=new Intent(getApplicationContext(),Crear_Alarma_Paso3.class);
+                Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
 
-                go.putExtra("Lunes",lunes);
-                go.putExtra("Martes",martes);
-                go.putExtra("Miercoles",miercoles);
-                go.putExtra("Jueves",jueves);
-                go.putExtra("Viernes",viernes);
-                go.putExtra("Sabado",sabado);
-                go.putExtra("Domingo",domingo);
+                go.putExtra("Lunes", lunes);
+                go.putExtra("Martes", martes);
+                go.putExtra("Miercoles", miercoles);
+                go.putExtra("Jueves", jueves);
+                go.putExtra("Viernes", viernes);
+                go.putExtra("Sabado", sabado);
+                go.putExtra("Domindgo", domingo);
 
                 go.putExtra("Hora", String.valueOf(hora));
 
                 go.putExtra("TiempoRecorrido", String.valueOf(tiempo));
-
-
-
 
 
                 startActivity(go);
@@ -226,12 +228,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                if(salida.equals("")||destino.equals(""))
-                {
+                if (salida.equals("") || destino.equals("")) {
 
                     Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
 
-                }else{
+                } else {
 
                     recorridoJson();
                 }
@@ -256,7 +257,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
+            return;
+        }
 
     }
 
@@ -356,17 +361,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
 
     private void recorridoJson() {
-        String path="";
+        String path = "";
+        DirectionsParser directionsParser= new DirectionsParser();
         StringBuilder stringBuilder;
-        if(salida.equals("Tu ubicación")){
-           path ="https://maps.googleapis.com/maps/api/geocode/json?latlng="+salida.toString()+"&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
+        if (salida.equals("Tu ubicación")) {
+            path = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + salida.toString() + "&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
 
-            stringBuilder=traerContenidoStringBuilder(path);
-           traerDireccion(stringBuilder);
+            stringBuilder = traerContenidoStringBuilder(path);
+            traerDireccion(stringBuilder);
         }
 
         if (salida != "0.0,0.0" && destino != "") {
-            path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
+
+            String url = getRequestUrl(punto1, punto2);
+            TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+            taskRequestDirections.execute(url);
+            stringBuilder=traerContenidoStringBuilder(url);
+
+            tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
+            distancia.setText(directionsParser.parsingKM(stringBuilder));
+
+
+     /*       path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
             // AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow
 
 
@@ -375,18 +391,42 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-            /**
+            *//**
              * Si existe una polilinia ya creada la borramos y creamos otra.
-             */
+             *//*
 
             pintarPolilinea();
-            agregarMarcadorPolilinea();
+            agregarMarcadorPolilinea();*/
 
         }
 
 
-
     }
+
+    private String getRequestUrl(Place place1, Place place2) {
+        //Value of origin
+        String str_org="";
+        if(place1 != null) {
+             str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
+        }
+        else{
+             str_org = "origin=" + latsal+ "," + lonsal;
+        }
+        //Value of destination
+        String str_dest = "destination=" + place2.getLatLng().latitude + "," + place2.getLatLng().longitude;
+        //Set value enable the sensor
+        String sensor = "sensor=false";
+        //Mode for find direction
+        String mode = "mode=driving";
+        //Build the full param
+        String param = str_org + "&" + str_dest + "&" + sensor + "&" + mode;
+        //Output format
+        String output = "json";
+        //Create url to request
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + param;
+        return url;
+    }
+
 
     private void traerDireccion(StringBuilder sb) {
 
@@ -434,28 +474,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void agregarMarcadorPolilinea() {
 
 
-        if(marcador != null){
+        if (marcador != null) {
 
             marcador.remove();
 
         }
 
-        if(marcador2 != null){
+        if (marcador2 != null) {
             marcador2.remove();
         }
 
-       marcador= mMap.addMarker(new MarkerOptions()
+        marcador = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(latsal, lonsal))
                 .title("Salida"));
 
-       marcador2= mMap.addMarker(new MarkerOptions()
+        marcador2 = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(punto2.getLatLng().latitude, punto2.getLatLng().longitude))
                 .title("Destino"));
 
 
     }
 
-    private StringBuilder traerContenidoStringBuilder(String path){
+    private StringBuilder traerContenidoStringBuilder(String path) {
 
         HttpURLConnection con = null;
         StringBuilder sb = new StringBuilder();
@@ -491,31 +531,113 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return sb;
     }
 
-    private void parsing(StringBuilder sb){
-        try {
-
-            JSONObject jsontiempo = new JSONObject(sb.toString());
-            JSONArray array = jsontiempo.getJSONArray("rows");
-            JSONObject routes = array.getJSONObject(0);
-            JSONArray legs = routes.getJSONArray("elements");
-            JSONObject steps = legs.getJSONObject(0);
-            JSONObject tiempos = steps.getJSONObject("duration");
-            tiempo.setText(tiempos.getString("text"));
 
 
-            JSONObject jsonRespRouteDistance = new JSONObject(sb.toString());
-            JSONArray array2 = jsonRespRouteDistance.getJSONArray("rows");
-            JSONObject routes2 = array2.getJSONObject(0);
-            JSONArray legs2 = routes2.getJSONArray("elements");
-            JSONObject steps2 = legs2.getJSONObject(0);
-            JSONObject distance = steps2.getJSONObject("distance");
-            distancia.setText(distance.getString("text"));
+    public class TaskRequestDirections extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String responseString = "";
+            try {
+                responseString = requestDirection(strings[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return responseString;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            //Parse json here
+            TaskParser taskParser = new TaskParser();
+            taskParser.execute(s);
+        }
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        private String requestDirection(String reqUrl) throws IOException {
+            String responseString = "";
+            InputStream inputStream = null;
+            HttpURLConnection httpURLConnection = null;
+            try {
+                URL url = new URL(reqUrl);
+                httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.connect();
+
+                //Get the response result
+                inputStream = httpURLConnection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuffer stringBuffer = new StringBuffer();
+                String line = "";
+                while ((line = bufferedReader.readLine()) != null) {
+                    stringBuffer.append(line);
+                }
+
+                responseString = stringBuffer.toString();
+                bufferedReader.close();
+                inputStreamReader.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
+                httpURLConnection.disconnect();
+            }
+            return responseString;
+        }
+
+        public class TaskParser extends AsyncTask<String, Void, List<List<HashMap<String, String>>>> {
+
+            @Override
+            protected List<List<HashMap<String, String>>> doInBackground(String... strings) {
+                JSONObject jsonObject = null;
+                List<List<HashMap<String, String>>> routes = null;
+                try {
+                    jsonObject = new JSONObject(strings[0]);
+                    DirectionsParser directionsParser = new DirectionsParser();
+                    routes = directionsParser.parse(jsonObject);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return routes;
+            }
+            @Override
+            protected void onPostExecute(List<List<HashMap<String, String>>> lists) {
+                //Get list route and display it into the map
+
+                ArrayList points = null;
+
+                PolylineOptions polylineOptions = null;
+
+                for (List<HashMap<String, String>> path : lists) {
+                    points = new ArrayList();
+                    polylineOptions = new PolylineOptions();
+
+                    for (HashMap<String, String> point : path) {
+                        double lat = Double.parseDouble(point.get("lat"));
+                        double lon = Double.parseDouble(point.get("lon"));
+
+                        points.add(new LatLng(lat,lon));
+                    }
+
+                    polylineOptions.addAll(points);
+                    polylineOptions.width(15);
+                    polylineOptions.color(Color.BLUE);
+                    polylineOptions.geodesic(true);
+                }
+
+                if (polylineOptions!=null) {
+                    mMap.addPolyline(polylineOptions);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Direction not found!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
         }
     }
-
 }
 
