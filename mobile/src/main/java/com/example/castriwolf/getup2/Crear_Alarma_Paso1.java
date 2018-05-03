@@ -1,12 +1,16 @@
 package com.example.castriwolf.getup2;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.example.castriwolf.getup2.Base_Datos.UsoBD;
 
 public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
@@ -27,7 +31,9 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
     private Boolean csabado = false;
     private Boolean cdomingo = false;
 
+
     private TimePicker hora;
+    UsoBD usoBD;
 
 
     @Override
@@ -35,34 +41,42 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_alarma_paso1);
 
-        toggleButton1 =(ImageButton) findViewById(R.id.toggleButtonLunes);
-        toggleButton2 =(ImageButton) findViewById(R.id.toggleButtonMartes);
+        toggleButton1 = (ImageButton) findViewById(R.id.toggleButtonLunes);
+        toggleButton2 = (ImageButton) findViewById(R.id.toggleButtonMartes);
         toggleButton3 = (ImageButton) findViewById(R.id.toggleButtonMiercoles);
         toggleButton4 = (ImageButton) findViewById(R.id.toggleButtonJueves);
-        toggleButton5 =(ImageButton) findViewById(R.id.toggleButtonViernes);
+        toggleButton5 = (ImageButton) findViewById(R.id.toggleButtonViernes);
         toggleButton6 = (ImageButton) findViewById(R.id.toggleButtonSabado);
         toggleButton7 = (ImageButton) findViewById(R.id.toggleButtonDomingo);
-        hora=findViewById(R.id.timePicker3);
-        next=(ImageView)findViewById(R.id.next);
+        hora = findViewById(R.id.timePicker3);
+        next = (ImageView) findViewById(R.id.next);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent go=new Intent(getApplicationContext(),MapsActivity.class);
+
+                if (clunes == false && cmartes == false && cmiercoles == false && cjueves == false && cviernes == false && csabado == false && cdomingo == false) {
+
+                    Toast.makeText(Crear_Alarma_Paso1.this, "La alarma debe tener minimo un dia asignado", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Intent go = new Intent(getApplicationContext(), MapsActivity.class);
+                    go.putExtra("Lunes", clunes);
+                    go.putExtra("Martes", cmartes);
+                    go.putExtra("Miercoles", cmiercoles);
+                    go.putExtra("Jueves", cjueves);
+                    go.putExtra("Viernes", cviernes);
+                    go.putExtra("Sabado", csabado);
+                    go.putExtra("Domingo", cdomingo);
+
+                    go.putExtra("Hora", String.valueOf(hora));
 
 
-                go.putExtra("Lunes",clunes);
-                go.putExtra("Martes",cmartes);
-                go.putExtra("Miercoles",cmiercoles);
-                go.putExtra("Jueves",cjueves);
-                go.putExtra("Viernes",cviernes);
-                go.putExtra("Sabado",csabado);
-                go.putExtra("Domingo",cdomingo);
+                    startActivity(go);
 
-                go.putExtra("Hora", String.valueOf(hora));
-
-                startActivity(go);
+                }
             }
         });
 
@@ -72,10 +86,10 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
                 if (clunes == false) {
                     toggleButton1.setImageResource(R.drawable.icons8lunes40verde);
-                    clunes=true;
+                    clunes = true;
                 } else {
                     toggleButton1.setImageResource(R.drawable.icons8lunes40);
-                    clunes=false;
+                    clunes = false;
                 }
 
             }
@@ -88,11 +102,11 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
                 if (cmartes == false) {
                     toggleButton2.setImageResource(R.drawable.icons8martes40verde);
-                    cmartes=true;
+                    cmartes = true;
 
                 } else {
                     toggleButton2.setImageResource(R.drawable.icons8martes40);
-                    cmartes=false;
+                    cmartes = false;
                 }
             }
         });
@@ -104,10 +118,10 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
                 if (cmiercoles == false) {
                     toggleButton3.setImageResource(R.drawable.icons8miercoles40verde);
-                    cmiercoles=true;
+                    cmiercoles = true;
                 } else {
                     toggleButton3.setImageResource(R.drawable.icons8miercoles40);
-                   cmiercoles=false;
+                    cmiercoles = false;
 
                 }
 
@@ -122,11 +136,11 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
                 if (cjueves == false) {
                     toggleButton4.setImageResource(R.drawable.icons8jueves40verde);
-                    cjueves=true;
+                    cjueves = true;
 
                 } else {
                     toggleButton4.setImageResource(R.drawable.icons8jueves40);
-                    cjueves=false;
+                    cjueves = false;
                 }
 
             }
@@ -139,10 +153,10 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
                 if (cviernes == false) {
                     toggleButton5.setImageResource(R.drawable.icons8viernes40verde);
-                    cviernes=true;
+                    cviernes = true;
                 } else {
                     toggleButton5.setImageResource(R.drawable.icons8viernes40);
-                    cviernes=false;
+                    cviernes = false;
                 }
             }
         });
@@ -154,10 +168,10 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
                 if (csabado == false) {
                     toggleButton6.setImageResource(R.drawable.icons8sabado40verde);
-                    csabado=true;
+                    csabado = true;
                 } else {
                     toggleButton6.setImageResource(R.drawable.icons8sabado40);
-                    csabado=false;
+                    csabado = false;
                 }
 
             }
@@ -170,10 +184,10 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
                 if (cdomingo == false) {
                     toggleButton7.setImageResource(R.drawable.icons8domingo40verde);
-                    cdomingo=true;
+                    cdomingo = true;
                 } else {
                     toggleButton7.setImageResource(R.drawable.icons8domingo40);
-                    cdomingo=false;
+                    cdomingo = false;
                 }
 
             }

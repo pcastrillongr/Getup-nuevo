@@ -127,14 +127,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                miUbicacion();
-                Toast.makeText(getApplicationContext(), "Buscando tu ubicacion", Toast.LENGTH_SHORT).show();
-
 
                 new CountDownTimer(4000, 4000) {
                     @Override
                     public void onTick(long l) {
 
+                        miUbicacion();
+                        Toast.makeText(getApplicationContext(), "Buscando tu ubicacion", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -144,10 +143,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                         try {
                             List<Address> addresses = geocoder.getFromLocation(latsal, lonsal, 1);
-                            placeautocompletesalida.setText(addresses.get(0).getAddressLine(0));
-                            salida = addresses.get(0).getAddressLine(0);
-                            latsal = addresses.get(0).getLatitude();
-                            lonsal = addresses.get(0).getLongitude();
+                            if(addresses.size()>=1) {
+                                placeautocompletesalida.setText(addresses.get(0).getAddressLine(0));
+                                salida = addresses.get(0).getAddressLine(0);
+                                latsal = addresses.get(0).getLatitude();
+                                lonsal = addresses.get(0).getLongitude();
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),"No pudimos encontrar su ubicacion revise su conexión y permisos",Toast.LENGTH_LONG).show();
+                            }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -304,8 +308,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         @Override
         public void onProviderEnabled(String provider) {
-
-
             Toast.makeText(getApplicationContext(), "Gps Activado", Toast.LENGTH_SHORT).show();
         }
 
@@ -327,7 +329,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Location location = lctManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             actualizarUbicacion(location);
             lctManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 00, locListener);
-            salida = String.valueOf(latsal + "," + lonsal);
+
 
         }
     }
@@ -362,7 +364,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void recorridoJson() {
         String path = "";
-        DirectionsParser directionsParser= new DirectionsParser();
+        DirectionsParser directionsParser = new DirectionsParser();
         StringBuilder stringBuilder;
         if (salida.equals("Tu ubicación")) {
             path = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + salida.toString() + "&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
@@ -376,7 +378,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             String url = getRequestUrl(punto1, punto2);
             TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
             taskRequestDirections.execute(url);
-            stringBuilder=traerContenidoStringBuilder(url);
+            stringBuilder = traerContenidoStringBuilder(url);
 
             tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
             distancia.setText(directionsParser.parsingKM(stringBuilder));
@@ -405,12 +407,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private String getRequestUrl(Place place1, Place place2) {
         //Value of origin
-        String str_org="";
-        if(place1 != null) {
-             str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
-        }
-        else{
-             str_org = "origin=" + latsal+ "," + lonsal;
+        String str_org = "";
+        if (place1 != null) {
+            str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
+        } else {
+            str_org = "origin=" + latsal + "," + lonsal;
         }
         //Value of destination
         String str_dest = "destination=" + place2.getLatLng().latitude + "," + place2.getLatLng().longitude;
@@ -418,8 +419,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String sensor = "sensor=false";
         //Mode for find direction
         String mode = "mode=driving";
+        //Trafico
+        String departure_time = "departure_time=now";
         //Build the full param
-        String param = str_org + "&" + str_dest + "&" + sensor + "&" + mode;
+        String param = str_org + "&" + str_dest + "&" + sensor + "&" + mode + "&" + departure_time;
         //Output format
         String output = "json";
         //Create url to request
@@ -532,7 +535,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
     public class TaskRequestDirections extends AsyncTask<String, Void, String> {
 
         @Override
@@ -605,6 +607,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 return routes;
             }
+
             @Override
             protected void onPostExecute(List<List<HashMap<String, String>>> lists) {
                 //Get list route and display it into the map
@@ -621,7 +624,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         double lat = Double.parseDouble(point.get("lat"));
                         double lon = Double.parseDouble(point.get("lon"));
 
-                        points.add(new LatLng(lat,lon));
+                        points.add(new LatLng(lat, lon));
                     }
 
                     polylineOptions.addAll(points);
@@ -630,7 +633,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     polylineOptions.geodesic(true);
                 }
 
-                if (polylineOptions!=null) {
+                if (polylineOptions != null) {
                     mMap.addPolyline(polylineOptions);
                 } else {
                     Toast.makeText(getApplicationContext(), "Direction not found!", Toast.LENGTH_SHORT).show();
