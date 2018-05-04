@@ -18,44 +18,56 @@ public class Crear_Alarma_Paso4 extends AppCompatActivity {
     private boolean viernes;
     private boolean sabado;
     private boolean domingo;
-    private String hora;
-    private String tiempo;
+    private int hora;
+    private int minuto;
+    private String tiempoRecorrido;
+    private int Tlevantarse;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear__alarma__paso4);
-        picker=(NumberPicker)findViewById(R.id.numberpicker2);
+        picker = (NumberPicker) findViewById(R.id.numberpicker2);
         picker.setMaxValue(59);
         picker.setMinValue(0);
-        next=(ImageView)findViewById(R.id.next);
+        next = (ImageView) findViewById(R.id.next);
 
-        Bundle parametros = this.getIntent().getExtras();
-        lunes=parametros.getBoolean("Lunes");
-        martes=parametros.getBoolean("Martes");
-        miercoles=parametros.getBoolean("Miercoles");
-        jueves=parametros.getBoolean("Jueves");
-        viernes=parametros.getBoolean("Viernes");
-        sabado=parametros.getBoolean("Sabado");
-        domingo=parametros.getBoolean("Domingo");
-        hora = parametros.getString("Hora");
-        tiempo=parametros.getString("TiempoRecorrido");
+        Bundle parametros = getIntent().getExtras();
+        lunes = parametros.getBoolean("Lunes");
+        martes = parametros.getBoolean("Martes");
+        miercoles = parametros.getBoolean("Miercoles");
+        jueves = parametros.getBoolean("Jueves");
+        viernes = parametros.getBoolean("Viernes");
+        sabado = parametros.getBoolean("Sabado");
+        domingo = parametros.getBoolean("Domingo");
+        hora = parametros.getInt("Hora");
+        minuto = parametros.getInt("HMinuto");
+        tiempoRecorrido = parametros.getString("TiempoRecorrido");
+        Tlevantarse = parametros.getInt("Tlevantarse");
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent go=new Intent(getApplicationContext(),Crear_Alarma_Paso5.class);
-                go.putExtra("Lunes",lunes);
-                go.putExtra("Martes",martes);
-                go.putExtra("Miercoles",miercoles);
-                go.putExtra("Jueves",jueves);
-                go.putExtra("Viernes",viernes);
-                go.putExtra("Sabado",sabado);
-                go.putExtra("Domingo",domingo);
+                Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso5.class);
+                go.putExtra("Lunes", lunes);
+                go.putExtra("Martes", martes);
+                go.putExtra("Miercoles", miercoles);
+                go.putExtra("Jueves", jueves);
+                go.putExtra("Viernes", viernes);
+                go.putExtra("Sabado", sabado);
+                go.putExtra("Domingo", domingo);
 
-                go.putExtra("Hora", String.valueOf(hora));
+                //Hora llegada trabajo
+                go.putExtra("Hora", hora);
+                go.putExtra("HMinuto", minuto);
+                //Tiempo recorrido Maps
+                go.putExtra("TiempoRecorrido", String.valueOf(tiempoRecorrido));
+                //Tiempo para levantarse
+                go.putExtra("Tlevantarse",Tlevantarse);
+                //Tiempo del ducha
+                go.putExtra("Tbaño",picker.getValue());
 
-                go.putExtra("TiempoRecorrido", String.valueOf(tiempo));
                 startActivity(go);
             }
         });

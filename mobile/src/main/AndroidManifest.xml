@@ -50,7 +50,8 @@
         <activity android:name=".Crear_Alarma_Paso3" />
         <activity android:name=".Crear_Alarma_Paso4" />
         <activity android:name=".Crear_Alarma_Paso5" />
-        <activity android:name=".Resumen"></activity>
+        <activity android:name=".Resumen" />
+        <activity android:name=".Crear_Alarma_Paso6"></activity>
     </application>
 
 </manifest>

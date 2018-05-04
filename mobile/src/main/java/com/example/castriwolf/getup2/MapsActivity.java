@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Clases.DirectionsParser;
+
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
@@ -63,7 +64,7 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int LOCATION_REQUEST = 500;
-    private GoogleMap mMap;
+    public static GoogleMap mMap;
     private Marker marcador;
     private Marker marcador2;
     private double latsal = 0.0;
@@ -93,24 +94,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean viernes;
     private boolean sabado;
     private boolean domingo;
-    private String hora;
+    private int hora;
+    private int minuto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_maps);
-
-        Bundle parametros = this.getIntent().getExtras();
-        lunes = parametros.getBoolean("Lunes");
-        martes = parametros.getBoolean("Martes");
-        miercoles = parametros.getBoolean("Miercoles");
-        jueves = parametros.getBoolean("Jueves");
-        viernes = parametros.getBoolean("Viernes");
-        sabado = parametros.getBoolean("Sabado");
-        domingo = parametros.getBoolean("Domingo");
-        hora = parametros.getString("Hora");
-
+        traerBundle();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -123,6 +115,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ubi = findViewById(R.id.ubi);
         ubi.setVisibility(View.VISIBLE);
 
+        /**
+         * Boton ubi
+         * para encontrar tu ubicacion actual.
+         */
         ubi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,14 +139,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                         try {
                             List<Address> addresses = geocoder.getFromLocation(latsal, lonsal, 1);
-                            if(addresses.size()>=1) {
+                            if (addresses.size() >= 1) {
                                 placeautocompletesalida.setText(addresses.get(0).getAddressLine(0));
                                 salida = addresses.get(0).getAddressLine(0);
                                 latsal = addresses.get(0).getLatitude();
                                 lonsal = addresses.get(0).getLongitude();
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(),"No pudimos encontrar su ubicacion revise su conexión y permisos",Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "No pudimos encontrar su ubicacion revise su conexión y permisos", Toast.LENGTH_LONG).show();
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -162,6 +157,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+        /**
+         * Boton Next
+         * para seguir al siguiente paso.
+         */
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,7 +175,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 go.putExtra("Sabado", sabado);
                 go.putExtra("Domindgo", domingo);
 
-                go.putExtra("Hora", String.valueOf(hora));
+                go.putExtra("Hora", hora);
+                go.putExtra("HMinuto", minuto);
 
                 go.putExtra("TiempoRecorrido", String.valueOf(tiempo));
 
@@ -184,8 +184,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(go);
             }
         });
+        
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
-        salida = "Tu ubicación";
         placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
             @Override
@@ -247,15 +247,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
 
 
     @Override
@@ -268,7 +259,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
     }
-
 
     private void agregarMarcador(double lat, double lon) {
 
@@ -284,10 +274,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-
     private void actualizarUbicacion(Location location) {
 
         if (location != null) {
+            latsal = 0;
+            lonsal = 0;
             latsal = location.getLatitude();
             lonsal = location.getLongitude();
             agregarMarcador(latsal, lonsal);
@@ -356,55 +347,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+
     /**
-     * Busqueda Json
-     * Busca la informacion entre el punto de
-     * salida y llegada.
+     * Creas los parametros de la busqueda Json
+     * @param place1
+     * @param place2
+     * @return
      */
-
-    private void recorridoJson() {
-        String path = "";
-        DirectionsParser directionsParser = new DirectionsParser();
-        StringBuilder stringBuilder;
-        if (salida.equals("Tu ubicación")) {
-            path = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + salida.toString() + "&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
-
-            stringBuilder = traerContenidoStringBuilder(path);
-            traerDireccion(stringBuilder);
-        }
-
-        if (salida != "0.0,0.0" && destino != "") {
-
-            String url = getRequestUrl(punto1, punto2);
-            TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
-            taskRequestDirections.execute(url);
-            stringBuilder = traerContenidoStringBuilder(url);
-
-            tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
-            distancia.setText(directionsParser.parsingKM(stringBuilder));
-
-
-     /*       path = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + salida + "&destinations=" + destino + "&language=sp-SP&key=AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow";
-            // AIzaSyCw-CaTf79uTrjEzDGt_WGN39ubmJKJIow
-
-
-            stringBuilder=traerContenidoStringBuilder(path);
-            parsing(stringBuilder);
-
-
-
-            *//**
-             * Si existe una polilinia ya creada la borramos y creamos otra.
-             *//*
-
-            pintarPolilinea();
-            agregarMarcadorPolilinea();*/
-
-        }
-
-
-    }
-
     private String getRequestUrl(Place place1, Place place2) {
         //Value of origin
         String str_org = "";
@@ -430,111 +379,55 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return url;
     }
 
+    /**
+     * Busqueda Json
+     * Busca la informacion entre el punto de
+     * salida y llegada.
+     */
+    private void recorridoJson() {
+        String path = "";
+        DirectionsParser directionsParser = new DirectionsParser();
+        StringBuilder stringBuilder;
 
-    private void traerDireccion(StringBuilder sb) {
+        if (salida != "0.0,0.0" && destino != "") {
 
-        JSONObject jsontiempo = null;
-        try {
-            JSONArray array = jsontiempo.getJSONArray("rows");
-            JSONObject routes = array.getJSONObject(0);
-            JSONArray legs = routes.getJSONArray("elements");
-            JSONObject steps = legs.getJSONObject(0);
-            JSONObject tiempos = steps.getJSONObject("duration");
-            tiempo.setText(tiempos.getString("text"));
+            String url = getRequestUrl(punto1, punto2);
+            TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+            taskRequestDirections.execute(url);
+            stringBuilder = DirectionsParser.traerContenidoStringBuilder(url);
 
-            jsontiempo = new JSONObject(sb.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
+            tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
+            distancia.setText(directionsParser.parsingKM(stringBuilder));
+
+
         }
+
 
     }
 
     /**
-     * pintaPolilineas
-     * funcionar para pintar una ralla entre
-     * el punto de salida a la llegada.
+     * Trae la informacion del Bundle
+     * desde otra activity
      */
+    private void traerBundle() {
 
-    private void pintarPolilinea() {
-        if (line != null) {
-
-            line.remove();
-
-        }
-
-        line = mMap.addPolyline(new PolylineOptions()
-                .add(new LatLng(latsal, lonsal),
-                        new LatLng(punto2.getLatLng().latitude, punto2.getLatLng().longitude)).width(5).color(Color.RED));
-        mMap.getUiSettings().setZoomControlsEnabled(true);
-        float minZoomLevel = mMap.getMinZoomLevel();
+        Bundle parametros = getIntent().getExtras();
+        lunes = parametros.getBoolean("Lunes");
+        martes = parametros.getBoolean("Martes");
+        miercoles = parametros.getBoolean("Miercoles");
+        jueves = parametros.getBoolean("Jueves");
+        viernes = parametros.getBoolean("Viernes");
+        sabado = parametros.getBoolean("Sabado");
+        domingo = parametros.getBoolean("Domingo");
+        hora = parametros.getInt("Hora");
+        minuto = parametros.getInt("Hminuto");
     }
 
     /**
-     * agregarMarcadorPolilinea
-     * agregas un marcador en el punto de salida
-     * y el punto de llegada.
+     * TaskRequestDirections
+     * Esta clase sirve para ver la informacion entre
+     * direcciones
      */
-    private void agregarMarcadorPolilinea() {
-
-
-        if (marcador != null) {
-
-            marcador.remove();
-
-        }
-
-        if (marcador2 != null) {
-            marcador2.remove();
-        }
-
-        marcador = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latsal, lonsal))
-                .title("Salida"));
-
-        marcador2 = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(punto2.getLatLng().latitude, punto2.getLatLng().longitude))
-                .title("Destino"));
-
-
-    }
-
-    private StringBuilder traerContenidoStringBuilder(String path) {
-
-        HttpURLConnection con = null;
-        StringBuilder sb = new StringBuilder();
-        try {
-            URL u = new URL(path);
-            con = (HttpURLConnection) u.openConnection();
-
-            con.connect();
-
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String line;
-            while ((line = br.readLine()) != null) {
-                sb.append(line + "\n");
-
-            }
-            br.close();
-
-
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } finally {
-            if (con != null) {
-                try {
-                    con.disconnect();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        }
-        return sb;
-    }
-
-
     public class TaskRequestDirections extends AsyncTask<String, Void, String> {
 
         @Override
@@ -592,55 +485,63 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return responseString;
         }
 
-        public class TaskParser extends AsyncTask<String, Void, List<List<HashMap<String, String>>>> {
-
-            @Override
-            protected List<List<HashMap<String, String>>> doInBackground(String... strings) {
-                JSONObject jsonObject = null;
-                List<List<HashMap<String, String>>> routes = null;
-                try {
-                    jsonObject = new JSONObject(strings[0]);
-                    DirectionsParser directionsParser = new DirectionsParser();
-                    routes = directionsParser.parse(jsonObject);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                return routes;
-            }
-
-            @Override
-            protected void onPostExecute(List<List<HashMap<String, String>>> lists) {
-                //Get list route and display it into the map
-
-                ArrayList points = null;
-
-                PolylineOptions polylineOptions = null;
-
-                for (List<HashMap<String, String>> path : lists) {
-                    points = new ArrayList();
-                    polylineOptions = new PolylineOptions();
-
-                    for (HashMap<String, String> point : path) {
-                        double lat = Double.parseDouble(point.get("lat"));
-                        double lon = Double.parseDouble(point.get("lon"));
-
-                        points.add(new LatLng(lat, lon));
-                    }
-
-                    polylineOptions.addAll(points);
-                    polylineOptions.width(15);
-                    polylineOptions.color(Color.BLUE);
-                    polylineOptions.geodesic(true);
-                }
-
-                if (polylineOptions != null) {
-                    mMap.addPolyline(polylineOptions);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Direction not found!", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }
     }
+
+    /**
+     * TaskParser
+     * funciona para pintar las polinias de una ruta
+     */
+    public class TaskParser extends AsyncTask<String, Void, List<List<HashMap<String, String>>>> {
+
+        @Override
+        protected List<List<HashMap<String, String>>> doInBackground(String... strings) {
+            JSONObject jsonObject = null;
+            List<List<HashMap<String, String>>> routes = null;
+            try {
+                jsonObject = new JSONObject(strings[0]);
+                DirectionsParser directionsParser = new DirectionsParser();
+                routes = directionsParser.parse(jsonObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return routes;
+        }
+
+        @Override
+        protected void onPostExecute(List<List<HashMap<String, String>>> lists) {
+            //Get list route and display it into the map
+
+            ArrayList points = null;
+
+            PolylineOptions polylineOptions = null;
+
+            for (List<HashMap<String, String>> path : lists) {
+                points = new ArrayList();
+                polylineOptions = new PolylineOptions();
+
+                for (HashMap<String, String> point : path) {
+                    double lat = Double.parseDouble(point.get("lat"));
+                    double lon = Double.parseDouble(point.get("lon"));
+
+                    points.add(new LatLng(lat, lon));
+                }
+
+                polylineOptions.addAll(points);
+                polylineOptions.width(15);
+                polylineOptions.color(Color.BLUE);
+                polylineOptions.geodesic(true);
+            }
+
+            if (polylineOptions != null) {
+                mMap.addPolyline(polylineOptions);
+            } else {
+                Toast.makeText(getApplicationContext(), "Direction not found!", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+
+    }
+
 }
 

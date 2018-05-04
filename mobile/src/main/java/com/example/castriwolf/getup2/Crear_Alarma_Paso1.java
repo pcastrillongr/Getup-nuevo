@@ -2,6 +2,7 @@ package com.example.castriwolf.getup2;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -30,7 +31,6 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
     private Boolean cviernes = false;
     private Boolean csabado = false;
     private Boolean cdomingo = false;
-
 
     private TimePicker hora;
     UsoBD usoBD;
@@ -71,7 +71,12 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
                     go.putExtra("Sabado", csabado);
                     go.putExtra("Domingo", cdomingo);
 
-                    go.putExtra("Hora", String.valueOf(hora));
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        go.putExtra("Hora", hora.getHour());
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        go.putExtra("HMinuto", hora.getMinute());
+                    }
 
 
                     startActivity(go);

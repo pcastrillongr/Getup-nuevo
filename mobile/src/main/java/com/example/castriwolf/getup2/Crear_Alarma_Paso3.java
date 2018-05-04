@@ -18,8 +18,9 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
     private boolean viernes;
     private boolean sabado;
     private boolean domingo;
-    private String hora;
-    private String tiempo;
+    private int hora;
+    private int minuto;
+    private String tiempoRecorrido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
         picker.setMaxValue(59);
         next=(ImageView)findViewById(R.id.next);
 
-        Bundle parametros = this.getIntent().getExtras();
+        Bundle parametros =getIntent().getExtras();
         lunes=parametros.getBoolean("Lunes");
         martes=parametros.getBoolean("Martes");
         miercoles=parametros.getBoolean("Miercoles");
@@ -38,8 +39,10 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
         viernes=parametros.getBoolean("Viernes");
         sabado=parametros.getBoolean("Sabado");
         domingo=parametros.getBoolean("Domingo");
-        hora = parametros.getString("Hora");
-        tiempo=parametros.getString("TiempoRecorrido");
+
+        hora = parametros.getInt("Hora");
+        minuto=parametros.getInt("Hminuto");
+        tiempoRecorrido=parametros.getString("TiempoRecorrido");
 
 
 
@@ -57,9 +60,15 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
                 go.putExtra("Sabado",sabado);
                 go.putExtra("Domingo",domingo);
 
-                go.putExtra("Hora", String.valueOf(hora));
+                //Hora llegada trabajo
+                go.putExtra("Hora", hora);
+                go.putExtra("HMinuto", minuto);
+                //tiempo recorrido Maps
+                go.putExtra("TiempoRecorrido", String.valueOf(tiempoRecorrido));
+                //tiempo del
+                go.putExtra("Tlevantarse",picker.getValue());
 
-                go.putExtra("TiempoRecorrido", String.valueOf(tiempo));
+
                 startActivity(go);
             }
         });
