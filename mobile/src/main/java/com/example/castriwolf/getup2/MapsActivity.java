@@ -184,7 +184,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 startActivity(go);
             }
         });
-        
+
+        //Fragment Place 1
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
         placeautocompletesalida.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
@@ -202,6 +203,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+
+        //Fragment Place 2
         placeautocompletedestino = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete2);
         placeautocompletedestino.setOnPlaceSelectedListener(new PlaceSelectionListener() {
 
@@ -226,7 +229,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
+        /**
+         * Boton Calcular
+         * Calcular entre dos distancias
+         */
         calcular = (Button) findViewById(R.id.calculartiempo);
         calcular.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,8 +253,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-
-
+    /**
+     * Todos estos metodos funcionan para ubicar
+     * tu ubicacion en el mapa.
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -345,7 +353,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
-
+    /**
+     * --------------------------------------------
+     */
 
 
     /**

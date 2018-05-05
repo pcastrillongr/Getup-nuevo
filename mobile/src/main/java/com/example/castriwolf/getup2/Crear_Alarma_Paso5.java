@@ -20,7 +20,9 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
     private boolean domingo;
     private int hora;
     private int minuto;
-    private String tiempo;
+    private String tiempoRecorrido;
+    private int Tlevantarse;
+    private int Tbano;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +43,35 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
         domingo = parametros.getBoolean("Domingo");
         hora = parametros.getInt("Hora");
         minuto = parametros.getInt("HMinuto");
-        tiempo = parametros.getString("TiempoRecorrido");
+        tiempoRecorrido = parametros.getString("TiempoRecorrido");
+        Tlevantarse = parametros.getInt("Tlevantarse");
+        Tbano= parametros.getInt("Tbaño");
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso5.class);
+                Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso6.class);
+                go.putExtra("Lunes", lunes);
+                go.putExtra("Martes", martes);
+                go.putExtra("Miercoles", miercoles);
+                go.putExtra("Jueves", jueves);
+                go.putExtra("Viernes", viernes);
+                go.putExtra("Sabado", sabado);
+                go.putExtra("Domingo", domingo);
+
+                //Hora llegada trabajo
+                go.putExtra("Hora", hora);
+                go.putExtra("HMinuto", minuto);
+                //Tiempo recorrido Maps
+                go.putExtra("TiempoRecorrido", String.valueOf(tiempoRecorrido));
+                //Tiempo para levantarse
+                go.putExtra("Tlevantarse",Tlevantarse);
+                //Tiempo del ducha
+                go.putExtra("Tbaño",Tbano);
+                //Tiempo del desayuno
+                go.putExtra("Tdesayuno",picker.getValue());
+
                 startActivity(go);
             }
         });
