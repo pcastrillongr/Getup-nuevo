@@ -48,6 +48,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -87,6 +88,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView next;
     private ImageView ubi;
 
+    Bundle parametros ;
+
     private boolean lunes;
     private boolean martes;
     private boolean miercoles;
@@ -96,6 +99,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean domingo;
     private int hora;
     private int minuto;
+    private TextView textominutos;
+    private int minutosacumulados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +119,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         next.setVisibility(View.VISIBLE);
         ubi = findViewById(R.id.ubi);
         ubi.setVisibility(View.VISIBLE);
+        textominutos=findViewById(R.id.textView8);
+        minutosacumulados=0;
+        textominutos.setText("Minutos Acumulados:"+minutosacumulados);
+
 
         /**
          * Boton ubi
@@ -250,6 +259,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         });
+
     }
 
 
@@ -420,8 +430,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * desde otra activity
      */
     private void traerBundle() {
+        parametros = getIntent().getExtras();
 
-        Bundle parametros = getIntent().getExtras();
+
         lunes = parametros.getBoolean("Lunes");
         martes = parametros.getBoolean("Martes");
         miercoles = parametros.getBoolean("Miercoles");
