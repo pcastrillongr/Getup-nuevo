@@ -46,8 +46,8 @@ public class Menu_Alarma extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                // Intent go = new Intent(getApplicationContext(), Preferencias_Alarma.class);
-                //startActivity(go);
+                 Intent go = new Intent(getApplicationContext(), com.example.castriwolf.getup2.Preferencias_Alarma.class);
+                startActivity(go);
 
             }
         });

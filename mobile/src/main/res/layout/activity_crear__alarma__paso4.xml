@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.castriwolf.getup2.Crear_Alarma_Paso4"
     android:background="#8fd2ca"
+    android:screenOrientation="portrait"
     >
 
     <NumberPicker

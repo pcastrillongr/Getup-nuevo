@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Crear_Alarma_Paso6"
-    android:background="#8fd2ca">
+    android:background="#8fd2ca"
+    android:screenOrientation="portrait">
 
 
     <NumberPicker

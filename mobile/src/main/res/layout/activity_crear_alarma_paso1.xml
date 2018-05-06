@@ -7,7 +7,8 @@
     android:background="#8fd2ca"
     android:orientation="vertical"
     tools:context=".Crear_Alarma_Paso1"
-    tools:layout_editor_absoluteY="81dp">
+    tools:layout_editor_absoluteY="81dp"
+    android:screenOrientation="portrait">
 
 
     <TextView

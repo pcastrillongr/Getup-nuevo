@@ -23,15 +23,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Entrada_App">
+        <activity android:name=".Entrada_App"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Crear_Alarma_Paso1" />
-        <activity android:name=".Menu_Alarma" />
+        <activity android:name=".Crear_Alarma_Paso1"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Menu_Alarma"
+            android:screenOrientation="portrait"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -46,12 +49,20 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
-        <activity android:name=".Crear_Alarma_Paso3" />
-        <activity android:name=".Crear_Alarma_Paso4" />
-        <activity android:name=".Crear_Alarma_Paso5" />
-        <activity android:name=".Resumen" />
-        <activity android:name=".Crear_Alarma_Paso6"></activity>
+            android:label="@string/title_activity_maps"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Crear_Alarma_Paso3"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Crear_Alarma_Paso4"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Crear_Alarma_Paso5"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Resumen"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Crear_Alarma_Paso6"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Preferencias_Alarma"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
