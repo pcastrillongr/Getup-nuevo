@@ -20,7 +20,8 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
     private boolean domingo;
     private int hora;
     private int minuto;
-    private String tiempoRecorrido;
+    private int horaRecorrido;
+    private int minutosRecorrido;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,8 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
 
         hora = parametros.getInt("Hora");
         minuto=parametros.getInt("Hminuto");
-        tiempoRecorrido=parametros.getString("TiempoRecorrido");
+        horaRecorrido = parametros.getInt("HorasRecorrido");
+        minutosRecorrido = parametros.getInt("MinutosRecorridos");
 
 
 
@@ -64,7 +66,8 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
                 go.putExtra("Hora", hora);
                 go.putExtra("HMinuto", minuto);
                 //tiempo recorrido Maps
-                go.putExtra("TiempoRecorrido", String.valueOf(tiempoRecorrido));
+                go.putExtra("HorasRecorrido",horaRecorrido);
+                go.putExtra("MinutosRecorrido",minutosRecorrido);
                 //tiempo del
                 go.putExtra("Tlevantarse",picker.getValue());
 

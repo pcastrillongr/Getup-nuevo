@@ -45,17 +45,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,7 +85,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView next;
     private ImageView ubi;
 
-    Bundle parametros ;
+
+    Bundle parametros;
 
     private boolean lunes;
     private boolean martes;
@@ -99,8 +97,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private boolean domingo;
     private int hora;
     private int minuto;
-    private TextView textominutos;
-    private int minutosacumulados;
+    private int horaRecorrido;
+    private int minutosRecorrido;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,9 +118,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         next.setVisibility(View.VISIBLE);
         ubi = findViewById(R.id.ubi);
         ubi.setVisibility(View.VISIBLE);
-        textominutos=findViewById(R.id.textView8);
-        minutosacumulados=0;
-        textominutos.setText("Minutos Acumulados:"+minutosacumulados);
+
+
 
 
         /**
@@ -174,23 +172,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
+                if(!tiempo.getText().toString().equals("")){
+                    recuperarTiempo();
+                }
+                if (minutosRecorrido > 0 && !placeautocompletesalida.equals("") && !placeautocompletedestino.equals("")) {
+                    Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
 
-                go.putExtra("Lunes", lunes);
-                go.putExtra("Martes", martes);
-                go.putExtra("Miercoles", miercoles);
-                go.putExtra("Jueves", jueves);
-                go.putExtra("Viernes", viernes);
-                go.putExtra("Sabado", sabado);
-                go.putExtra("Domindgo", domingo);
+                    go.putExtra("Lunes", lunes);
+                    go.putExtra("Martes", martes);
+                    go.putExtra("Miercoles", miercoles);
+                    go.putExtra("Jueves", jueves);
+                    go.putExtra("Viernes", viernes);
+                    go.putExtra("Sabado", sabado);
+                    go.putExtra("Domindgo", domingo);
 
-                go.putExtra("Hora", hora);
-                go.putExtra("HMinuto", minuto);
+                    go.putExtra("Hora", hora);
+                    go.putExtra("HMinuto", minuto);
 
-                go.putExtra("TiempoRecorrido", String.valueOf(tiempo));
+                    go.putExtra("HorasRecorrido",horaRecorrido);
+                    go.putExtra("MinutosRecorrido",minutosRecorrido);
 
 
-                startActivity(go);
+                    startActivity(go);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Debes introducir direcciones y calcular ruta.", Toast.LENGTH_LONG);
+                }
             }
         });
 
@@ -370,6 +376,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     /**
      * Creas los parametros de la busqueda Json
+     *
      * @param place1
      * @param place2
      * @return
@@ -442,6 +449,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         domingo = parametros.getBoolean("Domingo");
         hora = parametros.getInt("Hora");
         minuto = parametros.getInt("Hminuto");
+    }
+
+    private void recuperarTiempo() {
+
+        if (tiempo.getText().toString().contains("hours")) {
+            String[] tiempos = tiempo.getText().toString().split(" hours ");
+            try {
+                horaRecorrido = Integer.parseInt(tiempos[0]);
+            } catch (NumberFormatException e) {
+
+
+            }
+
+
+            String[] tiempos2 = tiempos[1].toString().split(" mins");
+
+            try {
+                minutosRecorrido = Integer.parseInt(tiempos2[0].toString());
+            } catch (NumberFormatException e) {
+
+
+            }
+        } else {
+
+            String[] tiempos = tiempo.getText().toString().split(" mins");
+
+            try {
+                minutosRecorrido = Integer.parseInt(tiempos[0].toString());
+            } catch (NumberFormatException e) {
+
+            }
+        }
+
+
     }
 
     /**

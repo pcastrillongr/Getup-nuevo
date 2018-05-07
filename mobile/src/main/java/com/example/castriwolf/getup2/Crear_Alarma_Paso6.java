@@ -20,7 +20,8 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
     private boolean domingo;
     private int hora;
     private int minuto;
-    private String tiempoRecorrido;
+    private int horaRecorrido;
+    private int minutosRecorrido;
     private int Tlevantarse;
     private int Tbano;
     private int Tdesayuno;
@@ -61,7 +62,8 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
         domingo = parametros.getBoolean("Domingo");
         hora = parametros.getInt("Hora");
         minuto = parametros.getInt("HMinuto");
-        tiempoRecorrido = parametros.getString("TiempoRecorrido");
+        horaRecorrido = parametros.getInt("HorasRecorrido");
+        minutosRecorrido = parametros.getInt("MinutosRecorridos");
         Tlevantarse = parametros.getInt("Tlevantarse");
         Tbano = parametros.getInt("Tbaño");
         Tdesayuno *= parametros.getInt("Tdesayuno");
