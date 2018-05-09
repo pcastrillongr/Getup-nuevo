@@ -33,6 +33,7 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
         next=(ImageView)findViewById(R.id.next);
 
         Bundle parametros =getIntent().getExtras();
+        //Dias
         lunes=parametros.getBoolean("Lunes");
         martes=parametros.getBoolean("Martes");
         miercoles=parametros.getBoolean("Miercoles");
@@ -40,9 +41,10 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
         viernes=parametros.getBoolean("Viernes");
         sabado=parametros.getBoolean("Sabado");
         domingo=parametros.getBoolean("Domingo");
-
+        //Hora de llegada al destino
         hora = parametros.getInt("Hora");
         minuto=parametros.getInt("Hminuto");
+        //horas y minutos del recorrido
         horaRecorrido = parametros.getInt("HorasRecorrido");
         minutosRecorrido = parametros.getInt("MinutosRecorridos");
 
@@ -68,7 +70,7 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
                 //tiempo recorrido Maps
                 go.putExtra("HorasRecorrido",horaRecorrido);
                 go.putExtra("MinutosRecorrido",minutosRecorrido);
-                //tiempo del
+                //tiempo para levantarse
                 go.putExtra("Tlevantarse",picker.getValue());
 
 

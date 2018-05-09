@@ -1,11 +1,12 @@
-<resources>
+<resources  xmlns:app="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/ColorPrincipal</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/ColorAzulStatus</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -13,8 +14,14 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="GetUp" parent="AppTheme.NoActionBar" >
+        <item name="colorPrimary">@color/ColorPrincipal</item>
+        <item name="colorPrimaryDark">@color/ColorBarraStatusAzul</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">@color/ColorAzulStatus</item>
+    </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme">aas</style>
+
 
 </resources>

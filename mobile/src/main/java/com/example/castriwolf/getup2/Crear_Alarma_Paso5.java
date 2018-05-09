@@ -42,11 +42,15 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
         viernes = parametros.getBoolean("Viernes");
         sabado = parametros.getBoolean("Sabado");
         domingo = parametros.getBoolean("Domingo");
+        //Hora para llegar a tu destino
         hora = parametros.getInt("Hora");
         minuto = parametros.getInt("HMinuto");
+        //Tiempo que dedicas en el recorrido
         horaRecorrido = parametros.getInt("HorasRecorrido");
         minutosRecorrido = parametros.getInt("MinutosRecorridos");
+        //Tiempo para levantarse
         Tlevantarse = parametros.getInt("Tlevantarse");
+        //Tiempo del baño
         Tbano= parametros.getInt("Tbaño");
 
         next.setOnClickListener(new View.OnClickListener() {

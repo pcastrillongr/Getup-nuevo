@@ -24,7 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Entrada_App"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,9 +33,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".Crear_Alarma_Paso1"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp" />
         <activity android:name=".Menu_Alarma"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -52,17 +55,22 @@
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"/>
         <activity android:name=".Crear_Alarma_Paso3"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp" />
         <activity android:name=".Crear_Alarma_Paso4"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp" />
         <activity android:name=".Crear_Alarma_Paso5"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp" />
         <activity android:name=".Resumen"
             android:screenOrientation="portrait"/>
         <activity android:name=".Crear_Alarma_Paso6"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp" />
         <activity android:name=".Preferencias_Alarma"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp"></activity>
     </application>
 
 </manifest>

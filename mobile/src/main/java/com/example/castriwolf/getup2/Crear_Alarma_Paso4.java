@@ -41,10 +41,13 @@ public class Crear_Alarma_Paso4 extends AppCompatActivity {
         viernes = parametros.getBoolean("Viernes");
         sabado = parametros.getBoolean("Sabado");
         domingo = parametros.getBoolean("Domingo");
+        //Hora de llegada al destino
         hora = parametros.getInt("Hora");
         minuto = parametros.getInt("HMinuto");
+        //Tiempo utilizado para ir al destino
         horaRecorrido = parametros.getInt("HorasRecorrido");
         minutosRecorrido = parametros.getInt("MinutosRecorridos");
+        //Tiempo levantarse
         Tlevantarse = parametros.getInt("Tlevantarse");
 
         next.setOnClickListener(new View.OnClickListener() {
@@ -52,6 +55,7 @@ public class Crear_Alarma_Paso4 extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso5.class);
+                //Dias
                 go.putExtra("Lunes", lunes);
                 go.putExtra("Martes", martes);
                 go.putExtra("Miercoles", miercoles);

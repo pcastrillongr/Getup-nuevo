@@ -53,6 +53,7 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
 
     private void recogerDatos(){
         Bundle parametros = getIntent().getExtras();
+        //Dias
         lunes = parametros.getBoolean("Lunes");
         martes = parametros.getBoolean("Martes");
         miercoles = parametros.getBoolean("Miercoles");
@@ -60,12 +61,17 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
         viernes = parametros.getBoolean("Viernes");
         sabado = parametros.getBoolean("Sabado");
         domingo = parametros.getBoolean("Domingo");
+        //Hora para llegar a tu destino
         hora = parametros.getInt("Hora");
         minuto = parametros.getInt("HMinuto");
+        //Tiempo para el recorrido
         horaRecorrido = parametros.getInt("HorasRecorrido");
         minutosRecorrido = parametros.getInt("MinutosRecorridos");
+        //Tiempo para levantarte
         Tlevantarse = parametros.getInt("Tlevantarse");
+        //Tiempo para el baño
         Tbano = parametros.getInt("Tbaño");
+        //Tiempo para el desayuno
         Tdesayuno *= parametros.getInt("Tdesayuno");
     }
 

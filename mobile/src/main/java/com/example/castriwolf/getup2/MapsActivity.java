@@ -185,17 +185,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     go.putExtra("Viernes", viernes);
                     go.putExtra("Sabado", sabado);
                     go.putExtra("Domindgo", domingo);
-
+                    //Hora de llegada al destino
                     go.putExtra("Hora", hora);
                     go.putExtra("HMinuto", minuto);
-
+                    //Tiempo ruta
                     go.putExtra("HorasRecorrido",horaRecorrido);
                     go.putExtra("MinutosRecorrido",minutosRecorrido);
 
 
                     startActivity(go);
                 } else {
-                    Toast.makeText(getApplicationContext(), "Debes introducir direcciones y calcular ruta.", Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(), "Debes introducir direcciones y calcular ruta.", Toast.LENGTH_LONG).show();
                 }
             }
         });
