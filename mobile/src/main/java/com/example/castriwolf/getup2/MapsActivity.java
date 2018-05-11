@@ -85,6 +85,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView next;
     private ImageView ubi;
 
+    private ImageView coche;
+    private ImageView bus;
+    private ImageView bici;
+    private ImageView andar;
+    private ImageView ajuste;
+
+    public Boolean pintado = false;
+
 
     Bundle parametros;
 
@@ -118,6 +126,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         next.setVisibility(View.VISIBLE);
         ubi = findViewById(R.id.ubi);
         ubi.setVisibility(View.VISIBLE);
+        coche=findViewById(R.id.ivCoche);
+        bus=findViewById(R.id.ivBus);
+        bici=findViewById(R.id.ivBici);
+        andar=findViewById(R.id.ivAndar);
+        ajuste=findViewById(R.id.ivAjustes);
 
 
 
@@ -382,18 +395,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * @return
      */
     private String getRequestUrl(Place place1, Place place2) {
-        //Value of origin
+        //origen
         String str_org = "";
         if (place1 != null) {
             str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
         } else {
             str_org = "origin=" + latsal + "," + lonsal;
         }
-        //Value of destination
+        //destino
         String str_dest = "destination=" + place2.getLatLng().latitude + "," + place2.getLatLng().longitude;
-        //Set value enable the sensor
+        //sensor
         String sensor = "sensor=false";
-        //Mode for find direction
+        //Modo transporte
         String mode = "mode=driving";
         //Trafico
         String departure_time = "departure_time=now";
@@ -555,6 +568,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     public class TaskParser extends AsyncTask<String, Void, List<List<HashMap<String, String>>>> {
 
+
         @Override
         protected List<List<HashMap<String, String>>> doInBackground(String... strings) {
             JSONObject jsonObject = null;
@@ -572,14 +586,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> lists) {
             //Get list route and display it into the map
-
             ArrayList points = null;
-
             PolylineOptions polylineOptions = null;
 
+
+                if (pintado==true) {
+                    mMap.clear();
+                    pintado = false;
+                }
+
             for (List<HashMap<String, String>> path : lists) {
-                points = new ArrayList();
-                polylineOptions = new PolylineOptions();
+               points = new ArrayList();
+               polylineOptions = new PolylineOptions();
+
 
                 for (HashMap<String, String> point : path) {
                     double lat = Double.parseDouble(point.get("lat"));
@@ -596,8 +615,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             if (polylineOptions != null) {
                 mMap.addPolyline(polylineOptions);
+                points.clear();
+                polylineOptions.getPoints().clear();
+                pintado=true;
             } else {
-                Toast.makeText(getApplicationContext(), "Direction not found!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Direcciones no encontradas!", Toast.LENGTH_SHORT).show();
             }
 
         }
