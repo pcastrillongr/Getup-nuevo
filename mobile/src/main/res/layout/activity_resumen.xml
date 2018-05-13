@@ -117,26 +117,27 @@
         android:layout_marginBottom="14dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/divider4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.476"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgJueves" />
+        app:layout_constraintHorizontal_bias="0.433"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/imgJueves"
+        app:layout_constraintVertical_bias="0.25" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="23dp"
         android:layout_marginBottom="14dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
-        android:text="hora de llegada:"
+        android:text="Hora de llegada:"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/divider4"
         app:layout_constraintStart_toStartOf="parent"
@@ -244,7 +245,7 @@
 
     <TextView
         android:id="@+id/txtLevantarse"
-        android:layout_width="132dp"
+        android:layout_width="160dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -299,7 +300,7 @@
 
     <TextView
         android:id="@+id/txtDesayunar"
-        android:layout_width="132dp"
+        android:layout_width="160dp"
         android:layout_height="27dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
@@ -311,7 +312,7 @@
 
     <TextView
         android:id="@+id/txtBaño"
-        android:layout_width="132dp"
+        android:layout_width="160dp"
         android:layout_height="27dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="14dp"
@@ -330,7 +331,7 @@
 
     <TextView
         android:id="@+id/txtOtros"
-        android:layout_width="132dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -344,7 +345,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtBaño" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -354,7 +355,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonCrear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -369,10 +370,60 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="44dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/txtllegada"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider4"
-        app:layout_constraintVertical_bias="0.578"
+        app:layout_constraintTop_toBottomOf="@+id/txtTrecorrido"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/icons8cocheverde" />
+
+    <TextView
+        android:id="@+id/txtTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
+        android:text="Total"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+    <TextView
+        android:id="@+id/txtResultado"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/txtOtros" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="165dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="8dp"
+        android:text="Tiempo recorrido"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divider4" />
+
+    <TextView
+        android:id="@+id/txtTrecorrido"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
 </android.support.constraint.ConstraintLayout>

@@ -65,7 +65,7 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
                 go.putExtra("HMinuto", minuto);
                 //Tiempo recorrido Maps
                 go.putExtra("HorasRecorrido",horaRecorrido);
-                go.putExtra("MinutosRecorrido",minutosRecorrido);
+                go.putExtra("MinutosRecorridos",minutosRecorrido);
                 //Lugar de salida y llegada
                 go.putExtra("Lsalida",lsalida);
                 go.putExtra("Lllegada",lLlegada);

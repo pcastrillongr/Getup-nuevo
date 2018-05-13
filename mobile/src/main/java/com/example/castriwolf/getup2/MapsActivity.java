@@ -206,7 +206,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     go.putExtra("HMinuto", minuto);
                     //Tiempo ruta
                     go.putExtra("HorasRecorrido", horaRecorrido);
-                    go.putExtra("MinutosRecorrido", minutosRecorrido);
+                    go.putExtra("MinutosRecorridos", minutosRecorrido);
                     // Lugar de salida y llegada
                     go.putExtra("Lsalida",salida);
                     go.putExtra("Lllegada",destino);

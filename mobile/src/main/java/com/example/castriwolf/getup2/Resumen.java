@@ -44,6 +44,9 @@ public class Resumen extends AppCompatActivity {
     private TextView txtBano;
     private TextView txtDesayuno;
     private TextView txtOtros;
+    private TextView txtTotal;
+    private TextView txtTrecorrido;
+    private int total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class Resumen extends AppCompatActivity {
         txtDesayuno = findViewById(R.id.txtDesayunar);
         txtBano = findViewById(R.id.txtBaño);
         txtOtros = findViewById(R.id.txtOtros);
+        txtTotal = findViewById(R.id.txtResultado);
+        txtTrecorrido = findViewById(R.id.txtTrecorrido);
         recogerDatos();
 
         if(minuto<10) {
@@ -72,10 +77,19 @@ public class Resumen extends AppCompatActivity {
         else{
             txtHora.setText(hora + ":" + minuto);
         }
-        txtLevantarse.setText(Tlevantarse+" Min");
-        txtBano.setText(Tbano+" Min");
-        txtDesayuno.setText(Tdesayuno+" Min");
-        txtOtros.setText(Totros+" Min");
+        txtLevantarse.setText(Tlevantarse+" Minutos");
+        txtBano.setText(Tbano+" Minutos");
+        txtDesayuno.setText(Tdesayuno+" Minutos");
+        txtOtros.setText(Totros+" Minutos");
+        if(horaRecorrido>1){
+            txtTrecorrido.setText(horaRecorrido+" Horas "+minutosRecorrido+" Minutos");
+            minutosRecorrido+=horaRecorrido*60;
+        }else{
+            txtTrecorrido.setText(minutosRecorrido+" Minutos");
+        }
+
+        total=(Tlevantarse+Tbano+Tdesayuno+Totros+minutosRecorrido);
+        txtTotal.setText(total+" Minutos");
 
         comprobarDatos();
 
