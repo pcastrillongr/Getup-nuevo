@@ -22,6 +22,12 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
     private int minuto;
     private int horaRecorrido;
     private int minutosRecorrido;
+    private String lsalida;
+    private String lLlegada;
+    private Boolean coche;
+    private Boolean bus;
+    private Boolean bici;
+    private Boolean andar;
     private int Tlevantarse;
     private int Tbano;
 
@@ -34,24 +40,7 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
         picker.setMinValue(0);
         next = (ImageView) findViewById(R.id.next);
 
-        Bundle parametros = getIntent().getExtras();
-        lunes = parametros.getBoolean("Lunes");
-        martes = parametros.getBoolean("Martes");
-        miercoles = parametros.getBoolean("Miercoles");
-        jueves = parametros.getBoolean("Jueves");
-        viernes = parametros.getBoolean("Viernes");
-        sabado = parametros.getBoolean("Sabado");
-        domingo = parametros.getBoolean("Domingo");
-        //Hora para llegar a tu destino
-        hora = parametros.getInt("Hora");
-        minuto = parametros.getInt("HMinuto");
-        //Tiempo que dedicas en el recorrido
-        horaRecorrido = parametros.getInt("HorasRecorrido");
-        minutosRecorrido = parametros.getInt("MinutosRecorridos");
-        //Tiempo para levantarse
-        Tlevantarse = parametros.getInt("Tlevantarse");
-        //Tiempo del baño
-        Tbano= parametros.getInt("Tbaño");
+        recogerBundle();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +61,14 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
                 //Tiempo recorrido Maps
                 go.putExtra("HorasRecorrido",horaRecorrido);
                 go.putExtra("MinutosRecorrido",minutosRecorrido);
+                //Lugar de salida y llegada
+                go.putExtra("Lsalida",lsalida);
+                go.putExtra("Lllegada",lLlegada);
+                //Modo Transporte
+                go.putExtra("Coche",coche);
+                go.putExtra("Bus",bus);
+                go.putExtra("Bici",bici);
+                go.putExtra("Andar",andar);
                 //Tiempo para levantarse
                 go.putExtra("Tlevantarse",Tlevantarse);
                 //Tiempo del ducha
@@ -82,5 +79,35 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
                 startActivity(go);
             }
         });
+    }
+
+    private void recogerBundle() {
+
+        Bundle parametros = getIntent().getExtras();
+        lunes = parametros.getBoolean("Lunes");
+        martes = parametros.getBoolean("Martes");
+        miercoles = parametros.getBoolean("Miercoles");
+        jueves = parametros.getBoolean("Jueves");
+        viernes = parametros.getBoolean("Viernes");
+        sabado = parametros.getBoolean("Sabado");
+        domingo = parametros.getBoolean("Domingo");
+        //Hora para llegar a tu destino
+        hora = parametros.getInt("Hora");
+        minuto = parametros.getInt("HMinuto");
+        //Tiempo que dedicas en el recorrido
+        horaRecorrido = parametros.getInt("HorasRecorrido");
+        minutosRecorrido = parametros.getInt("MinutosRecorridos");
+        //Lugar de salida y llegada
+        lsalida = parametros.getString("Lsalida");
+        lLlegada = parametros.getString("Lllegada");
+        //Modo Transporte
+        coche = parametros.getBoolean("Coche");
+        bus = parametros.getBoolean("Bus");
+        bici = parametros.getBoolean("Bici");
+        andar = parametros.getBoolean("Andar");
+        //Tiempo para levantarse
+        Tlevantarse = parametros.getInt("Tlevantarse");
+        //Tiempo del baño
+        Tbano= parametros.getInt("Tbaño");
     }
 }

@@ -53,7 +53,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp" />
         <activity android:name=".Crear_Alarma_Paso3"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
@@ -64,7 +65,8 @@
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity android:name=".Resumen"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp" />
         <activity android:name=".Crear_Alarma_Paso6"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />

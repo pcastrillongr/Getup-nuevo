@@ -19,6 +19,8 @@
         android:layout_marginStart="21dp"
         android:layout_marginTop="43dp"
         android:text="        Indicanos la hora de llegada a tu destino"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/timePicker3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,14 +29,16 @@
     <TimePicker
         android:id="@+id/timePicker3"
         android:layout_width="match_parent"
-        android:layout_height="151dp"
+        android:layout_height="183dp"
         android:layout_marginBottom="21dp"
         android:layout_marginTop="8dp"
         android:timePickerMode="spinner"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3">
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="1.0">
 
     </TimePicker>
 
@@ -46,6 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:text="Indicanos los dias que sonará la alarma:"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -67,18 +72,12 @@
         android:textOn=""
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/toggleButtonLunes"
-        app:layout_constraintTop_toTopOf="@+id/guideline" /><![CDATA[
-    />
-
-    />
-
-    ]]>
+        app:layout_constraintTop_toTopOf="@+id/guideline" />
 
     <ImageButton
         android:id="@+id/toggleButtonDomingo"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/toggleButtonDomingo"
         android:layout_gravity="center"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"

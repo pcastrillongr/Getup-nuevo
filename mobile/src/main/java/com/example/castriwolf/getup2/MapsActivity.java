@@ -91,6 +91,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ImageView andar;
     private ImageView ajuste;
 
+    private Boolean irCoche = false;
+    private Boolean irBus = false;
+    private Boolean irBici = false;
+    private Boolean irAndando = false;
+
     public Boolean pintado = false;
 
 
@@ -126,13 +131,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         next.setVisibility(View.VISIBLE);
         ubi = findViewById(R.id.ubi);
         ubi.setVisibility(View.VISIBLE);
-        coche=findViewById(R.id.ivCoche);
-        bus=findViewById(R.id.ivBus);
-        bici=findViewById(R.id.ivBici);
-        andar=findViewById(R.id.ivAndar);
-        ajuste=findViewById(R.id.ivAjustes);
-
-
+        coche = findViewById(R.id.ivCoche);
+        bus = findViewById(R.id.ivBus);
+        bici = findViewById(R.id.ivBici);
+        andar = findViewById(R.id.ivAndar);
+        ajuste = findViewById(R.id.ivAjustes);
 
 
         /**
@@ -185,7 +188,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                if(!tiempo.getText().toString().equals("")){
+                if (!tiempo.getText().toString().equals("")) {
                     recuperarTiempo();
                 }
                 if (minutosRecorrido > 0 && !placeautocompletesalida.equals("") && !placeautocompletedestino.equals("")) {
@@ -197,13 +200,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     go.putExtra("Jueves", jueves);
                     go.putExtra("Viernes", viernes);
                     go.putExtra("Sabado", sabado);
-                    go.putExtra("Domindgo", domingo);
+                    go.putExtra("Domingo", domingo);
                     //Hora de llegada al destino
                     go.putExtra("Hora", hora);
                     go.putExtra("HMinuto", minuto);
                     //Tiempo ruta
-                    go.putExtra("HorasRecorrido",horaRecorrido);
-                    go.putExtra("MinutosRecorrido",minutosRecorrido);
+                    go.putExtra("HorasRecorrido", horaRecorrido);
+                    go.putExtra("MinutosRecorrido", minutosRecorrido);
+                    // Lugar de salida y llegada
+                    go.putExtra("Lsalida",salida);
+                    go.putExtra("Lllegada",destino);
+                    //Modo Transporte
+                    go.putExtra("Coche",irCoche);
+                    go.putExtra("Bus",irBus);
+                    go.putExtra("Bici",irBici);
+                    go.putExtra("Andar",irAndando);
 
 
                     startActivity(go);
@@ -223,8 +234,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 salida = place.getName().toString();
                 punto1 = place;
                 Toast.makeText(getApplicationContext(), salida, Toast.LENGTH_LONG);
-                Log.i("Mensaje", salida);
-            }
+
+               }
 
             @Override
             public void onError(Status status) {
@@ -242,7 +253,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 destino = place.getName().toString();
                 punto2 = place;
-                Log.i("mensaje", destino);
 
             }
 
@@ -277,6 +287,96 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
 
+        });
+
+
+        ajuste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+
+
+        coche.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick(View v) {
+
+            if(irCoche==false){
+                irCoche=true;
+                irBus = false;
+                irAndando=false;
+                irBici=false;
+
+                coche.setImageResource(R.drawable.icons8cocheverde);
+                bus.setImageResource(R.drawable.icons8autobusgris);
+                bici.setImageResource(R.drawable.icons8bicigris);
+                andar.setImageResource(R.drawable.icons8caminargris);
+            }
+
+            }
+        });
+
+        bus.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick(View v) {
+
+                if(irBus==false){
+                    irCoche=false;
+                    irBus = true;
+                    irAndando=false;
+                    irBici=false;
+
+                    coche.setImageResource(R.drawable.icons8cochegris);
+                    bus.setImageResource(R.drawable.icons8autobusverde);
+                    bici.setImageResource(R.drawable.icons8bicigris);
+                    andar.setImageResource(R.drawable.icons8caminargris);
+                }
+            }
+        });
+
+        bici.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick(View v) {
+                if(irBici==false){
+                    irCoche=false;
+                    irBus = false;
+                    irAndando=false;
+                    irBici=true;
+
+                    coche.setImageResource(R.drawable.icons8cochegris);
+                    bus.setImageResource(R.drawable.icons8autobusgris);
+                    bici.setImageResource(R.drawable.icons8biciverde);
+                    andar.setImageResource(R.drawable.icons8caminargris);
+                }
+            }
+        });
+
+        andar.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick(View v) {
+                if(irAndando==false){
+                    irCoche=false;
+                    irBus = false;
+                    irAndando=true;
+                    irBici=false;
+
+                    coche.setImageResource(R.drawable.icons8cochegris);
+                    bus.setImageResource(R.drawable.icons8autobusgris);
+                    bici.setImageResource(R.drawable.icons8bicigris);
+                    andar.setImageResource(R.drawable.icons8caminarverde);
+                }
+
+            }
         });
 
     }
@@ -461,7 +561,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sabado = parametros.getBoolean("Sabado");
         domingo = parametros.getBoolean("Domingo");
         hora = parametros.getInt("Hora");
-        minuto = parametros.getInt("Hminuto");
+        minuto = parametros.getInt("HMinuto");
     }
 
     private void recuperarTiempo() {
@@ -590,14 +690,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             PolylineOptions polylineOptions = null;
 
 
-                if (pintado==true) {
-                    mMap.clear();
-                    pintado = false;
-                }
+            if (pintado == true) {
+                mMap.clear();
+                pintado = false;
+            }
 
             for (List<HashMap<String, String>> path : lists) {
-               points = new ArrayList();
-               polylineOptions = new PolylineOptions();
+                points = new ArrayList();
+                polylineOptions = new PolylineOptions();
 
 
                 for (HashMap<String, String> point : path) {
@@ -617,7 +717,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addPolyline(polylineOptions);
                 points.clear();
                 polylineOptions.getPoints().clear();
-                pintado=true;
+                pintado = true;
             } else {
                 Toast.makeText(getApplicationContext(), "Direcciones no encontradas!", Toast.LENGTH_SHORT).show();
             }

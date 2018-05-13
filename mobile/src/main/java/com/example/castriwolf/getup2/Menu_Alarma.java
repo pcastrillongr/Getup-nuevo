@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 
 public class Menu_Alarma extends AppCompatActivity {
@@ -65,7 +64,7 @@ public class Menu_Alarma extends AppCompatActivity {
                 }
 
                 startActivity(i);
-                drawerLayout.closeDrawers();
+                drawerLayout.closeDrawer(listViewDrawer);
             }
         });
 

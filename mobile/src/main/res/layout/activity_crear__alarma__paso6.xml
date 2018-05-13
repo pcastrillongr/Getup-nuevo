@@ -72,6 +72,7 @@
         android:layout_marginTop="8dp"
         android:text="Aqui debes poner todo el tiempo que quieres que tenga en cuenta la aplicación que no se haya especificado anteriormente. (Si lo deseas)"
         android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

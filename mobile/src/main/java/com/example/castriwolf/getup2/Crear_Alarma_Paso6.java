@@ -22,6 +22,12 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
     private int minuto;
     private int horaRecorrido;
     private int minutosRecorrido;
+    private String lsalida;
+    private String lLlegada;
+    private Boolean coche;
+    private Boolean bus;
+    private Boolean bici;
+    private Boolean andar;
     private int Tlevantarse;
     private int Tbano;
     private int Tdesayuno;
@@ -45,8 +51,40 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
 
                 crearAlarma();
 
-                Intent go = new Intent(getApplicationContext(), Menu_Alarma.class);
+                Intent go = new Intent(getApplicationContext(), Resumen.class);
+                go.putExtra("Lunes", lunes);
+                go.putExtra("Martes", martes);
+                go.putExtra("Miercoles", miercoles);
+                go.putExtra("Jueves", jueves);
+                go.putExtra("Viernes", viernes);
+                go.putExtra("Sabado", sabado);
+                go.putExtra("Domingo", domingo);
+
+                //Hora llegada trabajo
+                go.putExtra("Hora", hora);
+                go.putExtra("HMinuto", minuto);
+                //Tiempo recorrido Maps
+                go.putExtra("HorasRecorrido",horaRecorrido);
+                go.putExtra("MinutosRecorrido",minutosRecorrido);
+                //Lugar de salida y llegada
+                go.putExtra("Lsalida",lsalida);
+                go.putExtra("Lllegada",lLlegada);
+                //Modo Transporte
+                go.putExtra("Coche",coche);
+                go.putExtra("Bus",bus);
+                go.putExtra("Bici",bici);
+                go.putExtra("Andar",andar);
+                //Tiempo para levantarse
+                go.putExtra("Tlevantarse",Tlevantarse);
+                //Tiempo del ducha
+                go.putExtra("Tbaño",Tbano);
+                //Tiempo del desayuno
+                go.putExtra("Tdesayuno",Tdesayuno);
+                //Tiempo adiccional
+                go.putExtra("Textra",picker.getValue());
+
                 startActivity(go);
+
             }
         });
     }
@@ -67,12 +105,20 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
         //Tiempo para el recorrido
         horaRecorrido = parametros.getInt("HorasRecorrido");
         minutosRecorrido = parametros.getInt("MinutosRecorridos");
+        //Lugar de salida y llegada
+        lsalida = parametros.getString("Lsalida");
+        lLlegada = parametros.getString("Lllegada");
+        //Modo Transporte
+        coche = parametros.getBoolean("Coche");
+        bus = parametros.getBoolean("Bus");
+        bici = parametros.getBoolean("Bici");
+        andar = parametros.getBoolean("Andar");
         //Tiempo para levantarte
         Tlevantarse = parametros.getInt("Tlevantarse");
         //Tiempo para el baño
         Tbano = parametros.getInt("Tbaño");
         //Tiempo para el desayuno
-        Tdesayuno *= parametros.getInt("Tdesayuno");
+        Tdesayuno = parametros.getInt("Tdesayuno");
     }
 
     private void crearAlarma() {

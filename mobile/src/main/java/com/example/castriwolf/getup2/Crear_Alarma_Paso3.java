@@ -22,6 +22,12 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
     private int minuto;
     private int horaRecorrido;
     private int minutosRecorrido;
+    private String lsalida;
+    private String lLlegada;
+    private Boolean coche;
+    private Boolean bus;
+    private Boolean bici;
+    private Boolean andar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,21 +38,8 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
         picker.setMaxValue(59);
         next=(ImageView)findViewById(R.id.next);
 
-        Bundle parametros =getIntent().getExtras();
-        //Dias
-        lunes=parametros.getBoolean("Lunes");
-        martes=parametros.getBoolean("Martes");
-        miercoles=parametros.getBoolean("Miercoles");
-        jueves=parametros.getBoolean("Jueves");
-        viernes=parametros.getBoolean("Viernes");
-        sabado=parametros.getBoolean("Sabado");
-        domingo=parametros.getBoolean("Domingo");
-        //Hora de llegada al destino
-        hora = parametros.getInt("Hora");
-        minuto=parametros.getInt("Hminuto");
-        //horas y minutos del recorrido
-        horaRecorrido = parametros.getInt("HorasRecorrido");
-        minutosRecorrido = parametros.getInt("MinutosRecorridos");
+       recogerBundle();
+
 
 
 
@@ -70,14 +63,50 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
                 //tiempo recorrido Maps
                 go.putExtra("HorasRecorrido",horaRecorrido);
                 go.putExtra("MinutosRecorrido",minutosRecorrido);
+                //Lugar de salida y llegada
+                go.putExtra("Lsalida",lsalida);
+                go.putExtra("Lllegada",lLlegada);
                 //tiempo para levantarse
                 go.putExtra("Tlevantarse",picker.getValue());
+                //Modo Transporte
+                go.putExtra("Coche",coche);
+                go.putExtra("Bus",bus);
+                go.putExtra("Bici",bici);
+                go.putExtra("Andar",andar);
 
 
                 startActivity(go);
             }
         });
 
+
+    }
+
+    private void recogerBundle() {
+
+        Bundle parametros =getIntent().getExtras();
+        //Dias
+        lunes=parametros.getBoolean("Lunes");
+        martes=parametros.getBoolean("Martes");
+        miercoles=parametros.getBoolean("Miercoles");
+        jueves=parametros.getBoolean("Jueves");
+        viernes=parametros.getBoolean("Viernes");
+        sabado=parametros.getBoolean("Sabado");
+        domingo=parametros.getBoolean("Domingo");
+        //Hora de llegada al destino
+        hora = parametros.getInt("Hora");
+        minuto=parametros.getInt("HMinuto");
+        //horas y minutos del recorrido
+        horaRecorrido = parametros.getInt("HorasRecorrido");
+        minutosRecorrido = parametros.getInt("MinutosRecorridos");
+        //Lugar de salida y llegada
+        lsalida = parametros.getString("Lsalida");
+        lLlegada = parametros.getString("Lllegada");
+        //Modo Transporte
+        coche = parametros.getBoolean("Coche");
+        bus = parametros.getBoolean("Bus");
+        bici = parametros.getBoolean("Bici");
+        andar = parametros.getBoolean("Andar");
 
     }
 }

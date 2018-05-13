@@ -49,6 +49,7 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
         toggleButton6 = (ImageButton) findViewById(R.id.toggleButtonSabado);
         toggleButton7 = (ImageButton) findViewById(R.id.toggleButtonDomingo);
         hora = findViewById(R.id.timePicker3);
+        hora.setIs24HourView(true);
         next = (ImageView) findViewById(R.id.next);
 
         next.setOnClickListener(new View.OnClickListener() {
