@@ -218,7 +218,8 @@ public class Resumen extends AppCompatActivity {
         time.add(Calendar.SECOND, 30);
         alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
-                (long) (1000 * 60 * 0.01f), pendingIntent);
+                 1000 * 60 * 10, pendingIntent);
+
         Toast.makeText(getApplicationContext(),"Alarma Creada",Toast.LENGTH_SHORT).show();
 
 
@@ -229,7 +230,9 @@ public class Resumen extends AppCompatActivity {
 
      while(total>60)
      {
+
          minutosdespertar++;
+         total--;
          if(minutosdespertar==60)
          {
              horadespertar++;

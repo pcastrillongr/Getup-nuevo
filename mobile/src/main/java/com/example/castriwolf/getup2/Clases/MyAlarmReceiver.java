@@ -19,7 +19,6 @@ public class MyAlarmReceiver extends BroadcastReceiver {
         Toast.makeText(context, "Tiempo de levantarse,Getup!!", Toast.LENGTH_SHORT).show();
 
 
-        while(true) {
             Uri alarmUri = RingtoneManager
                     .getDefaultUri(RingtoneManager.TYPE_ALARM);
             if (alarmUri == null) {
@@ -29,7 +28,7 @@ public class MyAlarmReceiver extends BroadcastReceiver {
             Ringtone ringtone = RingtoneManager.getRingtone(context, alarmUri);
             ringtone.play();
 
-        }
+
 
     }
 }
