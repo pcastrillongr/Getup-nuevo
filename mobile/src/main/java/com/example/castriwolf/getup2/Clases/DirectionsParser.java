@@ -109,6 +109,7 @@ public class DirectionsParser {
     }
 
     public String parsingTiempo(StringBuilder sb) {
+        String t = "";
         try {
 
             JSONObject jsontiempo = new JSONObject(sb.toString());
@@ -118,11 +119,11 @@ public class DirectionsParser {
             JSONObject steps = legs.getJSONObject(0);
             JSONObject tiempos = steps.getJSONObject("duration");
 
-            return tiempos.getString("text");
+            t= tiempos.getString("text");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return "";
+        return t;
     }
 
     public String parsingKM(StringBuilder sb) {

@@ -23,7 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Entrada_App"
+        <activity
+            android:name=".Entrada_App"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp">
             <intent-filter>
@@ -32,10 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Crear_Alarma_Paso1"
+        <activity
+            android:name=".Crear_Alarma_Paso1"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".Menu_Alarma"
+        <activity
+            android:name=".Menu_Alarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <!--
@@ -55,24 +58,31 @@
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".Crear_Alarma_Paso3"
+        <activity
+            android:name=".Crear_Alarma_Paso3"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".Crear_Alarma_Paso4"
+        <activity
+            android:name=".Crear_Alarma_Paso4"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".Crear_Alarma_Paso5"
+        <activity
+            android:name=".Crear_Alarma_Paso5"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".Resumen"
+        <activity
+            android:name=".Resumen"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".Crear_Alarma_Paso6"
+        <activity
+            android:name=".Crear_Alarma_Paso6"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".Preferencias_Alarma"
+        <activity
+            android:name=".Preferencias_Alarma"
             android:screenOrientation="portrait"
-            android:theme="@style/GetUp"></activity>
+            android:theme="@style/GetUp" />
+        <activity android:name=".GastoTiempo"></activity>
     </application>
 
 </manifest>

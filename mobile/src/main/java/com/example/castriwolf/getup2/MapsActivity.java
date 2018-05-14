@@ -62,6 +62,9 @@ import java.util.Locale;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int LOCATION_REQUEST = 500;
+    final CharSequence[] items = {"Evitar autopista", "Evitar peajes"};
+    // arraylist to keep the selected items
+    final ArrayList seletedItems = new ArrayList();
     public static GoogleMap mMap;
     private Marker marcador;
     private Marker marcador2;
@@ -95,6 +98,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Boolean irBus = false;
     private Boolean irBici = false;
     private Boolean irAndando = false;
+    private Boolean Eautopista = false;
+    private Boolean Epeaje = false;
 
     public Boolean pintado = false;
 
@@ -136,6 +141,53 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bici = findViewById(R.id.ivBici);
         andar = findViewById(R.id.ivAndar);
         ajuste = findViewById(R.id.ivAjustes);
+
+
+        /**
+         * Boton de ajustes
+         * abre un dialog alert para indicar tipo ajustes de ruta.
+         */
+        ajuste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog dialog = new AlertDialog.Builder(MapsActivity.this)
+                        .setTitle("Parametros")
+                        .setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                                if (isChecked) {
+                                    // If the user checked the item, add it to the selected items
+                                    seletedItems.add(indexSelected);
+                                } else if (seletedItems.contains(indexSelected)) {
+                                    // Else, if the item is already in the array, remove it
+                                    seletedItems.remove(Integer.valueOf(indexSelected));
+                                }
+                            }
+                        }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Your code when user clicked on OK
+                                //  You can write the code  to save the selected item here
+
+                                for(int i =0; 0>seletedItems.size(); i++ ){
+
+                                    if(seletedItems.get(i).equals(items)){
+
+                                    }
+                                }
+
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Your code when user clicked on Cancel
+                                Eautopista=false;
+                                Epeaje=false;
+                            }
+                        }).create();
+                dialog.show();
+
+            }});
 
 
         /**
@@ -208,13 +260,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     go.putExtra("HorasRecorrido", horaRecorrido);
                     go.putExtra("MinutosRecorridos", minutosRecorrido);
                     // Lugar de salida y llegada
-                    go.putExtra("Lsalida",salida);
-                    go.putExtra("Lllegada",destino);
+                    go.putExtra("Lsalida", salida);
+                    go.putExtra("Lllegada", destino);
                     //Modo Transporte
-                    go.putExtra("Coche",irCoche);
-                    go.putExtra("Bus",irBus);
-                    go.putExtra("Bici",irBici);
-                    go.putExtra("Andar",irAndando);
+                    go.putExtra("Coche", irCoche);
+                    go.putExtra("Bus", irBus);
+                    go.putExtra("Bici", irBici);
+                    go.putExtra("Andar", irAndando);
 
 
                     startActivity(go);
@@ -235,7 +287,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 punto1 = place;
                 Toast.makeText(getApplicationContext(), salida, Toast.LENGTH_LONG);
 
-               }
+            }
 
             @Override
             public void onError(Status status) {
@@ -276,7 +328,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                if (salida.equals("") || destino.equals("") ||( irCoche==false && irBus==false && irBici==false &&irAndando==false)) {
+                if (salida.equals("") || destino.equals("") || (irCoche == false && irBus == false && irBici == false && irAndando == false)) {
 
                     Toast.makeText(getApplicationContext(), "Introduce las dos direcciones y transporte", Toast.LENGTH_LONG).show();
 
@@ -289,33 +341,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         });
 
-
-        ajuste.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
-
-
         coche.setOnClickListener(new View.OnClickListener()
 
         {
             @Override
             public void onClick(View v) {
 
-            if(irCoche==false){
-                irCoche=true;
-                irBus = false;
-                irAndando=false;
-                irBici=false;
+                if (irCoche == false) {
+                    irCoche = true;
+                    irBus = false;
+                    irAndando = false;
+                    irBici = false;
 
-                coche.setImageResource(R.drawable.icons8cocheverde);
-                bus.setImageResource(R.drawable.icons8autobusgris);
-                bici.setImageResource(R.drawable.icons8bicigris);
-                andar.setImageResource(R.drawable.icons8caminargris);
-            }
+                    coche.setImageResource(R.drawable.icons8cocheverde);
+                    bus.setImageResource(R.drawable.icons8autobusgris);
+                    bici.setImageResource(R.drawable.icons8bicigris);
+                    andar.setImageResource(R.drawable.icons8caminargris);
+                }
 
             }
         });
@@ -326,11 +368,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                if(irBus==false){
-                    irCoche=false;
+                if (irBus == false) {
+                    irCoche = false;
                     irBus = true;
-                    irAndando=false;
-                    irBici=false;
+                    irAndando = false;
+                    irBici = false;
 
                     coche.setImageResource(R.drawable.icons8cochegris);
                     bus.setImageResource(R.drawable.icons8autobusverde);
@@ -345,11 +387,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
             @Override
             public void onClick(View v) {
-                if(irBici==false){
-                    irCoche=false;
+                if (irBici == false) {
+                    irCoche = false;
                     irBus = false;
-                    irAndando=false;
-                    irBici=true;
+                    irAndando = false;
+                    irBici = true;
 
                     coche.setImageResource(R.drawable.icons8cochegris);
                     bus.setImageResource(R.drawable.icons8autobusgris);
@@ -364,11 +406,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
             @Override
             public void onClick(View v) {
-                if(irAndando==false){
-                    irCoche=false;
+                if (irAndando == false) {
+                    irCoche = false;
                     irBus = false;
-                    irAndando=true;
-                    irBici=false;
+                    irAndando = true;
+                    irBici = false;
 
                     coche.setImageResource(R.drawable.icons8cochegris);
                     bus.setImageResource(R.drawable.icons8autobusgris);
@@ -497,7 +539,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String getRequestUrl(Place place1, Place place2) {
         //origen
         String str_org = "";
-        String mode="";
+        String mode = "";
         if (place1 != null) {
             str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
         } else {
@@ -508,16 +550,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //sensor
         String sensor = "sensor=false";
         //Modo transporte
-        if(irCoche==true) {
+        if (irCoche == true) {
             mode = "mode=driving";
         }
-        if(irBus==true) {
+        if (irBus == true) {
             mode = "mode=transit";
         }
-        if(irBici==true) {
+        if (irBici == true) {
             mode = "mode=bicycling";
         }
-        if(irAndando==true) {
+        if (irAndando == true) {
             mode = "mode=walking";
         }
         //Trafico
@@ -542,6 +584,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         StringBuilder stringBuilder;
 
         if (salida != "0.0,0.0" && destino != "") {
+
+            tiempo.setText("");
+            distancia.setText("");
 
             String url = getRequestUrl(punto1, punto2);
             TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
@@ -738,5 +783,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    public void dialog(){
+
+
+
+    }
 }
 
