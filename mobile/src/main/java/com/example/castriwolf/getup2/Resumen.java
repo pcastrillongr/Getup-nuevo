@@ -1,11 +1,25 @@
 package com.example.castriwolf.getup2;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
 
 import org.w3c.dom.Text;
+
+import java.util.Calendar;
 
 public class Resumen extends AppCompatActivity {
 
@@ -28,7 +42,7 @@ public class Resumen extends AppCompatActivity {
     private Boolean bus;
     private Boolean bici;
     private Boolean andar;
-
+    private Button crear;
     private TextView txtHora;
     private ImageView imgLunes;
     private ImageView imgMartes;
@@ -46,12 +60,18 @@ public class Resumen extends AppCompatActivity {
     private TextView txtOtros;
     private TextView txtTotal;
     private TextView txtTrecorrido;
-    private int total;
+    private double total;
+    private int horadespertar;
+    private int minutosdespertar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen);
+
+        horadespertar=0;
+        minutosdespertar=0;
+        crear=findViewById(R.id.buttonCrear);
         txtHora = findViewById(R.id.txtHora);
         txtSalida = findViewById(R.id.txtsalida);
         txtLlegada = findViewById(R.id.txtllegada);
@@ -90,6 +110,16 @@ public class Resumen extends AppCompatActivity {
 
         total=(Tlevantarse+Tbano+Tdesayuno+Totros+minutosRecorrido);
         txtTotal.setText(total+" Minutos");
+
+        crear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                establecerAlarma();
+            }
+
+
+        });
 
         comprobarDatos();
 
@@ -174,4 +204,41 @@ public class Resumen extends AppCompatActivity {
         bici = parametros.getBoolean("Bici");
         andar = parametros.getBoolean("Andar");
     }
+
+    private void establecerAlarma() {
+
+
+        formulaCalcularAlarma();
+
+        AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, MyAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        Calendar time = Calendar.getInstance();
+        time.setTimeInMillis(System.currentTimeMillis());
+        time.add(Calendar.SECOND, 30);
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
+                (long) (1000 * 60 * 0.01f), pendingIntent);
+        Toast.makeText(getApplicationContext(),"Alarma Creada",Toast.LENGTH_SHORT).show();
+
+
+    }
+
+    private void formulaCalcularAlarma() {
+
+
+     while(total>60)
+     {
+         minutosdespertar++;
+         if(minutosdespertar==60)
+         {
+             horadespertar++;
+             minutosdespertar=0;
+         }
+     }
+Log.i("Hora",horadespertar+" "+minutosdespertar);
+
+
+    }
+
 }
