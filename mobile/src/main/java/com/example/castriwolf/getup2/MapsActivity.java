@@ -276,9 +276,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                if (salida.equals("") || destino.equals("")) {
+                if (salida.equals("") || destino.equals("") ||( irCoche==false && irBus==false && irBici==false &&irAndando==false)) {
 
-                    Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Introduce las dos direcciones y transporte", Toast.LENGTH_LONG).show();
 
                 } else {
 
@@ -730,9 +730,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 points.clear();
                 polylineOptions.getPoints().clear();
                 pintado = true;
-            } else {
-                Toast.makeText(getApplicationContext(), "Direcciones no encontradas!", Toast.LENGTH_SHORT).show();
             }
+            //else {Toast.makeText(getApplicationContext(), "Direcciones no encontradas!", Toast.LENGTH_SHORT).show();}
 
         }
 
