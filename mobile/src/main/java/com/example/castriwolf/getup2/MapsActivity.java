@@ -497,6 +497,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String getRequestUrl(Place place1, Place place2) {
         //origen
         String str_org = "";
+        String mode="";
         if (place1 != null) {
             str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
         } else {
@@ -507,7 +508,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //sensor
         String sensor = "sensor=false";
         //Modo transporte
-        String mode = "mode=driving";
+        if(irCoche==true) {
+            mode = "mode=driving";
+        }
+        if(irBus==true) {
+            mode = "mode=transit";
+        }
+        if(irBici==true) {
+            mode = "mode=bicycling";
+        }
+        if(irAndando==true) {
+            mode = "mode=walking";
+        }
         //Trafico
         String departure_time = "departure_time=now";
         //Build the full param
