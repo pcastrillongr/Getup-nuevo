@@ -69,9 +69,9 @@ public class Resumen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen);
 
-        horadespertar=0;
-        minutosdespertar=0;
-        crear=findViewById(R.id.buttonCrear);
+        horadespertar = 0;
+        minutosdespertar = 0;
+        crear = findViewById(R.id.buttonCrear);
         txtHora = findViewById(R.id.txtHora);
         txtSalida = findViewById(R.id.txtsalida);
         txtLlegada = findViewById(R.id.txtllegada);
@@ -91,25 +91,24 @@ public class Resumen extends AppCompatActivity {
         txtTrecorrido = findViewById(R.id.txtTrecorrido);
         recogerDatos();
 
-        if(minuto<10) {
+        if (minuto < 10) {
             txtHora.setText(hora + ":0" + minuto);
-        }
-        else{
+        } else {
             txtHora.setText(hora + ":" + minuto);
         }
-        txtLevantarse.setText(Tlevantarse+" Minutos");
-        txtBano.setText(Tbano+" Minutos");
-        txtDesayuno.setText(Tdesayuno+" Minutos");
-        txtOtros.setText(Totros+" Minutos");
-        if(horaRecorrido>1){
-            txtTrecorrido.setText(horaRecorrido+" Horas "+minutosRecorrido+" Minutos");
-            minutosRecorrido+=horaRecorrido*60;
-        }else{
-            txtTrecorrido.setText(minutosRecorrido+" Minutos");
+        txtLevantarse.setText(Tlevantarse + " Minutos");
+        txtBano.setText(Tbano + " Minutos");
+        txtDesayuno.setText(Tdesayuno + " Minutos");
+        txtOtros.setText(Totros + " Minutos");
+        if (horaRecorrido > 1) {
+            txtTrecorrido.setText(horaRecorrido + " Horas " + minutosRecorrido + " Minutos");
+            minutosRecorrido += horaRecorrido * 60;
+        } else {
+            txtTrecorrido.setText(minutosRecorrido + " Minutos");
         }
 
-        total=(Tlevantarse+Tbano+Tdesayuno+Totros+minutosRecorrido);
-        txtTotal.setText(total+" Minutos");
+        total = (Tlevantarse + Tbano + Tdesayuno + Totros + minutosRecorrido);
+        txtTotal.setText(total + " Minutos");
 
         crear.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,51 +126,51 @@ public class Resumen extends AppCompatActivity {
 
     private void comprobarDatos() {
 
-        if(lunes==true){
+        if (lunes == true) {
 
             imgLunes.setImageResource(R.drawable.icons8lunes40verde);
         }
-        if(martes==true){
+        if (martes == true) {
 
             imgMartes.setImageResource(R.drawable.icons8martes40verde);
         }
-        if(miercoles==true){
+        if (miercoles == true) {
 
             imgMiercoles.setImageResource(R.drawable.icons8miercoles40verde);
         }
-        if(jueves==true){
+        if (jueves == true) {
 
             imgJueves.setImageResource(R.drawable.icons8jueves40verde);
         }
-        if(viernes==true){
+        if (viernes == true) {
 
             imgViernes.setImageResource(R.drawable.icons8viernes40verde);
         }
-        if(sabado==true){
+        if (sabado == true) {
 
             imgSabado.setImageResource(R.drawable.icons8sabado40verde);
         }
-        if(domingo==true){
+        if (domingo == true) {
 
             imgDomingo.setImageResource(R.drawable.icons8domingo40verde);
         }
-        if(coche == true){
+        if (coche == true) {
             imgModo.setImageResource(R.drawable.icons8cocheverde);
         }
-        if(bus == true){
+        if (bus == true) {
             imgModo.setImageResource(R.drawable.icons8autobusverde);
         }
-        if(bici == true){
+        if (bici == true) {
             imgModo.setImageResource(R.drawable.icons8biciverde);
         }
-        if(andar == true){
+        if (andar == true) {
             imgModo.setImageResource(R.drawable.icons8caminarverde);
         }
 
 
     }
 
-    private void recogerDatos(){
+    private void recogerDatos() {
         Bundle parametros = getIntent().getExtras();
         //Dias
         lunes = parametros.getBoolean("Lunes");
@@ -210,7 +209,7 @@ public class Resumen extends AppCompatActivity {
 
         formulaCalcularAlarma();
 
-        AlarmManager alarmMgr = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, MyAlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         Calendar time = Calendar.getInstance();
@@ -218,9 +217,9 @@ public class Resumen extends AppCompatActivity {
         time.add(Calendar.SECOND, 30);
         alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
-                 1000 * 60 * 10, pendingIntent);
+                1000 * 60 * 10, pendingIntent);
 
-        Toast.makeText(getApplicationContext(),"Alarma Creada",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
 
 
     }
@@ -228,17 +227,15 @@ public class Resumen extends AppCompatActivity {
     private void formulaCalcularAlarma() {
 
 
-     while(total>60)
-     {
-         total-=60;
-         horadespertar+=1;
+        while (total > 60) {
+            total -= 60;
+            horadespertar += 1;
 
-         if(minutosdespertar<60)
-         {
-             minutosdespertar= (int) total;
-         }
-     }
-Log.i("Hora",horadespertar+" "+minutosdespertar);
+        }
+        if (minutosdespertar < 60) {
+            minutosdespertar = (int) total;
+        }
+        Log.i("Hora", horadespertar + " " + minutosdespertar);
 
 
     }
