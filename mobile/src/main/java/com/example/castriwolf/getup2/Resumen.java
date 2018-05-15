@@ -230,13 +230,12 @@ public class Resumen extends AppCompatActivity {
 
      while(total>60)
      {
+         total-=60;
+         horadespertar+=1;
 
-         minutosdespertar++;
-         total--;
-         if(minutosdespertar==60)
+         if(minutosdespertar<60)
          {
-             horadespertar++;
-             minutosdespertar=0;
+             minutosdespertar= (int) total;
          }
      }
 Log.i("Hora",horadespertar+" "+minutosdespertar);
