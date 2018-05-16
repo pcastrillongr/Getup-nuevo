@@ -8,16 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
-
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -61,6 +57,8 @@ public class Resumen extends AppCompatActivity {
     private TextView txtTotal;
     private TextView txtTrecorrido;
     private double total;
+    private int horarestar;
+    private int minutosrestar;
     private int horadespertar;
     private int minutosdespertar;
 
@@ -69,8 +67,8 @@ public class Resumen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen);
 
-        horadespertar = 0;
-        minutosdespertar = 0;
+        horarestar = 0;
+        minutosrestar = 0;
         crear = findViewById(R.id.buttonCrear);
         txtHora = findViewById(R.id.txtHora);
         txtSalida = findViewById(R.id.txtsalida);
@@ -227,15 +225,17 @@ public class Resumen extends AppCompatActivity {
     private void formulaCalcularAlarma() {
 
 
-        while (total > 60) {
+        while (total >= 60) {
             total -= 60;
-            horadespertar += 1;
+            horarestar += 1;
 
         }
-        if (minutosdespertar < 60) {
-            minutosdespertar = (int) total;
+        if (minutosrestar < 60) {
+            minutosrestar = (int) total;
         }
-        Log.i("Hora", horadespertar + " " + minutosdespertar);
+        horadespertar=hora-horarestar;
+        minutosdespertar=minuto-minutosdespertar;
+
 
 
     }
