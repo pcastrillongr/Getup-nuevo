@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.icu.util.Calendar;
+import android.icu.util.GregorianCalendar;
+import android.icu.util.TimeZone;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -540,6 +543,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //origen
         String str_org = "";
         String mode = "";
+        String time="";
         if (place1 != null) {
             str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
         } else {
@@ -554,7 +558,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mode = "mode=driving";
         }
         if (irBus == true) {
-            mode = "mode=transit";
+           /* mode = "mode=transit";
+            //Hora bus
+            Calendar calendarNow = null;
+            int monthDay=0;
+            int month=0;
+            int day=0;
+            int horaDia=0;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+               monthDay =calendarNow.get(Calendar.DAY_OF_MONTH);
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                 month = calendarNow.get(Calendar.MONTH);
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                day = calendarNow.get(Calendar.DAY_OF_MONTH);
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                horaDia = calendarNow.get(Calendar.HOUR_OF_DAY);
+            }
+
+            if(hora > horaDia){
+
+
+            }
+
+            time = "arrival_time=";*/
         }
         if (irBici == true) {
             mode = "mode=bicycling";
@@ -562,10 +594,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (irAndando == true) {
             mode = "mode=walking";
         }
-        //Trafico
-        String departure_time = "departure_time=now";
+
+        if (irBus == false) {
+            //Trafico
+            time = "departure_time=now";
+        }
         //Build the full param
-        String param = str_org + "&" + str_dest + "&" + sensor + "&" + mode + "&" + departure_time;
+        String param = str_org + "&" + str_dest + "&" + sensor + "&" + mode + "&" + time;
         //Output format
         String output = "json";
         //Create url to request

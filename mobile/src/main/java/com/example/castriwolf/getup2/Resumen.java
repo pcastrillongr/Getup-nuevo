@@ -223,9 +223,14 @@ public class Resumen extends AppCompatActivity {
     }
 
     private void formulaCalcularAlarma() {
+        int minutosTotales;
+        double resultado;
 
+        minutosTotales=hora*60;
+        minutosTotales+=minuto;
+        resultado=minutosTotales-total;
 
-        while (total >= 60) {
+       /* while (total >= 60) {
             total -= 60;
             horarestar += 1;
 
@@ -235,7 +240,7 @@ public class Resumen extends AppCompatActivity {
         }
         horadespertar=hora-horarestar;
         minutosdespertar=minuto-minutosdespertar;
-
+*/
 
 
     }
