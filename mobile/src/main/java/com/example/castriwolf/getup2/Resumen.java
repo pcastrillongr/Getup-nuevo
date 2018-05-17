@@ -218,7 +218,8 @@ public class Resumen extends AppCompatActivity {
                 1000 * 60 * 10, pendingIntent);
 
         Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
-
+        Intent go=new Intent(this,Menu_Alarma.class);
+        startActivity(go);
 
     }
 

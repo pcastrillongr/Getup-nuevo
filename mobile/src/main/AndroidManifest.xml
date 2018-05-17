@@ -16,10 +16,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
-    <uses-permission android:name="android.permission.VIBRATE" ></uses-permission>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -90,20 +89,14 @@
             android:name=".Preferencias_Alarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".GastoTiempo"></activity>
+        <activity android:name=".GastoTiempo" />
 
-        <service
-            android:name=".Clases.MyNewIntentService"
-            android:exported="false" >
-        </service>
         <receiver
             android:name=".Clases.MyAlarmReceiver"
             android:enabled="true"
-            android:exported="false" >
-        </receiver>
+            android:exported="false"></receiver>
 
+        <activity android:name=".Clases.Pantalla_Alarma"></activity>
     </application>
-
-
 
 </manifest>
