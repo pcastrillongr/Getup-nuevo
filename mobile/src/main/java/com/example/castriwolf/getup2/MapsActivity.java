@@ -17,13 +17,13 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.StrictMode;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,6 +58,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -172,9 +173,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 //  Your code when user clicked on OK
                                 //  You can write the code  to save the selected item here
 
-                                for(int i =0; 0>seletedItems.size(); i++ ){
+                                for (int i = 0; 0 > seletedItems.size(); i++) {
 
-                                    if(seletedItems.get(i).equals(items)){
+                                    if (seletedItems.get(i).equals(items)) {
 
                                     }
                                 }
@@ -184,13 +185,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 //  Your code when user clicked on Cancel
-                                Eautopista=false;
-                                Epeaje=false;
+                                Eautopista = false;
+                                Epeaje = false;
                             }
                         }).create();
                 dialog.show();
 
-            }});
+            }
+        });
 
 
         /**
@@ -543,7 +545,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //origen
         String str_org = "";
         String mode = "";
-        String time="";
+        String time = "";
         if (place1 != null) {
             str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
         } else {
@@ -558,35 +560,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mode = "mode=driving";
         }
         if (irBus == true) {
-           /* mode = "mode=transit";
+            mode = "mode=transit";
             //Hora bus
-            Calendar calendarNow = null;
-            int monthDay=0;
-            int month=0;
-            int day=0;
-            int horaDia=0;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
-            }
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-               monthDay =calendarNow.get(Calendar.DAY_OF_MONTH);
-            }
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                 month = calendarNow.get(Calendar.MONTH);
-            }
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                day = calendarNow.get(Calendar.DAY_OF_MONTH);
-            }
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                horaDia = calendarNow.get(Calendar.HOUR_OF_DAY);
-            }
 
-            if(hora > horaDia){
-
-
-            }
-
-            time = "arrival_time=";*/
+            long segundos = calcularAutobus();
+            time = "arrival_time=" + String.valueOf(segundos);
         }
         if (irBici == true) {
             mode = "mode=bicycling";
@@ -605,7 +583,77 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         String output = "json";
         //Create url to request
         String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + param;
+        if (irBus == true) {
+            url = "https://maps.googleapis.com/maps/api/directions/json?origin=malaga&destination=marbella&arrival_time=1523923250938800&key=AIzaSyCaF2FhXkGojDicim6di7jS_CzAdGy6dVE";
+        }
+
+
         return url;
+    }
+
+    private long calcularAutobus() {
+
+        Calendar calendarNow = null;
+        Calendar fechaInicio = null;
+        Calendar fechaFin = null;
+        long diasMilis = 0;
+        long segundos = 0;
+        Date date = new Date();
+
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        int horaDia = 0;
+        int minutoDia = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            year = calendarNow.get(Calendar.YEAR);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            month = calendarNow.get(Calendar.MONTH);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            day = calendarNow.get(Calendar.DAY_OF_MONTH);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            horaDia = calendarNow.get(Calendar.HOUR_OF_DAY);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            minutoDia = calendarNow.get(Calendar.MINUTE);
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            fechaInicio = new GregorianCalendar();
+            fechaInicio.set(1970, 01, 1);
+        }
+
+        if (hora < horaDia) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                calendarNow.add(Calendar.DAY_OF_MONTH, 1);
+                day = calendarNow.get(Calendar.DAY_OF_MONTH);
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                fechaFin = new GregorianCalendar();
+                fechaFin.set(year, month, day);
+            }
+        } else {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                fechaFin = new GregorianCalendar();
+                fechaFin.set(year, month, day);
+            }
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            diasMilis = (fechaFin.getTime().getTime() - fechaInicio.getTime().getTime());
+            segundos = ((hora * 60) + minuto) * 60;
+            segundos += (diasMilis * 1000);
+
+        }
+
+
+        return segundos;
     }
 
     /**
@@ -614,7 +662,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * salida y llegada.
      */
     private void recorridoJson() {
-        String path = "";
         DirectionsParser directionsParser = new DirectionsParser();
         StringBuilder stringBuilder;
 
@@ -818,8 +865,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void dialog(){
-
+    public void dialog() {
 
 
     }
