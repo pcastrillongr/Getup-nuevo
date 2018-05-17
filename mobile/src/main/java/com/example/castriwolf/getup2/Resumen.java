@@ -212,7 +212,7 @@ public class Resumen extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         Calendar time = Calendar.getInstance();
         time.setTimeInMillis(System.currentTimeMillis());
-        time.add(Calendar.SECOND, 30);
+        time.add(Calendar.SECOND, 10);
         alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
                 1000 * 60 * 10, pendingIntent);
@@ -230,7 +230,7 @@ public class Resumen extends AppCompatActivity {
         minutosTotales+=minuto;
         resultado=minutosTotales-total;
 
-       /* while (total >= 60) {
+        while (total >= 60) {
             total -= 60;
             horarestar += 1;
 
@@ -240,7 +240,7 @@ public class Resumen extends AppCompatActivity {
         }
         horadespertar=hora-horarestar;
         minutosdespertar=minuto-minutosdespertar;
-*/
+
 
 
     }
