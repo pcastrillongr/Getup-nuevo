@@ -9,5 +9,7 @@ public class GastoTiempo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gasto_tiempo);
+
+
     }
 }

@@ -16,18 +16,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
-    <uses-permission android:name="android.permission.VIBRATE" ></uses-permission>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/alarma_copy"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/alarma_copy"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -90,20 +89,21 @@
             android:name=".Preferencias_Alarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".GastoTiempo"></activity>
+        <activity
+            android:name=".GastoTiempo"
+            android:theme="@style/GetUp" />
 
         <service
             android:name=".Clases.MyNewIntentService"
-            android:exported="false" >
-        </service>
+            android:exported="false" />
+
         <receiver
             android:name=".Clases.MyAlarmReceiver"
             android:enabled="true"
-            android:exported="false" >
-        </receiver>
+            android:exported="false" />
 
+        <activity android:name=".Fragmentos.Alarma" />
+        <activity android:name=".PararAlarma"></activity>
     </application>
-
-
 
 </manifest>
