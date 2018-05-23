@@ -39,7 +39,7 @@ public class MyNewIntentService extends IntentService {
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
-       // ringtone.play();
+        ringtone.play();
 
 
         Notification.Builder builder = new Notification.Builder(this);

@@ -610,8 +610,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int minutoDia = 0;
 
         calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
-        year = calendarNow.get(Calendar.YEAR);
-        month = calendarNow.get(Calendar.MONTH);
         day = calendarNow.get(Calendar.DAY_OF_MONTH);
         horaDia = calendarNow.get(Calendar.HOUR_OF_DAY);
         minutoDia = calendarNow.get(Calendar.MINUTE);
@@ -620,15 +618,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (hora < horaDia) {
 
-            calendarNow.add(Calendar.DAY_OF_MONTH, 1);
-            day = calendarNow.get(Calendar.DAY_OF_MONTH);
-            fechaFin = new GregorianCalendar();
-            fechaFin.set(year, month+1, day);
+            if (minuto < minutoDia) {
 
+                calendarNow.add(Calendar.DAY_OF_MONTH, 1);
+                day = calendarNow.get(Calendar.DAY_OF_MONTH);
+                fechaFin = new GregorianCalendar();
+                fechaFin.set(calendarNow.get(Calendar.YEAR), calendarNow.get(Calendar.MONTH) + 1, day);
+
+            } else {
+
+                fechaFin = new GregorianCalendar();
+                fechaFin.set(calendarNow.get(Calendar.YEAR), calendarNow.get(Calendar.MONTH) + 1, day);
+
+            }
         } else {
 
             fechaFin = new GregorianCalendar();
-            fechaFin.set(year, month+1, day);
+            fechaFin.set(calendarNow.get(Calendar.YEAR), calendarNow.get(Calendar.MONTH) + 1, day);
 
         }
 

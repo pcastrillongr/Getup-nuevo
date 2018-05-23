@@ -39,6 +39,7 @@ public class Resumen extends AppCompatActivity {
     private Boolean bici;
     private Boolean andar;
     private Button crear;
+    private Button cancelar;
     private TextView txtHora;
     private ImageView imgLunes;
     private ImageView imgMartes;
@@ -70,6 +71,7 @@ public class Resumen extends AppCompatActivity {
         horarestar = 0;
         minutosrestar = 0;
         crear = findViewById(R.id.buttonCrear);
+        cancelar= findViewById(R.id.buttonCancelar);
         txtHora = findViewById(R.id.txtHora);
         txtSalida = findViewById(R.id.txtsalida);
         txtLlegada = findViewById(R.id.txtllegada);
@@ -109,6 +111,16 @@ public class Resumen extends AppCompatActivity {
         txtTotal.setText(total + " Minutos");
 
         crear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                establecerAlarma();
+            }
+
+
+        });
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -230,8 +242,8 @@ public class Resumen extends AppCompatActivity {
         minutosTotales+=minuto;
         resultado=minutosTotales-total;
 
-        while (total >= 60) {
-            total -= 60;
+        while (resultado >= 60) {
+            resultado -= 60;
             horarestar += 1;
 
         }
