@@ -19,7 +19,9 @@ public class MyAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        Intent pasos=new Intent(context,StepCounter.class);
         Intent intent1 = new Intent(context, MyNewIntentService.class);
+        context.startService(pasos);
         context.startService(intent1);
     }
 }

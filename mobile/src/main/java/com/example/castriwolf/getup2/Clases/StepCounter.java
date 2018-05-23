@@ -1,4 +1,4 @@
-package com.example.castriwolf.getup2;
+package com.example.castriwolf.getup2.Clases;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -14,14 +14,13 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
     SensorManager sensor;
     boolean andando=false;
-    int pasos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         sensor=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        pasos=0;
     }
 
     @Override
@@ -51,7 +50,8 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
         if(andando)
         {
-            pasos+=event.values[0];
+
+            Container.pasos=(int)event.values[0];
 
         }
     }
