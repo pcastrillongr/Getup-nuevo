@@ -215,7 +215,7 @@ public class Resumen extends AppCompatActivity {
         time.add(Calendar.SECOND, 10);
         alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
-                1000 * 60 * 10, pendingIntent);
+                1000 * 60 * 3, pendingIntent);
 
         Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
         Intent go=new Intent(this,Menu_Alarma.class);
