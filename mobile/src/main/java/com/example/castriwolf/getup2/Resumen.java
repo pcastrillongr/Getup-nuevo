@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.castriwolf.getup2.Clases.Alarma;
+import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
 
 import java.util.Calendar;
@@ -230,7 +232,24 @@ public class Resumen extends AppCompatActivity {
                 1000 * 60 * 10, pendingIntent);
 
         Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
+        int id_alarma = 0;
 
+
+        if(Container.alarmas.isEmpty()){
+            id_alarma=1;
+        }else{
+           id_alarma= Container.alarmas.get(Container.alarmas.size()).getId_alarma()+1;
+
+        }
+
+        String lugarSalida  = txtSalida.toString();
+        String lugarLlegada = txtLlegada.toString();
+        String horaSalida   = null;
+        String horaLlegada  = hora+":"+minuto;
+
+
+        Alarma alarma = new Alarma (id_alarma,lugarSalida,lugarLlegada,horaSalida,horaLlegada);
+        Container.alarmas.add(alarma);
 
     }
 
@@ -248,12 +267,10 @@ public class Resumen extends AppCompatActivity {
 
         }
         if (minutosrestar < 60) {
-            minutosrestar = (int) total;
+            minutosrestar = (int) resultado;
         }
         horadespertar=hora-horarestar;
         minutosdespertar=minuto-minutosdespertar;
-
-
 
     }
 

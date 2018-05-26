@@ -8,19 +8,23 @@ public class Alarma {
     private int id_alarma;
     private float lugarSalida;
     private float lugarLlegada;
-    private int horaSalida;
-    private int horaLlegada;
+    private String horaSalida;
+    private String horaLlegada;
     private ArrayList<Actividad> actividades;
 
-    public Alarma(){};
+    public Alarma(int id_alarma, String lugarSalida, String lugarLlegada, String horaSalida, String horaLlegada){};
 
-    public Alarma(int id_alarma,float lugarSalida, float lugarLlegada,int horaSalida ,int horaLlegada) {
+    public Alarma(int id_alarma,float lugarSalida, float lugarLlegada,String horaSalida ,String horaLlegada) {
         this.id_alarma=id_alarma;
         this.lugarSalida = lugarSalida;
         this.lugarLlegada = lugarLlegada;
-        this.lugarSalida = lugarSalida;
+        this.horaSalida = horaSalida;
         this.horaLlegada = horaLlegada;
         actividades = new ArrayList<Actividad>();
+    }
+
+    public int getId_alarma() {
+        return id_alarma;
     }
 
     public float getLugarSalida() {
@@ -31,11 +35,11 @@ public class Alarma {
         return lugarLlegada;
     }
 
-    public int getHoraSalida() {
+    public String getHoraSalida() {
         return horaSalida;
     }
 
-    public int getHoraLlegada() {
+    public String getHoraLlegada() {
         return horaLlegada;
     }
 
@@ -51,11 +55,11 @@ public class Alarma {
         this.lugarLlegada = lugarLlegada;
     }
 
-    public void setHoraSalida(int horaSalida) {
+    public void setHoraSalida(String horaSalida) {
         this.horaSalida = horaSalida;
     }
 
-    public void setHoraLlegada(int horaLlegada) {
+    public void setHoraLlegada(String horaLlegada) {
         this.horaLlegada = horaLlegada;
     }
 

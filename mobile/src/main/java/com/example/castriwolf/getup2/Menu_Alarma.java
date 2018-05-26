@@ -9,11 +9,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import java.util.ArrayList;
+
+import static com.example.castriwolf.getup2.Clases.Container.alarmas;
 
 public class Menu_Alarma extends AppCompatActivity {
 
-    private String[] opciones = {"Agenda", "En que gasto el tiempo","Preferencias", "Sobre nosotros"};
+    private String[] opciones = {"Agenda", "En que gasto el tiempo", "Preferencias", "Sobre nosotros"};
     private DrawerLayout drawerLayout;
     private ImageView anhadiralarma;
     private ImageView menupreferencias;
@@ -34,8 +37,7 @@ public class Menu_Alarma extends AppCompatActivity {
         drawerLayout.removeView(listViewDrawer);
         drawerLayout.addView(listViewDrawer);
 
-
-
+        rellenarArray();
         ArrayAdapter<String> adaptadorMenu;
         adaptadorMenu = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opciones);
         listViewDrawer.setAdapter(adaptadorMenu);
@@ -68,12 +70,12 @@ public class Menu_Alarma extends AppCompatActivity {
             }
         });
 
-        /*if(!alarmas.isEmpty()) {
+        if (!alarmas.isEmpty()) {
             rellenarArray();
             ArrayAdapter<String> arrayAdapter;
             arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, aux);
             listView.setAdapter(arrayAdapter);
-        }*/
+        }
 
         anhadiralarma.setOnClickListener(new View.OnClickListener() {
 
@@ -99,11 +101,11 @@ public class Menu_Alarma extends AppCompatActivity {
     private void rellenarArray() {
 
 
-        //aux.clear();
-        //for (int i = 0; i < alarmas.size(); i++) {
-        //  aux.add(String.valueOf(alarmas.get(i).getLugarSalida()));
+        aux.clear();
+        for (int i = 0; i < alarmas.size(); i++) {
+            aux.add(String.valueOf(alarmas.get(i).getLugarSalida()));
+
+        }
 
     }
-
-
 }
