@@ -47,22 +47,22 @@ public class Menu_Alarma extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
                 Intent i = null;
                 switch (position) {
-                  /*  case 0:
+                    case 0:
                        // i = new Intent(getApplicationContext(), AgendaActivity.class);
-                        break;*/
+                        break;
                     case 1:
-                        i = new Intent(getApplicationContext(), GastoTiempo.class);
+                        //i = new Intent(getApplicationContext(), HospitalesCercanos.class);
                         break;
                     case 2:
                         i = new Intent(getApplicationContext(), Preferencias_Alarma.class);
                         break;
-                 /*   case 3:
+                    case 3:
 
 
                         break;
                     case 4:
                        // i = new Intent(getApplicationContext(),GaleriaActivity.class);
-                        break;*/
+                        break;
                 }
 
                 startActivity(i);

@@ -1,5 +1,6 @@
 package com.example.castriwolf.getup2.Clases;
 
+import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -9,8 +10,14 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.app.NotificationManagerCompat;
+import android.widget.Toast;
 
+import com.example.castriwolf.getup2.Menu_Alarma;
 import com.example.castriwolf.getup2.PararAlarma;
+
+import java.util.Calendar;
 
 /**
  * Created by cristinavilas on 5/17/18.
@@ -21,8 +28,6 @@ public class MyNewIntentService extends IntentService {
     private Notification notificationCompat;
     private static NotificationManager managerCompat;
     private static Ringtone ringtone;
-
-
 
     public MyNewIntentService() {
         super("MyNewIntentService");
@@ -43,8 +48,8 @@ public class MyNewIntentService extends IntentService {
 
 
         Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("Alarma Sonando");
-        builder.setContentText("Te quedan "+String.valueOf(30-Container.pasos)+" para que la alarma se apague");
+        builder.setContentTitle("My Title");
+        builder.setContentText("This is the Body");
         builder.setSmallIcon(android.support.v4.R.drawable.notification_icon_background);
 
         Intent notifyIntent = new Intent(this, PararAlarma.class);

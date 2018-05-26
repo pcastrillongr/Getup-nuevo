@@ -24,9 +24,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/alarma_copy"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/alarma_copy"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -89,21 +89,14 @@
             android:name=".Preferencias_Alarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity
-            android:name=".GastoTiempo"
-            android:theme="@style/GetUp" />
-
-        <service
-            android:name=".Clases.MyNewIntentService"
-            android:exported="false" />
+        <activity android:name=".GastoTiempo" />
 
         <receiver
             android:name=".Clases.MyAlarmReceiver"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"></receiver>
 
-        <activity android:name=".Fragmentos.Alarma" />
-        <activity android:name=".PararAlarma"></activity>
+        <activity android:name=".Clases.Pantalla_Alarma"></activity>
     </application>
 
 </manifest>

@@ -41,7 +41,6 @@ public class Resumen extends AppCompatActivity {
     private Boolean bici;
     private Boolean andar;
     private Button crear;
-    private Button cancelar;
     private TextView txtHora;
     private ImageView imgLunes;
     private ImageView imgMartes;
@@ -73,7 +72,6 @@ public class Resumen extends AppCompatActivity {
         horarestar = 0;
         minutosrestar = 0;
         crear = findViewById(R.id.buttonCrear);
-        cancelar= findViewById(R.id.buttonCancelar);
         txtHora = findViewById(R.id.txtHora);
         txtSalida = findViewById(R.id.txtsalida);
         txtLlegada = findViewById(R.id.txtllegada);
@@ -113,16 +111,6 @@ public class Resumen extends AppCompatActivity {
         txtTotal.setText(total + " Minutos");
 
         crear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                establecerAlarma();
-            }
-
-
-        });
-
-        cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -229,11 +217,16 @@ public class Resumen extends AppCompatActivity {
         time.add(Calendar.SECOND, 10);
         alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
-                1000 * 60 * 10, pendingIntent);
+                1000 * 60 * 3, pendingIntent);
 
         Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
+<<<<<<< HEAD
         int id_alarma = 0;
 
+=======
+        Intent go=new Intent(this,Menu_Alarma.class);
+        startActivity(go);
+>>>>>>> ac72d9845cf062bd288ba9c2cda4b0eb78094a31
 
         if(Container.alarmas.isEmpty()){
             id_alarma=1;
@@ -261,8 +254,8 @@ public class Resumen extends AppCompatActivity {
         minutosTotales+=minuto;
         resultado=minutosTotales-total;
 
-        while (resultado >= 60) {
-            resultado -= 60;
+        while (total >= 60) {
+            total -= 60;
             horarestar += 1;
 
         }

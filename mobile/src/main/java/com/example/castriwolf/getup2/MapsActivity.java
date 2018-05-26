@@ -8,13 +8,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.icu.util.Calendar;
+import android.icu.util.GregorianCalendar;
+import android.icu.util.TimeZone;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.StrictMode;
 import android.provider.Settings;
@@ -56,13 +58,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -174,9 +172,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 //  Your code when user clicked on OK
                                 //  You can write the code  to save the selected item here
 
-                                for (int i = 0; 0 > seletedItems.size(); i++) {
+                                for(int i =0; 0>seletedItems.size(); i++ ){
 
-                                    if (seletedItems.get(i).equals(items)) {
+                                    if(seletedItems.get(i).equals(items)){
 
                                     }
                                 }
@@ -186,14 +184,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 //  Your code when user clicked on Cancel
-                                Eautopista = false;
-                                Epeaje = false;
+                                Eautopista=false;
+                                Epeaje=false;
                             }
                         }).create();
                 dialog.show();
 
-            }
-        });
+            }});
 
 
         /**
@@ -546,7 +543,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //origen
         String str_org = "";
         String mode = "";
-        String time = "";
+        String time="";
         if (place1 != null) {
             str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
         } else {
@@ -561,14 +558,35 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mode = "mode=driving";
         }
         if (irBus == true) {
-            mode = "mode=transit";
+           /* mode = "mode=transit";
             //Hora bus
+            Calendar calendarNow = null;
+            int monthDay=0;
+            int month=0;
+            int day=0;
+            int horaDia=0;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+               monthDay =calendarNow.get(Calendar.DAY_OF_MONTH);
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                 month = calendarNow.get(Calendar.MONTH);
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                day = calendarNow.get(Calendar.DAY_OF_MONTH);
+            }
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                horaDia = calendarNow.get(Calendar.HOUR_OF_DAY);
+            }
 
-            long segundos = calcularAutobus();
-            time = "arrival_time=" + String.valueOf(segundos);
-        } else {
-            //Trafico
-            time = "departure_time=now";
+            if(hora > horaDia){
+
+
+            }
+
+            time = "arrival_time=";*/
         }
         if (irBici == true) {
             mode = "mode=bicycling";
@@ -577,73 +595,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mode = "mode=walking";
         }
 
-
+        if (irBus == false) {
+            //Trafico
+            time = "departure_time=now";
+        }
         //Build the full param
         String param = str_org + "&" + str_dest + "&" + sensor + "&" + mode + "&" + time;
         //Output format
         String output = "json";
         //Create url to request
         String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + param;
-        //if (irBus == true) {
-        Log.d("tiempo bus", time);
-        Log.d("tiempo bus (url)", url);
-        // url = "https://maps.googleapis.com/maps/api/directions/json?origin=malaga&destination=&arrival_time="+time+"key=AIzaSyCaF2FhXkGojDicim6di7jS_CzAdGy6dVE";
-        //}
-
-
         return url;
-    }
-
-    private long calcularAutobus() {
-
-        Calendar calendarNow = null;
-        Calendar fechaInicio = null;
-        Calendar fechaFin = null;
-        long diasMilis = 0;
-        long segundos = 0;
-        Date date = new Date();
-
-        int year = 0;
-        int month = 0;
-        int day = 0;
-        int horaDia = 0;
-        int minutoDia = 0;
-
-        calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
-        day = calendarNow.get(Calendar.DAY_OF_MONTH);
-        horaDia = calendarNow.get(Calendar.HOUR_OF_DAY);
-        minutoDia = calendarNow.get(Calendar.MINUTE);
-        fechaInicio = new GregorianCalendar();
-        fechaInicio.set(1970, 01, 1);
-
-        if (hora < horaDia) {
-
-            if (minuto < minutoDia) {
-
-                calendarNow.add(Calendar.DAY_OF_MONTH, 1);
-                day = calendarNow.get(Calendar.DAY_OF_MONTH);
-                fechaFin = new GregorianCalendar();
-                fechaFin.set(calendarNow.get(Calendar.YEAR), calendarNow.get(Calendar.MONTH) + 1, day);
-
-            } else {
-
-                fechaFin = new GregorianCalendar();
-                fechaFin.set(calendarNow.get(Calendar.YEAR), calendarNow.get(Calendar.MONTH) + 1, day);
-
-            }
-        } else {
-
-            fechaFin = new GregorianCalendar();
-            fechaFin.set(calendarNow.get(Calendar.YEAR), calendarNow.get(Calendar.MONTH) + 1, day);
-
-        }
-
-        diasMilis = (fechaFin.getTimeInMillis() - fechaInicio.getTimeInMillis());
-        diasMilis = diasMilis / 1000;
-        segundos = ((hora * 60) + minuto) * 60;
-        segundos += diasMilis;
-
-        return segundos;
     }
 
     /**
@@ -652,6 +614,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * salida y llegada.
      */
     private void recorridoJson() {
+        String path = "";
         DirectionsParser directionsParser = new DirectionsParser();
         StringBuilder stringBuilder;
 
@@ -855,7 +818,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void dialog() {
+    public void dialog(){
+
 
 
     }
