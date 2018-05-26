@@ -6,15 +6,14 @@ import java.util.ArrayList;
 public class Alarma {
 
     private int id_alarma;
-    private float lugarSalida;
-    private float lugarLlegada;
+    private String lugarSalida;
+    private String lugarLlegada;
     private String horaSalida;
     private String horaLlegada;
     private ArrayList<Actividad> actividades;
 
-    public Alarma(int id_alarma, String lugarSalida, String lugarLlegada, String horaSalida, String horaLlegada){};
 
-    public Alarma(int id_alarma,float lugarSalida, float lugarLlegada,String horaSalida ,String horaLlegada) {
+    public Alarma(int id_alarma,String lugarSalida, String lugarLlegada,String horaSalida ,String horaLlegada) {
         this.id_alarma=id_alarma;
         this.lugarSalida = lugarSalida;
         this.lugarLlegada = lugarLlegada;
@@ -27,11 +26,11 @@ public class Alarma {
         return id_alarma;
     }
 
-    public float getLugarSalida() {
+    public String getLugarSalida() {
         return lugarSalida;
     }
 
-    public float getLugarLlegada() {
+    public String getLugarLlegada() {
         return lugarLlegada;
     }
 
@@ -47,11 +46,11 @@ public class Alarma {
         return actividades;
     }
 
-    public void setLugarSalida(float lugarSalida) {
+    public void setLugarSalida(String lugarSalida) {
         this.lugarSalida = lugarSalida;
     }
 
-    public void setLugarLlegada(float lugarLlegada) {
+    public void setLugarLlegada(String lugarLlegada) {
         this.lugarLlegada = lugarLlegada;
     }
 
@@ -69,8 +68,6 @@ public class Alarma {
 
     public void crearAlarma(int id_alarma,String lugarSalida, String lugarLlegada, LocalTime horaLlegada){
 
-
-        Alarma alarma = new Alarma();
 
     }
 }

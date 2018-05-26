@@ -37,7 +37,7 @@ public class Menu_Alarma extends AppCompatActivity {
         drawerLayout.removeView(listViewDrawer);
         drawerLayout.addView(listViewDrawer);
 
-        rellenarArray();
+
         ArrayAdapter<String> adaptadorMenu;
         adaptadorMenu = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opciones);
         listViewDrawer.setAdapter(adaptadorMenu);
@@ -103,7 +103,7 @@ public class Menu_Alarma extends AppCompatActivity {
 
         aux.clear();
         for (int i = 0; i < alarmas.size(); i++) {
-            aux.add(String.valueOf(alarmas.get(i).getLugarSalida()));
+            aux.add(String.valueOf(alarmas.get(i).getId_alarma()));
 
         }
 

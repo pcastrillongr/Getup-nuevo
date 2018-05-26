@@ -220,18 +220,12 @@ public class Resumen extends AppCompatActivity {
                 1000 * 60 * 3, pendingIntent);
 
         Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-        int id_alarma = 0;
-
-=======
-        Intent go=new Intent(this,Menu_Alarma.class);
-        startActivity(go);
->>>>>>> ac72d9845cf062bd288ba9c2cda4b0eb78094a31
+        int id_alarma;
 
         if(Container.alarmas.isEmpty()){
-            id_alarma=1;
+            id_alarma = 1;
         }else{
-           id_alarma= Container.alarmas.get(Container.alarmas.size()).getId_alarma()+1;
+           id_alarma = Container.alarmas.get(Container.alarmas.size()-1).getId_alarma()+1;
 
         }
 
@@ -244,6 +238,8 @@ public class Resumen extends AppCompatActivity {
         Alarma alarma = new Alarma (id_alarma,lugarSalida,lugarLlegada,horaSalida,horaLlegada);
         Container.alarmas.add(alarma);
 
+        Intent go=new Intent(this,Menu_Alarma.class);
+        startActivity(go);
     }
 
     private void formulaCalcularAlarma() {
