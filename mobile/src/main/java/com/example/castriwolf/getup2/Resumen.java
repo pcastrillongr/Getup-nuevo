@@ -2,8 +2,10 @@ package com.example.castriwolf.getup2;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
@@ -220,6 +223,11 @@ public class Resumen extends AppCompatActivity {
                 1000 * 60 * 3, pendingIntent);
 
         Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
+
+        Mihelper miHelper = new Mihelper(this,"miDB",1);
+        SQLiteDatabase db = miHelper.getWritableDatabase();
+
+
         int id_alarma;
 
         if(Container.alarmas.isEmpty()){
@@ -231,13 +239,26 @@ public class Resumen extends AppCompatActivity {
 
         String lugarSalida  = txtSalida.toString();
         String lugarLlegada = txtLlegada.toString();
-        String horaSalida   = null;
-        String horaLlegada  = hora+":"+minuto;
+        int horaSalida   = 0;
+        int minutoSalida = 0;
 
 
-        Alarma alarma = new Alarma (id_alarma,lugarSalida,lugarLlegada,horaSalida,horaLlegada);
+
+
+        ContentValues insertValues = new ContentValues();
+        insertValues.put("idAlarma", id_alarma);
+        insertValues.put("Lsalida", lugarSalida);
+        insertValues.put("Lllegada", lugarLlegada);
+        insertValues.put("Hsalida", horaSalida);
+        insertValues.put("Msalida", minutoSalida);
+        insertValues.put("Hllegada", hora);
+        insertValues.put("Mllegada", minuto);
+        db.insert("Alarma", null, insertValues);
+
+        Alarma alarma = new Alarma (id_alarma,lugarSalida,lugarLlegada,horaSalida,minutoSalida,hora,minuto);
         Container.alarmas.add(alarma);
 
+        db.close();
         Intent go=new Intent(this,Menu_Alarma.class);
         startActivity(go);
     }

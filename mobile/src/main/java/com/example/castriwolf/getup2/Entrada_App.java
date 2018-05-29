@@ -1,5 +1,6 @@
 package com.example.castriwolf.getup2;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
+import com.example.castriwolf.getup2.Base_Datos.UsoBD;
 
 public class Entrada_App extends AppCompatActivity {
 
@@ -16,13 +18,13 @@ public class Entrada_App extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrada__app);
-        Mihelper miHelper = new Mihelper(this,"miDB",1);
-        SQLiteDatabase db = miHelper.getWritableDatabase();
+        UsoBD.iniciarDb(this);
         imageView = findViewById(R.id.imageViewInicio);
         countTimer();
 
 
     }
+
 
     private void menuInicio() {
 

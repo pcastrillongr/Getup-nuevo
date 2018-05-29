@@ -1,6 +1,8 @@
 package com.example.castriwolf.getup2;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.example.castriwolf.getup2.Base_Datos.Mihelper;
+import com.example.castriwolf.getup2.Clases.Alarma;
+import com.example.castriwolf.getup2.Clases.Container;
 
 import java.util.ArrayList;
 
@@ -48,7 +54,7 @@ public class Menu_Alarma extends AppCompatActivity {
                 Intent i = null;
                 switch (position) {
                     case 0:
-                       // i = new Intent(getApplicationContext(), AgendaActivity.class);
+                        // i = new Intent(getApplicationContext(), AgendaActivity.class);
                         break;
                     case 1:
                         //i = new Intent(getApplicationContext(), HospitalesCercanos.class);
@@ -61,7 +67,7 @@ public class Menu_Alarma extends AppCompatActivity {
 
                         break;
                     case 4:
-                       // i = new Intent(getApplicationContext(),GaleriaActivity.class);
+                        // i = new Intent(getApplicationContext(),GaleriaActivity.class);
                         break;
                 }
 
@@ -71,10 +77,14 @@ public class Menu_Alarma extends AppCompatActivity {
         });
 
         if (!alarmas.isEmpty()) {
+            comprobarAlarmas();
             rellenarArray();
             ArrayAdapter<String> arrayAdapter;
             arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, aux);
             listView.setAdapter(arrayAdapter);
+        }else{
+           comprobarAlarmas();
+
         }
 
         anhadiralarma.setOnClickListener(new View.OnClickListener() {
@@ -99,13 +109,42 @@ public class Menu_Alarma extends AppCompatActivity {
     }
 
     private void rellenarArray() {
-
-
         aux.clear();
+
         for (int i = 0; i < alarmas.size(); i++) {
             aux.add(String.valueOf(alarmas.get(i).getId_alarma()));
+        }
+
+    }
+
+    private void comprobarAlarmas() {
+
+        Mihelper mihelper = new Mihelper(getApplicationContext(), "miBd", 1);
+        SQLiteDatabase db = mihelper.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM Alarma", null);
+
+
+//Nos aseguramos de que existe al menos un registro
+        try {
+            if (c.moveToFirst()) {
+                //Recorremos el cursor hasta que no haya más registros
+                do {
+                    int id_alarma = c.getInt(0);
+                    String Lsalida = c.getString(1);
+                    String Lllegada = c.getString(2);
+                    int hSalida = c.getInt(3);
+                    int mSalida = c.getInt(4);
+                    int hLlegada = c.getInt(5);
+                    int mLlegada = c.getInt(6);
+                    Alarma alarma = new Alarma (id_alarma,Lsalida,Lllegada,hSalida,mSalida,hLlegada,mLlegada);
+                    Container.alarmas.add(alarma);
+                } while (c.moveToNext());
+
+            }
+        } catch (Exception ex) {
 
         }
 
+        db.close();
     }
 }

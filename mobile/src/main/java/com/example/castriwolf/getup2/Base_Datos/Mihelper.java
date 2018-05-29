@@ -24,16 +24,7 @@ public class Mihelper extends SQLiteOpenHelper {
                 "foreign key(idAl)references Alarma(idAlarma));" +
                 "");
 
-        db.execSQL("Create table Alarma(idAlarma Integer primary key," +
-                "Lsalida String," +
-                "Lllegada String," +
-                "Hsalida Integer," +
-                "Msalida Integer," +
-                "Hllegada Integer," +
-                "Mllegada Integer," +
-                "id_act Integer," +
-                "foreign key (id_act) references Actividad(idAct));" +
-                "");
+        db.execSQL("Create table Alarma(idAlarma Integer primary key,Lsalida String,Lllegada String,Hsalida Integer,Msalida Integer,Hllegada Integer,Mllegada Integer)");
     }
 
     @Override
