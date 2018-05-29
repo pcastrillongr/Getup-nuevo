@@ -82,8 +82,8 @@ public class Menu_Alarma extends AppCompatActivity {
             ArrayAdapter<String> arrayAdapter;
             arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, aux);
             listView.setAdapter(arrayAdapter);
-        }else{
-           comprobarAlarmas();
+        } else {
+            comprobarAlarmas();
 
         }
 
@@ -118,7 +118,7 @@ public class Menu_Alarma extends AppCompatActivity {
     }
 
     private void comprobarAlarmas() {
-
+/*
         Mihelper mihelper = new Mihelper(getApplicationContext(), "miBd", 1);
         SQLiteDatabase db = mihelper.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM Alarma", null);
@@ -146,5 +146,6 @@ public class Menu_Alarma extends AppCompatActivity {
         }
 
         db.close();
+    }*/
     }
 }

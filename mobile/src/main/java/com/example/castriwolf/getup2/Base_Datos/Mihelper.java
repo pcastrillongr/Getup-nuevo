@@ -1,13 +1,16 @@
 package com.example.castriwolf.getup2.Base_Datos;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class Mihelper extends SQLiteOpenHelper {
 
-    public Mihelper(Context context, String name, int version) {
-        super(context, name, null, version);
+    public static final String n_Database ="miDB";
+
+    public Mihelper(Context context) {
+        super(context, n_Database, null, 1);
     }
 
     @Override
@@ -24,11 +27,34 @@ public class Mihelper extends SQLiteOpenHelper {
                 "foreign key(idAl)references Alarma(idAlarma));" +
                 "");
 
-        db.execSQL("Create table Alarma(idAlarma Integer primary key,Lsalida String,Lllegada String,Hsalida Integer,Msalida Integer,Hllegada Integer,Mllegada Integer)");
+        db.execSQL("Create table Alarma(idAlarma Integer primary key autoincrement,Lsalida String,Lllegada String,Hsalida Integer,Msalida Integer,Hllegada Integer,Mllegada Integer)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+
+
+    public boolean insertarAlarma(String Lsalida, String Lllegada, int Hsalida, int Msalida, int Hllegad, int Mllegada){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("Lsalida",Lsalida);
+        contentValues.put("Lllegada",Lllegada);
+        contentValues.put("Hsalida",Hsalida);
+        contentValues.put("Msalida",Msalida);
+        contentValues.put("Hllegad",Hllegad);
+        contentValues.put("Mllegada",Mllegada);
+        long result = db.insert("Alarma",null,contentValues);
+        db.close();
+
+        if(result == -1){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+
+
 }

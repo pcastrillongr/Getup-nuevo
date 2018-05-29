@@ -222,20 +222,10 @@ public class Resumen extends AppCompatActivity {
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
                 1000 * 60 * 3, pendingIntent);
 
-        Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
 
-        Mihelper miHelper = new Mihelper(this,"miDB",1);
-        SQLiteDatabase db = miHelper.getWritableDatabase();
+        Mihelper db = new Mihelper(this);
 
-
-        int id_alarma;
-
-        if(Container.alarmas.isEmpty()){
-            id_alarma = 1;
-        }else{
-           id_alarma = Container.alarmas.get(Container.alarmas.size()-1).getId_alarma()+1;
-
-        }
 
         String lugarSalida  = txtSalida.toString();
         String lugarLlegada = txtLlegada.toString();
@@ -243,22 +233,14 @@ public class Resumen extends AppCompatActivity {
         int minutoSalida = 0;
 
 
+       boolean result= db.insertarAlarma(lugarSalida,lugarLlegada,horaSalida,minutoSalida,hora,minuto);
+       if (result == true) {
 
+           Toast.makeText(this,"Se ha introducido en la bd",Toast.LENGTH_SHORT);
+       }else{
+           Toast.makeText(this,"NO se ha introducido en la bd",Toast.LENGTH_SHORT);
 
-        ContentValues insertValues = new ContentValues();
-        insertValues.put("idAlarma", id_alarma);
-        insertValues.put("Lsalida", lugarSalida);
-        insertValues.put("Lllegada", lugarLlegada);
-        insertValues.put("Hsalida", horaSalida);
-        insertValues.put("Msalida", minutoSalida);
-        insertValues.put("Hllegada", hora);
-        insertValues.put("Mllegada", minuto);
-        db.insert("Alarma", null, insertValues);
-
-        Alarma alarma = new Alarma (id_alarma,lugarSalida,lugarLlegada,horaSalida,minutoSalida,hora,minuto);
-        Container.alarmas.add(alarma);
-
-        db.close();
+       }
         Intent go=new Intent(this,Menu_Alarma.class);
         startActivity(go);
     }
