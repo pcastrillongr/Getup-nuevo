@@ -20,6 +20,7 @@ import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Resumen extends AppCompatActivity {
@@ -66,6 +67,7 @@ public class Resumen extends AppCompatActivity {
     private int minutosrestar;
     private int horadespertar;
     private int minutosdespertar;
+    ArrayList<Integer>diasdelasemana;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,7 @@ public class Resumen extends AppCompatActivity {
         txtOtros = findViewById(R.id.txtOtros);
         txtTotal = findViewById(R.id.txtResultado);
         txtTrecorrido = findViewById(R.id.txtTrecorrido);
+        diasdelasemana=new ArrayList<>();
         recogerDatos();
 
         if (minuto < 10) {
@@ -205,6 +208,9 @@ public class Resumen extends AppCompatActivity {
         bus = parametros.getBoolean("Bus");
         bici = parametros.getBoolean("Bici");
         andar = parametros.getBoolean("Andar");
+
+
+
     }
 
     private void establecerAlarma() {
@@ -212,19 +218,57 @@ public class Resumen extends AppCompatActivity {
 
         formulaCalcularAlarma();
 
+
+
+
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, MyAlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
         Calendar time = Calendar.getInstance();
-        time.setTimeInMillis(System.currentTimeMillis());
-        time.add(Calendar.SECOND, 10);
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
-                1000 * 60 * 3, pendingIntent);
+
 
        // Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
 
         Mihelper db = new Mihelper(this);
+        if(lunes)
+        {
+            time.add(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+        }
+        if(martes)
+        {
+            time.add(Calendar.DAY_OF_WEEK,Calendar.TUESDAY);
+
+        }
+        if(miercoles)
+        {
+            time.add(Calendar.DAY_OF_WEEK,Calendar.WEDNESDAY);
+
+        }
+        if(jueves)
+        {
+            time.add(Calendar.DAY_OF_WEEK,Calendar.THURSDAY);
+
+        }
+        if(viernes)
+        {
+            time.add(Calendar.DAY_OF_WEEK,Calendar.FRIDAY);
+
+        }
+        if(sabado)
+        {
+            time.add(Calendar.DAY_OF_WEEK,Calendar.SATURDAY);
+
+        }
+        if(domingo)
+        {
+            time.add(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
+
+        }
+
+        time.add(Calendar.HOUR_OF_DAY,horadespertar);
+        time.add(Calendar.MINUTE,minutosdespertar);
+        time.setTimeInMillis(System.currentTimeMillis());
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
 
 
         String lugarSalida  = txtSalida.toString();
