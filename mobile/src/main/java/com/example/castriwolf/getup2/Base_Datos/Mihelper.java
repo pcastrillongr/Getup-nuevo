@@ -42,7 +42,7 @@ public class Mihelper extends SQLiteOpenHelper {
         contentValues.put("Lllegada",Lllegada);
         contentValues.put("Hsalida",Hsalida);
         contentValues.put("Msalida",Msalida);
-        contentValues.put("Hllegad",Hllegad);
+        contentValues.put("Hllegada",Hllegad);
         contentValues.put("Mllegada",Mllegada);
         long result = this.getWritableDatabase().insert("Alarma",null,contentValues);
 

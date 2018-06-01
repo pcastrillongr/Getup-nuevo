@@ -229,7 +229,7 @@ public class Resumen extends AppCompatActivity {
 
        // Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
 
-        Mihelper db = new Mihelper(this);
+
         if(lunes)
         {
             time.add(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
@@ -270,24 +270,23 @@ public class Resumen extends AppCompatActivity {
         time.setTimeInMillis(System.currentTimeMillis());
         alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
 
-
+        Mihelper db = new Mihelper(this);
         String lugarSalida  = txtSalida.toString();
         String lugarLlegada = txtLlegada.toString();
         int horaSalida   = 0;
         int minutoSalida = 0;
-
+        int id_alarma =10;
 
        boolean result= db.insertarAlarma(lugarSalida,lugarLlegada,horaSalida,minutoSalida,hora,minuto);
        if (result == true) {
 
-           Toast.makeText(this,"Se ha introducido en la bd",Toast.LENGTH_SHORT);
+           Toast.makeText(this,"Se ha introducido en la bd",Toast.LENGTH_SHORT).show();
        }else{
-           Toast.makeText(this,"NO se ha introducido en la bd",Toast.LENGTH_SHORT);
+           Toast.makeText(this,"NO se ha introducido en la bd",Toast.LENGTH_SHORT).show();
 
        }
 
        db.close();
-
         Intent go=new Intent(this,Menu_Alarma.class);
         startActivity(go);
     }

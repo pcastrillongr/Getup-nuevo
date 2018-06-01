@@ -29,6 +29,7 @@ public class Menu_Alarma extends AppCompatActivity {
     private ListView listViewDrawer;
     private ListView listView;
     private ArrayList<String> aux = new ArrayList<String>();
+    private boolean datos=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +76,9 @@ public class Menu_Alarma extends AppCompatActivity {
                 drawerLayout.closeDrawer(listViewDrawer);
             }
         });
+        comprobarAlarmas();
+        if (datos==true) {
 
-        if (!alarmas.isEmpty()) {
-            comprobarAlarmas();
             rellenarArray();
             ArrayAdapter<String> arrayAdapter;
             arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, aux);
@@ -118,8 +119,8 @@ public class Menu_Alarma extends AppCompatActivity {
     }
 
     private void comprobarAlarmas() {
-/*
-        Mihelper mihelper = new Mihelper(getApplicationContext(), "miBd", 1);
+
+        Mihelper mihelper = new Mihelper(getApplicationContext());
         SQLiteDatabase db = mihelper.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM Alarma", null);
 
@@ -138,6 +139,7 @@ public class Menu_Alarma extends AppCompatActivity {
                     int mLlegada = c.getInt(6);
                     Alarma alarma = new Alarma (id_alarma,Lsalida,Lllegada,hSalida,mSalida,hLlegada,mLlegada);
                     Container.alarmas.add(alarma);
+                    datos = true;
                 } while (c.moveToNext());
 
             }
@@ -146,6 +148,6 @@ public class Menu_Alarma extends AppCompatActivity {
         }
 
         db.close();
-    }*/
     }
+
 }
