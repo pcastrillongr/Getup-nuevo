@@ -29,7 +29,8 @@ public class Menu_Alarma extends AppCompatActivity {
     private ListView listViewDrawer;
     private ListView listView;
     private ArrayList<String> aux = new ArrayList<String>();
-    private boolean datos=false;
+    private boolean datos
+            =false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,7 +114,7 @@ public class Menu_Alarma extends AppCompatActivity {
         aux.clear();
 
         for (int i = 0; i < alarmas.size(); i++) {
-            aux.add(String.valueOf(alarmas.get(i).getId_alarma()));
+            aux.add(String.valueOf(alarmas.get(i).getHoraSalida()+":"+alarmas.get(i).getMinutoSalida()));
         }
 
     }
@@ -126,7 +127,9 @@ public class Menu_Alarma extends AppCompatActivity {
 
 
 //Nos aseguramos de que existe al menos un registro
+        Container.alarmas.clear();
         try {
+
             if (c.moveToFirst()) {
                 //Recorremos el cursor hasta que no haya más registros
                 do {

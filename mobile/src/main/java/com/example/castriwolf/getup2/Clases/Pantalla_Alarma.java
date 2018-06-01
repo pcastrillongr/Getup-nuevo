@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -31,14 +30,14 @@ public class Pantalla_Alarma extends AppCompatActivity {
         Ringtone ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
         ringtone.play();
 
-       NotificationManager mNotificationManager = (NotificationManager)
+        NotificationManager mNotificationManager = (NotificationManager)
                 getSystemService(getApplication().NOTIFICATION_SERVICE);
-        Intent go=new Intent(this,Menu_Alarma.class);
+        Intent go = new Intent(this, Menu_Alarma.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
                 go, PendingIntent.FLAG_ONE_SHOT);
 
         NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this,"")
+                new NotificationCompat.Builder(this, "")
                         .setSmallIcon(R.drawable.cancelar)
                         .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.alarma_copy))
                         .setContentTitle("Alarma")
@@ -49,7 +48,7 @@ public class Pantalla_Alarma extends AppCompatActivity {
                         .setPriority(Notification.PRIORITY_MAX);
 
         mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify((int)10, mBuilder.build());
+        mNotificationManager.notify((int) 10, mBuilder.build());
 
 
     }

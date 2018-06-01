@@ -7,15 +7,21 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Menu_Alarma;
 import com.example.castriwolf.getup2.PararAlarma;
+import com.example.castriwolf.getup2.R;
 
 import java.util.Calendar;
 
@@ -29,12 +35,14 @@ public class MyNewIntentService extends IntentService {
     private static NotificationManager managerCompat;
     private static Ringtone ringtone;
 
+
     public MyNewIntentService() {
         super("MyNewIntentService");
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
+
 
         boolean sonar = true;
         Uri alarmUri = RingtoneManager
@@ -46,26 +54,14 @@ public class MyNewIntentService extends IntentService {
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
         ringtone.play();
 
-
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("My Title");
-        builder.setContentText("This is the Body");
-        builder.setSmallIcon(android.support.v4.R.drawable.notification_icon_background);
-
-        Intent notifyIntent = new Intent(this, PararAlarma.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 2, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        //to be able to launch your activity from the notification
-        builder.setContentIntent(pendingIntent);
-        notificationCompat = builder.build();
-        managerCompat = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        //NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
-        managerCompat.notify(NOTIFICATION_ID, notificationCompat);
-
-
+        //Intent go = new Intent(this, PararAlarma.class);
+        //startActivity(go);
+        Intent go = new Intent(this, StepCounter.class);
+        startActivity(go);
     }
-
     public static void cancelar() {
         ringtone.stop();
+
 
     }
 

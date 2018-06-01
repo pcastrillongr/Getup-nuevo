@@ -222,62 +222,66 @@ public class Resumen extends AppCompatActivity {
 
 
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, MyAlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
         Calendar time = Calendar.getInstance();
 
 
-       // Toast.makeText(getApplicationContext(), "Alarma Creada", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Alarma Creada a la/s "+horadespertar+":"+minutosdespertar, Toast.LENGTH_SHORT).show();
 
 
-        if(lunes)
+       if(lunes)
         {
-            time.add(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
+            time.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
         }
         if(martes)
         {
-            time.add(Calendar.DAY_OF_WEEK,Calendar.TUESDAY);
+            time.set(Calendar.DAY_OF_WEEK,Calendar.TUESDAY);
 
         }
         if(miercoles)
         {
-            time.add(Calendar.DAY_OF_WEEK,Calendar.WEDNESDAY);
+            time.set(Calendar.DAY_OF_WEEK,Calendar.WEDNESDAY);
 
         }
         if(jueves)
         {
-            time.add(Calendar.DAY_OF_WEEK,Calendar.THURSDAY);
+            time.set(Calendar.DAY_OF_WEEK,Calendar.THURSDAY);
 
         }
         if(viernes)
         {
-            time.add(Calendar.DAY_OF_WEEK,Calendar.FRIDAY);
+            time.set(Calendar.DAY_OF_WEEK,Calendar.FRIDAY);
 
         }
         if(sabado)
         {
-            time.add(Calendar.DAY_OF_WEEK,Calendar.SATURDAY);
+            time.set(Calendar.DAY_OF_WEEK,Calendar.SATURDAY);
 
         }
         if(domingo)
         {
-            time.add(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
+            time.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
 
         }
 
-        time.add(Calendar.HOUR_OF_DAY,horadespertar);
-        time.add(Calendar.MINUTE,minutosdespertar);
-        time.setTimeInMillis(System.currentTimeMillis());
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+
+
+        time.set(Calendar.HOUR_OF_DAY,horadespertar);
+        time.set(Calendar.MINUTE,minutosdespertar);
+        time.set(Calendar.SECOND,0);
+        time.set(Calendar.MILLISECOND, 0);
+        //time.setTimeInMillis(System.currentTimeMillis());
+        //alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
+                1000 * 60 * 20, pendingIntent);
 
         Mihelper db = new Mihelper(this);
         String lugarSalida  = txtSalida.toString();
         String lugarLlegada = txtLlegada.toString();
-        int horaSalida   = 0;
-        int minutoSalida = 0;
-        int id_alarma =10;
 
-       boolean result= db.insertarAlarma(lugarSalida,lugarLlegada,horaSalida,minutoSalida,hora,minuto);
+
+       boolean result= db.insertarAlarma(lugarSalida,lugarLlegada,horadespertar,minutosdespertar,hora,minuto);
        if (result == true) {
 
            Toast.makeText(this,"Se ha introducido en la bd",Toast.LENGTH_SHORT).show();
