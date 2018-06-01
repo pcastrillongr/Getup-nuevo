@@ -53,13 +53,7 @@ public class Preferencias_Alarma extends AppCompatActivity {
                         }
                         editor.commit();
                     }
-
-
                 });
-
-
-
-
 
 
                 //alert dialog que nos preguntara si deseamos salir de la alarma

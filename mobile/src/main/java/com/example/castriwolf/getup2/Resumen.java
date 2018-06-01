@@ -299,16 +299,14 @@ public class Resumen extends AppCompatActivity {
         minutosTotales+=minuto;
         resultado=minutosTotales-total;
 
-        while (total >= 60) {
-            total -= 60;
-            horarestar += 1;
+        while (resultado >= 60) {
+            resultado -= 60;
+            horadespertar += 1;
 
         }
         if (minutosrestar < 60) {
-            minutosrestar = (int) resultado;
+            minutosdespertar = (int) resultado;
         }
-        horadespertar=hora-horarestar;
-        minutosdespertar=minuto-minutosdespertar;
 
     }
 
