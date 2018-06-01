@@ -37,7 +37,6 @@ public class Mihelper extends SQLiteOpenHelper {
 
 
     public boolean insertarAlarma(String Lsalida, String Lllegada, int Hsalida, int Msalida, int Hllegad, int Mllegada){
-        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("Lsalida",Lsalida);
         contentValues.put("Lllegada",Lllegada);
@@ -45,8 +44,7 @@ public class Mihelper extends SQLiteOpenHelper {
         contentValues.put("Msalida",Msalida);
         contentValues.put("Hllegad",Hllegad);
         contentValues.put("Mllegada",Mllegada);
-        long result = db.insert("Alarma",null,contentValues);
-        db.close();
+        long result = this.getWritableDatabase().insert("Alarma",null,contentValues);
 
         if(result == -1){
             return false;

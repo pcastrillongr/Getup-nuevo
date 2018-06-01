@@ -241,6 +241,9 @@ public class Resumen extends AppCompatActivity {
            Toast.makeText(this,"NO se ha introducido en la bd",Toast.LENGTH_SHORT);
 
        }
+
+       db.close();
+
         Intent go=new Intent(this,Menu_Alarma.class);
         startActivity(go);
     }
