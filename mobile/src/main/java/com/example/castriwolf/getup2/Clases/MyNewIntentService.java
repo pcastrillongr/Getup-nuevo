@@ -8,6 +8,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.media.session.MediaSession;
@@ -33,8 +34,8 @@ public class MyNewIntentService extends IntentService {
     private static final int NOTIFICATION_ID = 3;
     private Notification notificationCompat;
     private static NotificationManager managerCompat;
-    public static Ringtone ringtone;
     static boolean sonar = true;
+    static MediaPlayer player;
 
 
     public MyNewIntentService() {
@@ -52,26 +53,28 @@ public class MyNewIntentService extends IntentService {
             alarmUri = RingtoneManager
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
-        ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
+         player = MediaPlayer.create(this, alarmUri);
+        player.setLooping(true);
+        player.start();
 
-        ringtone.play();
 
         //Intent go = new Intent(this, PararAlarma.class);
         //startActivity(go);
-        //Intent go = new Intent(getApplicationContext(), StepCounter.class);
-        //go.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //startActivity(go);
+        Intent go = new Intent(getApplicationContext(), StepCounter.class);
+        go.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(go);
+
 
 
     }
 
     public static void cancelar() {
-        ringtone.stop();
+        player.stop();
 
     }
 
     public static void posponer() {
-        ringtone.stop();
+        player.stop();
 
 
     }

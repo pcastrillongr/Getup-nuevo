@@ -69,12 +69,12 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
             Intent intent = new Intent(getApplicationContext(), Menu_Alarma.class);
             startActivity(intent);
 
-        }else{
+        }else {
 
-            event.values[0]=pasos;
-            pasos+=1;
-            tPasos.setText(String.valueOf(event.values[0]));
-        }tPasos.setText(String.valueOf(event.values[0]));
+            event.values[0] = pasos;
+            pasos += 1;
+            tPasos.setText("Te quedan " + String.valueOf(30 - (int)event.values[0]) + " pasos para que la alarma se pare!");
+        }
 
     }
 
