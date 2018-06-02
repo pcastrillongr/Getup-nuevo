@@ -34,7 +34,7 @@ public class MyNewIntentService extends IntentService {
     private Notification notificationCompat;
     private static NotificationManager managerCompat;
     public static Ringtone ringtone;
-    static boolean sonar=true;
+    static boolean sonar = true;
 
 
     public MyNewIntentService() {
@@ -54,22 +54,23 @@ public class MyNewIntentService extends IntentService {
         }
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
 
-            ringtone.play();
+        ringtone.play();
 
-            //Intent go = new Intent(this, PararAlarma.class);
-            //startActivity(go);
-            Intent go = new Intent(this, StepCounter.class);
-            startActivity(go);
-
+        //Intent go = new Intent(this, PararAlarma.class);
+        //startActivity(go);
+        //Intent go = new Intent(getApplicationContext(), StepCounter.class);
+        //go.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //startActivity(go);
 
 
     }
+
     public static void cancelar() {
         ringtone.stop();
 
     }
 
-    public static void posponer(){
+    public static void posponer() {
         ringtone.stop();
 
 

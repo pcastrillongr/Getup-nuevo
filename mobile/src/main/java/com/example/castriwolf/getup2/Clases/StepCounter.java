@@ -1,14 +1,11 @@
 package com.example.castriwolf.getup2.Clases;
 
-import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -62,13 +59,11 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
     protected void onStop(){
         super.onStop();
 
-
-
     }
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        if(andando && pasos>=30){
+        if(pasos>=30){
             MyNewIntentService.cancelar();
             event.values[0]=0;
             Intent intent = new Intent(getApplicationContext(), Menu_Alarma.class);

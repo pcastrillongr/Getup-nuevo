@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
@@ -29,8 +28,7 @@ public class Menu_Alarma extends AppCompatActivity {
     private ListView listViewDrawer;
     private ListView listView;
     private ArrayList<String> aux = new ArrayList<String>();
-    private boolean datos
-            =false;
+    private boolean datos=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +112,13 @@ public class Menu_Alarma extends AppCompatActivity {
         aux.clear();
 
         for (int i = 0; i < alarmas.size(); i++) {
-            aux.add(String.valueOf(alarmas.get(i).getHoraSalida()+":"+alarmas.get(i).getMinutoSalida()));
+            if (alarmas.get(i).getMinutoSalida() < 10) {
+                String minuto= String.valueOf(alarmas.get(i).getMinutoSalida());
+                aux.add(String.valueOf(alarmas.get(i).getHoraSalida()+":"+minuto));
+            }else{
+                aux.add(String.valueOf(alarmas.get(i).getHoraSalida()+":"+alarmas.get(i).getMinutoSalida()));
+            }
+
         }
 
     }
@@ -153,4 +157,9 @@ public class Menu_Alarma extends AppCompatActivity {
         db.close();
     }
 
+    @Override
+    public void onBackPressed()
+    { super.onBackPressed();
+      finish();
+    }
 }

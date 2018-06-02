@@ -2,13 +2,10 @@ package com.example.castriwolf.getup2;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,8 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
-import com.example.castriwolf.getup2.Clases.Alarma;
-import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
 
 import java.util.ArrayList;
@@ -67,7 +62,7 @@ public class Resumen extends AppCompatActivity {
     private int minutosrestar;
     private int horadespertar;
     private int minutosdespertar;
-    ArrayList<Integer>diasdelasemana;
+    ArrayList<Integer> diasdelasemana;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +89,7 @@ public class Resumen extends AppCompatActivity {
         txtOtros = findViewById(R.id.txtOtros);
         txtTotal = findViewById(R.id.txtResultado);
         txtTrecorrido = findViewById(R.id.txtTrecorrido);
-        diasdelasemana=new ArrayList<>();
+        diasdelasemana = new ArrayList<>();
         recogerDatos();
 
         if (minuto < 10) {
@@ -210,7 +205,6 @@ public class Resumen extends AppCompatActivity {
         andar = parametros.getBoolean("Andar");
 
 
-
     }
 
     private void establecerAlarma() {
@@ -218,90 +212,22 @@ public class Resumen extends AppCompatActivity {
 
         formulaCalcularAlarma();
 
+        alarmanager();
 
+        insertarAlarma();
 
-
-        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
-        Calendar time = Calendar.getInstance();
-
-
-        Toast.makeText(getApplicationContext(), "Alarma Creada a la/s "+horadespertar+":"+minutosdespertar, Toast.LENGTH_SHORT).show();
-
-
-       if(lunes)
-        {
-            time.set(Calendar.DAY_OF_WEEK,Calendar.MONDAY);
-        }
-        if(martes)
-        {
-            time.set(Calendar.DAY_OF_WEEK,Calendar.TUESDAY);
-
-        }
-        if(miercoles)
-        {
-            time.set(Calendar.DAY_OF_WEEK,Calendar.WEDNESDAY);
-
-        }
-        if(jueves)
-        {
-            time.set(Calendar.DAY_OF_WEEK,Calendar.THURSDAY);
-
-        }
-        if(viernes)
-        {
-            time.set(Calendar.DAY_OF_WEEK,Calendar.FRIDAY);
-
-        }
-        if(sabado)
-        {
-            time.set(Calendar.DAY_OF_WEEK,Calendar.SATURDAY);
-
-        }
-        if(domingo)
-        {
-            time.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
-
-        }
-
-
-
-        time.set(Calendar.HOUR_OF_DAY,horadespertar);
-        time.set(Calendar.MINUTE,minutosdespertar);
-        time.set(Calendar.SECOND,0);
-        time.set(Calendar.MILLISECOND, 0);
-        //time.setTimeInMillis(System.currentTimeMillis());
-        //alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
-                1000 * 60 * 20, pendingIntent);
-
-        Mihelper db = new Mihelper(this);
-        String lugarSalida  = txtSalida.toString();
-        String lugarLlegada = txtLlegada.toString();
-
-
-       boolean result= db.insertarAlarma(lugarSalida,lugarLlegada,horadespertar,minutosdespertar,hora,minuto);
-       if (result == true) {
-
-           Toast.makeText(this,"Se ha introducido en la bd",Toast.LENGTH_SHORT).show();
-       }else{
-           Toast.makeText(this,"NO se ha introducido en la bd",Toast.LENGTH_SHORT).show();
-
-       }
-
-       db.close();
-        Intent go=new Intent(this,Menu_Alarma.class);
+        Intent go = new Intent(this, Menu_Alarma.class);
         startActivity(go);
     }
+
 
     private void formulaCalcularAlarma() {
         int minutosTotales;
         double resultado;
 
-        minutosTotales=hora*60;
-        minutosTotales+=minuto;
-        resultado=minutosTotales-total;
+        minutosTotales = hora * 60;
+        minutosTotales += minuto;
+        resultado = minutosTotales - total;
 
         while (resultado >= 60) {
             resultado -= 60;
@@ -314,4 +240,74 @@ public class Resumen extends AppCompatActivity {
 
     }
 
-}
+    private void alarmanager() {
+
+        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+        Calendar time = Calendar.getInstance();
+
+
+        Toast.makeText(getApplicationContext(), "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
+
+        if (lunes) {
+            time.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        }
+        if (martes) {
+            time.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+
+        }
+        if (miercoles) {
+            time.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+
+        }
+        if (jueves) {
+            time.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+
+        }
+        if (viernes) {
+            time.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+
+        }
+        if (sabado) {
+            time.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+
+        }
+        if (domingo) {
+            time.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+
+        }
+
+
+        time.set(Calendar.HOUR_OF_DAY, horadespertar);
+        time.set(Calendar.MINUTE, minutosdespertar);
+        time.set(Calendar.SECOND, 0);
+        time.set(Calendar.MILLISECOND, 0);
+        //time.setTimeInMillis(System.currentTimeMillis());
+        //alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
+                1000 * 60 * 20, pendingIntent);
+
+
+
+    }
+
+
+    private void insertarAlarma() {
+
+        Mihelper db = new Mihelper(this);
+        String lugarSalida = txtSalida.toString();
+        String lugarLlegada = txtLlegada.toString();
+
+
+        boolean result = db.insertarAlarma(lugarSalida, lugarLlegada, horadespertar, minutosdespertar, hora, minuto);
+        if (result == true) {
+
+            Toast.makeText(this, "Se ha introducido en la bd", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "NO se ha introducido en la bd", Toast.LENGTH_SHORT).show();
+
+        }
+
+        db.close();
+}}
