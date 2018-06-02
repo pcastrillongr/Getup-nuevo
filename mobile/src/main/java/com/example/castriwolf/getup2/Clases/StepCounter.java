@@ -33,6 +33,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         tPasos = findViewById(R.id.pasitos);
         pasos=0;
          tPasos.setText(String.valueOf(pasos));
+
     }
 
     @Override
@@ -62,21 +63,24 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         super.onStop();
 
 
+
     }
     @Override
     public void onSensorChanged(SensorEvent event) {
 
         if(andando && pasos>=30){
             MyNewIntentService.cancelar();
-            pasos=0;
             event.values[0]=0;
             Intent intent = new Intent(getApplicationContext(), Menu_Alarma.class);
             startActivity(intent);
 
         }else{
-            pasos=(int)event.values[0];
-            tPasos.setText(String.valueOf(pasos));
-        }tPasos.setText(String.valueOf(pasos));
+
+            event.values[0]=pasos;
+            pasos+=1;
+            tPasos.setText(String.valueOf(event.values[0]));
+        }tPasos.setText(String.valueOf(event.values[0]));
+
     }
 
     @Override

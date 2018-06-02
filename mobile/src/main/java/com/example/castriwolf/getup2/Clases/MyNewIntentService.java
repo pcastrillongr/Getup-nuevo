@@ -33,7 +33,8 @@ public class MyNewIntentService extends IntentService {
     private static final int NOTIFICATION_ID = 3;
     private Notification notificationCompat;
     private static NotificationManager managerCompat;
-    private static Ringtone ringtone;
+    public static Ringtone ringtone;
+    static boolean sonar=true;
 
 
     public MyNewIntentService() {
@@ -52,21 +53,25 @@ public class MyNewIntentService extends IntentService {
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), alarmUri);
-        ringtone.play();
 
-        //Intent go = new Intent(this, PararAlarma.class);
-        //startActivity(go);
-        Intent go = new Intent(this, StepCounter.class);
-        startActivity(go);
+            ringtone.play();
+
+            //Intent go = new Intent(this, PararAlarma.class);
+            //startActivity(go);
+            Intent go = new Intent(this, StepCounter.class);
+            startActivity(go);
+
+
+
     }
     public static void cancelar() {
         ringtone.stop();
-
 
     }
 
     public static void posponer(){
         ringtone.stop();
+
 
     }
 }
