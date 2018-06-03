@@ -36,7 +36,6 @@ public class Mihelper extends SQLiteOpenHelper {
                 "Hllegada Integer," +
                 "Mllegada Integer," +
                 "lunes Integer," +
-                "lunes Integer," +
                 "martes Integer," +
                 "miercoles Integer," +
                 "jueves Integer," +
