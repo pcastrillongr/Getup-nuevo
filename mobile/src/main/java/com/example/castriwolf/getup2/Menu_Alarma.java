@@ -14,8 +14,12 @@ import android.widget.ListView;
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
+import com.example.castriwolf.getup2.Clases.ListViewInflater;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.example.castriwolf.getup2.Clases.Container.alarmas;
 
@@ -27,7 +31,7 @@ public class Menu_Alarma extends AppCompatActivity {
     private ImageView menupreferencias;
     private ListView listViewDrawer;
     private ListView listView;
-    private ArrayList<String> aux = new ArrayList<String>();
+   // private ArrayList<String> aux = new ArrayList<String>();
     private boolean datos=false;
 
     @Override
@@ -78,13 +82,10 @@ public class Menu_Alarma extends AppCompatActivity {
         comprobarAlarmas();
         if (datos==true) {
 
-            rellenarArray();
-            ArrayAdapter<String> arrayAdapter;
-            arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, aux);
-            listView.setAdapter(arrayAdapter);
+            listView.setAdapter(new ListViewInflater(this, alarmas));
+
         } else {
             comprobarAlarmas();
-
         }
 
         anhadiralarma.setOnClickListener(new View.OnClickListener() {
@@ -108,20 +109,20 @@ public class Menu_Alarma extends AppCompatActivity {
 
     }
 
-    private void rellenarArray() {
+  /*  private void rellenarArray() {
         aux.clear();
 
         for (int i = 0; i < alarmas.size(); i++) {
             if (alarmas.get(i).getMinutoSalida() < 10) {
-                String minuto= String.valueOf(alarmas.get(i).getMinutoSalida());
+                String minuto="0"+String.valueOf(alarmas.get(i).getMinutoSalida());
                 aux.add(String.valueOf(alarmas.get(i).getHoraSalida()+":"+minuto));
             }else{
                 aux.add(String.valueOf(alarmas.get(i).getHoraSalida()+":"+alarmas.get(i).getMinutoSalida()));
             }
 
-        }
+        }*/
 
-    }
+  //  }
 
     private void comprobarAlarmas() {
 
@@ -156,6 +157,7 @@ public class Menu_Alarma extends AppCompatActivity {
 
         db.close();
     }
+
 
     @Override
     public void onBackPressed()
