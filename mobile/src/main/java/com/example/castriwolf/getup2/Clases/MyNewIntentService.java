@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.Ringtone;
@@ -14,6 +15,8 @@ import android.media.RingtoneManager;
 import android.media.session.MediaSession;
 import android.net.Uri;
 import android.os.Build;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.media.session.MediaSessionCompat;
@@ -36,6 +39,9 @@ public class MyNewIntentService extends IntentService {
     private static NotificationManager managerCompat;
     static boolean sonar = true;
     static MediaPlayer player;
+    Vibrator vibrator;
+    SharedPreferences pref;
+    boolean vibrar;
 
 
     public MyNewIntentService() {
@@ -45,6 +51,8 @@ public class MyNewIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
+         pref= getSharedPreferences("Mispreferencias", MODE_PRIVATE);
+         vibrar=pref.getBoolean("vibracion",false);
 
         boolean sonar = true;
         Uri alarmUri = RingtoneManager
@@ -53,9 +61,19 @@ public class MyNewIntentService extends IntentService {
             alarmUri = RingtoneManager
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
+         vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
          player = MediaPlayer.create(this, alarmUri);
         player.setLooping(true);
         player.start();
+
+
+        if(vibrar)
+        {
+            while(player.isPlaying()) {
+                vibrator.vibrate(300);        }
+        }
+
+
 
 
         //Intent go = new Intent(this, PararAlarma.class);

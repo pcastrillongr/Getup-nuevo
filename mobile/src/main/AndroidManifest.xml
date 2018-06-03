@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.example.cristinavilas.getup.permission.MAPS_RECEIVE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -90,28 +90,35 @@
             android:name=".Preferencias_Alarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
+
         <service
             android:name=".Clases.MyNewIntentService"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
+
         <activity
             android:name=".Clases.StepCounter"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".GastoTiempo" />
+        <activity android:name=".GastoTiempo"
+            android:screenOrientation="portrait"
+            />
 
         <receiver
             android:name=".Clases.MyAlarmReceiver"
             android:enabled="true"
-            android:exported="false"></receiver>
+            android:exported="false" />
 
-        <activity android:name=".PararAlarma"
+        <activity
+            android:name=".PararAlarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-
-
-
-        <activity android:name=".Clases.Pantalla_Alarma"></activity>
+        <activity android:name=".Clases.Pantalla_Alarma"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".Quienes_Somos"
+            android:screenOrientation="portrait"
+            ></activity>
     </application>
 
 </manifest>
