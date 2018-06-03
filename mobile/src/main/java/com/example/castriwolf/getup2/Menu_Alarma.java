@@ -64,10 +64,10 @@ public class Menu_Alarma extends AppCompatActivity {
                         break;
                     case 3:
 
+                        i = new Intent(getApplicationContext(),Quienes_Somos.class);
 
                         break;
                     case 4:
-                        // i = new Intent(getApplicationContext(),GaleriaActivity.class);
                         break;
                 }
 

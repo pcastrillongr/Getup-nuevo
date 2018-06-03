@@ -65,7 +65,7 @@ public class MyNewIntentService extends IntentService {
          player = MediaPlayer.create(this, alarmUri);
         player.setLooping(true);
         player.start();
-        
+
 
         if(vibrar)
         {
