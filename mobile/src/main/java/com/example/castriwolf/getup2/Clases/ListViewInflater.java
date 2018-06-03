@@ -54,8 +54,12 @@ public class ListViewInflater extends BaseAdapter {
         }
         Alarma alarma = listAlarmas.get(position);
 
+        if(alarma.getMinutoSalida()<10){
+            viewHolder.textViewDescription.setText(String.valueOf(+alarma.getHoraSalida() +":0"+ alarma.getMinutoSalida()));
+        }else{
+            viewHolder.textViewDescription.setText(String.valueOf(+alarma.getHoraSalida() +":"+ alarma.getMinutoSalida()));
+        }
 
-        viewHolder.textViewDescription.setText(String.valueOf(alarma.getHoraLlegada() +" "+ alarma.getMinutoLlegada()));
        // viewHolder.imageViewProfilePic.setImageDrawable(getImageDrawable(person.getImageName()));
 
         return convertView;
