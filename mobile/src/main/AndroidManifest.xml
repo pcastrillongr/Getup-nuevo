@@ -115,9 +115,11 @@
             android:theme="@style/GetUp" />
         <activity android:name=".Clases.Pantalla_Alarma"
             android:screenOrientation="portrait"
+            android:theme="@style/GetUp"
             />
         <activity android:name=".Quienes_Somos"
             android:screenOrientation="portrait"
+            android:theme="@style/GetUp"
             ></activity>
     </application>
 

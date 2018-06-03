@@ -14,7 +14,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="GetUp" parent="AppTheme.NoActionBar" >
+    <style name="GetUp" parent="Theme.AppCompat.NoActionBar" >
         <item name="colorPrimary">@color/ColorPrincipalGetup</item>
         <item name="colorPrimaryDark">@color/ColorBarraStatusAzul</item>
         <item name="colorAccent">@color/colorAccent</item>
