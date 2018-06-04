@@ -66,8 +66,11 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         if(pasos>=30){
             MyNewIntentService.cancelar();
             event.values[0]=0;
+            pasos=0;
             Intent intent = new Intent(getApplicationContext(), Menu_Alarma.class);
             startActivity(intent);
+
+
 
         }else {
 
