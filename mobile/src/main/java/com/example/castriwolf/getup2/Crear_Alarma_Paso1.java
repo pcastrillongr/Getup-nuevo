@@ -1,7 +1,6 @@
 package com.example.castriwolf.getup2;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
