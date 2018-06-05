@@ -76,6 +76,13 @@ public class Mihelper extends SQLiteOpenHelper {
         db.execSQL("delete from Alarma where Hsalida="+String.valueOf(hora)+" and Msalida="+ String.valueOf(minutos));
 
     }
+    public void eliminarTodaslasAlarmas()
+    {
+
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.execSQL("delete from Alarma");
+
+    }
 
 
 

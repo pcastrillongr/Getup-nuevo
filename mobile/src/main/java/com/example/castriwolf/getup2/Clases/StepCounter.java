@@ -68,7 +68,12 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
             MyNewIntentService.cancelar();
             event.values[0]=0;
             pasos=0;
-           finish();
+
+            finish();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
 
 
 

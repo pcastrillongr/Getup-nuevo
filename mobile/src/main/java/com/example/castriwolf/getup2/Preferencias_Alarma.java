@@ -10,8 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import com.example.castriwolf.getup2.Base_Datos.Mihelper;
+import com.example.castriwolf.getup2.Clases.ListViewInflater;
 
 public class Preferencias_Alarma extends AppCompatActivity {
 
@@ -22,6 +26,7 @@ public class Preferencias_Alarma extends AppCompatActivity {
     SharedPreferences.Editor editor;
     boolean vib;
     static int contador=0;
+    Mihelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +34,7 @@ public class Preferencias_Alarma extends AppCompatActivity {
         setContentView(R.layout.activity_preferencias__alarma);
 
                 setContentView(R.layout.activity_preferencias__alarma);
-
+                db=new Mihelper(getApplicationContext());
                 pref=getSharedPreferences("Mispreferencias", Context.MODE_PRIVATE);
                 editor=pref.edit();
                 saliralarma=(Button)findViewById(R.id.salir);
@@ -69,17 +74,17 @@ public class Preferencias_Alarma extends AppCompatActivity {
                             builder = new AlertDialog.Builder(Preferencias_Alarma.this);
                         }
                         builder.setView(R.layout.custom_layout);
-                        builder.setTitle("Salir del GetUp!");
-                        builder.setMessage("Estas seguro que deseas salir de GetUp!?");
+                        builder.setTitle("Borrar Alarmas!");
+                        builder.setMessage("Estás seguro que deseas borrar todas las alarmas?");
                         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
+                                db.eliminarTodaslasAlarmas();
+                                ListViewInflater.listAlarmas.clear();
+                                Menu_Alarma.listView.invalidateViews();
+                                Toast.makeText(getApplicationContext(),"Alarmas borradas",Toast.LENGTH_SHORT).show();
 
-                                finish();
-                                Intent intent = new Intent(Intent.ACTION_MAIN);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                intent.addCategory(Intent.CATEGORY_HOME);
-                                startActivity(intent);                    }
+                                        }
                         });
                         builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

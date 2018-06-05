@@ -24,7 +24,7 @@ import java.util.List;
 public class ListViewInflater extends BaseAdapter {
 
     private Context context;
-    private List<Alarma> listAlarmas;
+    public static List<Alarma> listAlarmas;
     ImageView borrar;
     Mihelper db;
 
