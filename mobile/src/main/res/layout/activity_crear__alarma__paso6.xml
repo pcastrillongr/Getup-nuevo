@@ -17,6 +17,7 @@
         android:layout_marginStart="114dp"
         android:layout_marginTop="48dp"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -25,15 +26,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="125dp"
+        android:layout_marginEnd="120dp"
         android:layout_marginTop="116dp"
         android:text="Minutos"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.002" />
 
     <TextView
         android:id="@+id/textView7"
@@ -44,22 +44,22 @@
         android:layout_marginTop="38dp"
         android:text="Tiempo de otra actividad"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/next"
-        android:layout_width="81dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="440dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="421dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/next" />
 
     <TextView
@@ -70,26 +70,16 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Aqui debes poner todo el tiempo que quieres que tenga en cuenta la aplicación que no se haya especificado anteriormente. (Si lo deseas)"
+        android:text="Aqui debes poner todo el tiempo que quieres que tenga en cuenta la aplicación que no se haya especificado anteriormente. (Opcional)"
         android:textAlignment="viewStart"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.792" />
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="81dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/cancelar3" />
 
 </android.support.constraint.ConstraintLayout>

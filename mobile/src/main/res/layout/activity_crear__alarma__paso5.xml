@@ -17,25 +17,27 @@
         android:layout_marginBottom="47dp"
         android:layout_marginEnd="17dp"
         android:layout_marginStart="114dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="15dp"
         android:layout_marginBottom="112dp"
         android:layout_marginEnd="125dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="148dp"
         android:text="Minutos"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/numberpicker3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
@@ -48,7 +50,7 @@
         android:layout_marginTop="38dp"
         android:text="Tiempo que  tardas en desayunar"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/numberPicker"
+        app:layout_constraintBottom_toTopOf="@+id/numberpicker3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -284,9 +284,7 @@ public class Resumen extends AppCompatActivity {
         time.set(Calendar.SECOND, 0);
         time.set(Calendar.MILLISECOND, 0);
         //time.setTimeInMillis(System.currentTimeMillis());
-        //alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
-        alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),
-                1000 * 60 * 20, pendingIntent);
+        alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
 
 
 

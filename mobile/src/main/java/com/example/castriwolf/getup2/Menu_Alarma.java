@@ -25,7 +25,7 @@ import static com.example.castriwolf.getup2.Clases.Container.alarmas;
 
 public class Menu_Alarma extends AppCompatActivity {
 
-    private String[] opciones = {"Agenda", "En que gasto el tiempo", "Preferencias", "Sobre nosotros"};
+    private String[] opciones = {"En que gasto el tiempo", "Preferencias", "Sobre nosotros"};
     private DrawerLayout drawerLayout;
     private ImageView anhadiralarma;
     private ImageView menupreferencias;
