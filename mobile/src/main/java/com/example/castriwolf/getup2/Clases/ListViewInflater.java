@@ -1,12 +1,22 @@
 package com.example.castriwolf.getup2.Clases;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.castriwolf.getup2.Base_Datos.Mihelper;
+import com.example.castriwolf.getup2.Menu_Alarma;
+import com.example.castriwolf.getup2.Preferencias_Alarma;
 import com.example.castriwolf.getup2.R;
 
 import java.util.List;
@@ -15,10 +25,16 @@ public class ListViewInflater extends BaseAdapter {
 
     private Context context;
     private List<Alarma> listAlarmas;
+    ImageView borrar;
+    Mihelper db;
+
 
     public ListViewInflater(Context context, List<Alarma>listAlarmas) {
         this.context = context;
         this.listAlarmas = listAlarmas;
+        db=new Mihelper(context);
+
+
     }
 
     @Override
@@ -39,6 +55,7 @@ public class ListViewInflater extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
+
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_view_custom, null);
 
@@ -61,6 +78,52 @@ public class ListViewInflater extends BaseAdapter {
         }
 
        // viewHolder.imageViewProfilePic.setImageDrawable(getImageDrawable(person.getImageName()));
+
+        borrar=(ImageView)convertView.findViewById(R.id.buttonEliminar);
+        borrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                AlertDialog.Builder builder;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    builder = new AlertDialog.Builder(context);
+                } else {
+                    builder = new AlertDialog.Builder(context);
+                }
+                builder.setView(R.layout.custom_layout);
+                builder.setTitle("Borrar alarma");
+                builder.setMessage("Deseas borrar la alarma número: "+String.valueOf(position+1)+"?");
+                builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        db.eliminarAlarma(listAlarmas.get(position).getHoraSalida(),listAlarmas.get(position).getMinutoSalida());
+                        listAlarmas.remove(position);
+                        Menu_Alarma.listView.invalidateViews();
+                        Toast.makeText(context,"Alarma numero "+position+1+" borrada",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+                builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).setIcon(R.drawable.alarma_copy);
+                builder.show();
+
+
+
+
+
+
+            }
+
+
+
+
+        });
+
 
         return convertView;
     }

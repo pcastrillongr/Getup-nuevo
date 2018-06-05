@@ -30,7 +30,8 @@ public class Menu_Alarma extends AppCompatActivity {
     private ImageView anhadiralarma;
     private ImageView menupreferencias;
     private ListView listViewDrawer;
-    private ListView listView;
+    public static ListView listView;
+      ArrayAdapter<String> adaptadorMenu;
    // private ArrayList<String> aux = new ArrayList<String>();
     private boolean datos=false;
 
@@ -48,7 +49,6 @@ public class Menu_Alarma extends AppCompatActivity {
         drawerLayout.addView(listViewDrawer);
 
 
-        ArrayAdapter<String> adaptadorMenu;
         adaptadorMenu = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opciones);
         listViewDrawer.setAdapter(adaptadorMenu);
         listViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {

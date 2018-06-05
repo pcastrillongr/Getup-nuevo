@@ -2,8 +2,11 @@ package com.example.castriwolf.getup2.Base_Datos;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.google.gson.internal.bind.SqlDateTypeAdapter;
 
 public class Mihelper extends SQLiteOpenHelper {
 
@@ -67,6 +70,13 @@ public class Mihelper extends SQLiteOpenHelper {
             return true;
         }
     }
+    public void eliminarAlarma(int hora,int minutos)
+    {
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.execSQL("delete from Alarma where Hsalida="+String.valueOf(hora)+" and Msalida="+ String.valueOf(minutos));
+
+    }
+
 
 
 }

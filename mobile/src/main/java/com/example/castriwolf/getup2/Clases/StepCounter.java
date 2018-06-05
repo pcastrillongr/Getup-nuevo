@@ -29,7 +29,8 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         sensor=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
         tPasos = findViewById(R.id.pasitos);
         pasos=0;
-         tPasos.setText(String.valueOf(pasos));
+        tPasos.setText("Te quedan 30 pasos para que la alarma se pare,\nGetUp!");
+
 
     }
 
@@ -67,8 +68,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
             MyNewIntentService.cancelar();
             event.values[0]=0;
             pasos=0;
-            Intent intent = new Intent(getApplicationContext(), Menu_Alarma.class);
-            startActivity(intent);
+           finish();
 
 
 
@@ -76,7 +76,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
             event.values[0] = pasos;
             pasos += 1;
-            tPasos.setText("Te quedan " + String.valueOf(30 - (int)event.values[0]) + " pasos para que la alarma se pare!");
+            tPasos.setText("Te quedan " + String.valueOf(30 - (int)event.values[0]) + " pasos para que la alarma se pare,\nGetUp!");
         }
 
     }
