@@ -53,7 +53,7 @@ public class Mihelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean insertarAlarma(String Lsalida, String Lllegada, int Hsalida, int Msalida, int Hllegad, int Mllegada){
+    public boolean insertarAlarma(String Lsalida, String Lllegada, int Hsalida, int Msalida, int Hllegad, int Mllegada,int lunes,int martes,int miercoles,int jueves,int viernes,int sabado,int domingo){
         ContentValues contentValues = new ContentValues();
         contentValues.put("Lsalida",Lsalida);
         contentValues.put("Lllegada",Lllegada);
@@ -61,6 +61,13 @@ public class Mihelper extends SQLiteOpenHelper {
         contentValues.put("Msalida",Msalida);
         contentValues.put("Hllegada",Hllegad);
         contentValues.put("Mllegada",Mllegada);
+        contentValues.put("Lunes",lunes);
+        contentValues.put("Martes",martes);
+        contentValues.put("Miercoles",miercoles);
+        contentValues.put("Jueves",jueves);
+        contentValues.put("Viernes",viernes);
+        contentValues.put("Sabado",sabado);
+        contentValues.put("Domingo",domingo);
         long result = this.getWritableDatabase().insert("Alarma",null,contentValues);
 
         if(result == -1){

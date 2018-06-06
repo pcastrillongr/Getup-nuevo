@@ -12,10 +12,17 @@ public class Alarma {
     private int minutoSalida;
     private int minutoLlegada;
     private int horaLlegada;
+    private int lunes;
+    private int martes;
+    private int miercoles;
+    private int jueves;
+    private int viernes;
+    private int sabado;
+    private int domingo;
     private ArrayList<Actividad> actividades;
 
 
-    public Alarma(int id_alarma, String lugarSalida, String lugarLlegada, int horaSalida, int minutoSalida, int horaLlegada, int minutoLlegada) {
+    public Alarma(int id_alarma, String lugarSalida, String lugarLlegada, int horaSalida, int minutoSalida, int horaLlegada, int minutoLlegada,int l,int m,int x,int j,int v,int s,int d) {
         this.id_alarma = id_alarma;
         this.lugarSalida = lugarSalida;
         this.lugarLlegada = lugarLlegada;
@@ -23,24 +30,103 @@ public class Alarma {
         this.minutoSalida = minutoSalida;
         this.horaLlegada = horaLlegada;
         this.minutoLlegada = minutoLlegada;
+        this.lunes = l;
+        this.martes = m;
+        this.miercoles = x;
+        this.jueves = j;
+        this.viernes = v;
+        this.sabado = s;
+        this.domingo = d;
         actividades = new ArrayList<Actividad>();
     }
 
-    public int getMinutoLlegada() {return minutoLlegada;}
+    public int getLunes() {
+        return lunes;
+    }
 
-    public void setMinutoLlegada(int minutoLlegada) {this.minutoLlegada = minutoLlegada;}
+    public void setLunes(int lunes) {
+        this.lunes = lunes;
+    }
 
-    public void setHoraLlegada(int horaLlegada) {this.horaLlegada = horaLlegada;}
+    public int getMartes() {
+        return martes;
+    }
 
-    public int getId_alarma() {return id_alarma;}
+    public void setMartes(int martes) {
+        this.martes = martes;
+    }
 
-    public void setId_alarma(int id_alarma) {this.id_alarma = id_alarma;}
+    public int getMiercoles() {
+        return miercoles;
+    }
 
-    public void setHoraSalida(int horaSalida) {this.horaSalida = horaSalida;}
+    public void setMiercoles(int miercoles) {
+        this.miercoles = miercoles;
+    }
 
-    public int getMinutoSalida() {return minutoSalida;}
+    public int getJueves() {
+        return jueves;
+    }
 
-    public void setMinutoSalida(int minutoSalida) {this.minutoSalida = minutoSalida;}
+    public void setJueves(int jueves) {
+        this.jueves = jueves;
+    }
+
+    public int getViernes() {
+        return viernes;
+    }
+
+    public void setViernes(int viernes) {
+        this.viernes = viernes;
+    }
+
+    public int getSabado() {
+        return sabado;
+    }
+
+    public void setSabado(int sabado) {
+        this.sabado = sabado;
+    }
+
+    public int getDomingo() {
+        return domingo;
+    }
+
+    public void setDomingo(int domingo) {
+        this.domingo = domingo;
+    }
+
+    public int getMinutoLlegada() {
+        return minutoLlegada;
+    }
+
+    public void setMinutoLlegada(int minutoLlegada) {
+        this.minutoLlegada = minutoLlegada;
+    }
+
+    public void setHoraLlegada(int horaLlegada) {
+        this.horaLlegada = horaLlegada;
+    }
+
+    public int getId_alarma() {
+        return id_alarma;
+    }
+
+    public void setId_alarma(int id_alarma) {
+        this.id_alarma = id_alarma;
+    }
+
+    public void setHoraSalida(int horaSalida) {
+        this.horaSalida = horaSalida;
+    }
+
+    public int getMinutoSalida() {
+        return minutoSalida;
+    }
+
+    public void setMinutoSalida(int minutoSalida) {
+        this.minutoSalida = minutoSalida;
+    }
 
     public String getLugarSalida() {
         return lugarSalida;

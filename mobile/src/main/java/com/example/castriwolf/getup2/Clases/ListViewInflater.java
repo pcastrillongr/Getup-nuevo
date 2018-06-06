@@ -67,7 +67,7 @@ public class ListViewInflater extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             //viewHolder.imageViewProfilePic = convertView.findViewById(R.id.imageViewProfilePic);
-            viewHolder.textViewName = convertView.findViewById(R.id.textViewName);
+            //viewHolder.textViewName = convertView.findViewById(R.id.textViewName);
             viewHolder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
             viewHolder.lunes=convertView.findViewById(R.id.lunes);
             viewHolder.martes=convertView.findViewById(R.id.martes);
@@ -77,30 +77,30 @@ public class ListViewInflater extends BaseAdapter {
             viewHolder.sabado=convertView.findViewById(R.id.sabado);
             viewHolder.domingo=convertView.findViewById(R.id.domingo);
 
-            if(Container.lunes){
+            if(Container.alarmas.get(position).getLunes()==1){
             viewHolder.lunes.setTextColor(Color.GREEN);
             }else{   viewHolder.lunes.setTextColor(Color.RED);}
 
-            if(Container.martes){
+            if(Container.alarmas.get(position).getMartes()==1){
                 viewHolder.martes.setTextColor(Color.GREEN);
             }else{   viewHolder.martes.setTextColor(Color.RED);}
 
-            if(Container.miercoles){
+            if(Container.alarmas.get(position).getMiercoles()==1){
                 viewHolder.miercoles.setTextColor(Color.GREEN);
             }else{   viewHolder.miercoles.setTextColor(Color.RED);}
 
-            if(Container.jueves){
+            if(Container.alarmas.get(position).getJueves()==1){
                 viewHolder.jueves.setTextColor(Color.GREEN);
             }else{   viewHolder.jueves.setTextColor(Color.RED);}
 
-            if(Container.viernes){
+            if(Container.alarmas.get(position).getViernes()==1){
                 viewHolder.viernes.setTextColor(Color.GREEN);
             }else{   viewHolder.viernes.setTextColor(Color.RED);}
 
-            if(Container.sabado){
+            if(Container.alarmas.get(position).getSabado()==1){
                 viewHolder.sabado.setTextColor(Color.GREEN);
             }else{   viewHolder.sabado.setTextColor(Color.RED);}
-            if(Container.domingo){
+            if(Container.alarmas.get(position).getDomingo()==1){
                 viewHolder.domingo.setTextColor(Color.GREEN);
             }else{   viewHolder.domingo.setTextColor(Color.RED);}
 

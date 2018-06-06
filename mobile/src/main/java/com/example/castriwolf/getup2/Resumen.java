@@ -67,6 +67,7 @@ public class Resumen extends AppCompatActivity {
     private int minutosdespertar;
     ArrayList<Integer> diasdelasemana;
     private Button cancelar;
+    private int l,m,x,j,v,s,d; //dias de la semana
 
 
     @Override
@@ -149,43 +150,42 @@ public class Resumen extends AppCompatActivity {
         if (lunes == true) {
 
             imgLunes.setImageResource(R.drawable.icons8lunes40verde);
-            Container.lunes=true;
+            l=1;
 
         }
         if (martes == true) {
 
             imgMartes.setImageResource(R.drawable.icons8martes40verde);
-            Container.martes=true;
+            m=1;
 
         }
         if (miercoles == true) {
 
             imgMiercoles.setImageResource(R.drawable.icons8miercoles40verde);
-            Container.miercoles=true;
-
+            x=1;
         }
         if (jueves == true) {
 
             imgJueves.setImageResource(R.drawable.icons8jueves40verde);
-            Container.jueves=true;
+            j=1;
 
         }
         if (viernes == true) {
 
             imgViernes.setImageResource(R.drawable.icons8viernes40verde);
-            Container.viernes=true;
+            v=1;
 
         }
         if (sabado == true) {
 
             imgSabado.setImageResource(R.drawable.icons8sabado40verde);
-            Container.sabado=true;
+            s=1;
 
         }
         if (domingo == true) {
 
             imgDomingo.setImageResource(R.drawable.icons8domingo40verde);
-            Container.domingo=true;
+            d=1;
 
         }
         if (coche == true) {
@@ -334,7 +334,7 @@ public class Resumen extends AppCompatActivity {
         String lugarLlegada = txtLlegada.toString();
 
 
-        boolean result = db.insertarAlarma(lugarSalida, lugarLlegada, horadespertar, minutosdespertar, hora, minuto);
+        boolean result = db.insertarAlarma(lugarSalida, lugarLlegada, horadespertar, minutosdespertar, hora, minuto,l , m , x , j , v , s , d);
         if (result == true) {
 
             Toast.makeText(this, "Se ha introducido en la bd", Toast.LENGTH_SHORT).show();

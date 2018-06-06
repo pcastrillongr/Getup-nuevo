@@ -33,8 +33,7 @@ public class Menu_Alarma extends AppCompatActivity {
     private ImageView menupreferencias;
     private ListView listViewDrawer;
     public static ListView listView;
-      ArrayAdapter<String> adaptadorMenu;
-   // private ArrayList<String> aux = new ArrayList<String>();
+    private ArrayAdapter<String> adaptadorMenu;
     private boolean datos=false;
 
     @Override
@@ -146,7 +145,15 @@ public class Menu_Alarma extends AppCompatActivity {
                     int mSalida = c.getInt(4);
                     int hLlegada = c.getInt(5);
                     int mLlegada = c.getInt(6);
-                    Alarma alarma = new Alarma (id_alarma,Lsalida,Lllegada,hSalida,mSalida,hLlegada,mLlegada);
+                    int lunes = c.getInt(7);
+                    int martes = c.getInt(8);
+                    int miercoles = c.getInt(9);
+                    int jueves = c.getInt(10);
+                    int viernes = c.getInt(11);
+                    int sabado = c.getInt(12);
+                    int domingo = c.getInt(13);
+
+                    Alarma alarma = new Alarma (id_alarma,Lsalida,Lllegada,hSalida,mSalida,hLlegada,mLlegada,lunes,martes,miercoles,jueves,viernes,sabado,domingo);
                     Container.alarmas.add(alarma);
                     datos = true;
                 } while (c.moveToNext());
