@@ -7,43 +7,30 @@
 
 
     <TextView
-        android:id="@+id/textViewName"
-        android:layout_width="139dp"
-        android:layout_height="35dp"
-        android:layout_margin="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="L M X J V S D"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/buttonEliminar"
-        app:layout_constraintHorizontal_bias="0.346"
-        app:layout_constraintStart_toStartOf="@+id/guideline6"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
-
-    <TextView
         android:id="@+id/textViewDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="123dp"
+        android:layout_height="33dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="452dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginTop="11dp"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold"
         android:typeface="monospace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/martes"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline7"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/buttonEliminar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/textViewName"
+        android:layout_alignTop="@+id/lunes"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/icons8eliminar48"
@@ -63,6 +50,109 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="7dp" />
+
+    <TextView
+        android:id="@+id/lunes"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginBottom="456dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="6dp"
+        android:text="L"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/martes"
+        app:layout_constraintStart_toEndOf="@+id/guideline6"
+        app:layout_constraintTop_toBottomOf="@+id/guideline7" />
+
+    <TextView
+        android:id="@+id/martes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="455dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="6dp"
+        android:text="M"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lunes"
+        app:layout_constraintTop_toBottomOf="@+id/guideline7" />
+
+    <TextView
+        android:id="@+id/miercoles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="456dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="6dp"
+        android:text="MI"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/martes"
+        app:layout_constraintTop_toBottomOf="@+id/guideline7" />
+
+    <TextView
+        android:id="@+id/jueves"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="456dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="6dp"
+        android:text="J"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/miercoles"
+        app:layout_constraintTop_toBottomOf="@+id/guideline7" />
+
+    <TextView
+        android:id="@+id/viernes"
+        android:layout_width="25dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="456dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="6dp"
+        android:text="V"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/sabado"
+        app:layout_constraintStart_toEndOf="@+id/jueves"
+        app:layout_constraintTop_toBottomOf="@+id/guideline7" />
+
+    <TextView
+        android:id="@+id/sabado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="456dp"
+        android:layout_marginTop="6dp"
+        android:text="S"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/viernes"
+        app:layout_constraintTop_toBottomOf="@+id/guideline7" />
+
+    <TextView
+        android:id="@+id/domingo"
+        android:layout_width="14dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="460dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:text="D"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonEliminar"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/sabado"
+        app:layout_constraintTop_toBottomOf="@+id/guideline7" />
 
 
 </android.support.constraint.ConstraintLayout>
