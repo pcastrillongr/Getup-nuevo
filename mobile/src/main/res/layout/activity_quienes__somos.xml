@@ -36,7 +36,7 @@
     <ImageView
         android:id="@+id/imageView14"
         android:layout_width="0dp"
-        android:layout_height="122dp"
+        android:layout_height="82dp"
         android:layout_marginEnd="12dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="240dp"
@@ -54,6 +54,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="34dp"
         android:text="Somos Alejandro Villalobos y Pablo Castrillón, alumnos de CENEC Málaga.\n Sabiendo los atascos que se crean en las grandes ciudades y lo dificil que es para mucha gente despertarse por las mañanas, hemos decidio crear GetUp! una aplicación que no solo te dirá a la hora exacta que te tienes que levantar, sino que también no dejará de sonar hasta que camines 30 pasos!Ya no hay excusa para llegar tarde al trabajo y no levantarse a la primera, asique ya sabes...GetUp!"
+        android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold|italic"
         app:layout_constraintBottom_toTopOf="@+id/imageView12"
