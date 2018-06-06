@@ -100,9 +100,9 @@
             android:name=".Clases.StepCounter"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".GastoTiempo"
-            android:screenOrientation="portrait"
-            />
+        <activity
+            android:name=".GastoTiempo"
+            android:screenOrientation="portrait" />
 
         <receiver
             android:name=".Clases.MyAlarmReceiver"
@@ -113,14 +113,14 @@
             android:name=".PararAlarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
-        <activity android:name=".Clases.Pantalla_Alarma"
+        <activity
+            android:name=".Clases.Pantalla_Alarma"
             android:screenOrientation="portrait"
-            android:theme="@style/GetUp"
-            />
-        <activity android:name=".Quienes_Somos"
+            android:theme="@style/GetUp" />
+        <activity
+            android:name=".Quienes_Somos"
             android:screenOrientation="portrait"
-            android:theme="@style/GetUp"
-            ></activity>
+            android:theme="@style/GetUp" />
     </application>
 
 </manifest>

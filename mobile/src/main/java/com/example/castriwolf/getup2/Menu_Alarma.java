@@ -1,9 +1,11 @@
 package com.example.castriwolf.getup2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -58,17 +60,16 @@ public class Menu_Alarma extends AppCompatActivity {
                 Intent i = null;
                 switch (position) {
                     case 0:
-                        // i = new Intent(getApplicationContext(), AgendaActivity.class);
+                        i = new Intent(getApplicationContext(), GastoTiempo.class);
                         break;
                     case 1:
-                        //i = new Intent(getApplicationContext(), HospitalesCercanos.class);
+                        i = new Intent(getApplicationContext(), Preferencias_Alarma.class);
                         break;
                     case 2:
-                        i = new Intent(getApplicationContext(), Preferencias_Alarma.class);
+                        i = new Intent(getApplicationContext(),Quienes_Somos.class);
                         break;
                     case 3:
 
-                        i = new Intent(getApplicationContext(),Quienes_Somos.class);
 
                         break;
                     case 4:
@@ -160,8 +161,19 @@ public class Menu_Alarma extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed()
-    { super.onBackPressed();
-      finish();
+    public void onBackPressed() {
+        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                .setMessage("Deseas salir de GetUp!?")
+                .setView(R.layout.custom_layout)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }
+                }).setNegativeButton(android.R.string.no, null).show();
     }
 }

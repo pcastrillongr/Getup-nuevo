@@ -4,6 +4,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
+import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
 
 import java.util.ArrayList;
@@ -63,11 +66,14 @@ public class Resumen extends AppCompatActivity {
     private int horadespertar;
     private int minutosdespertar;
     ArrayList<Integer> diasdelasemana;
+    private Button cancelar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumen);
+
 
         horarestar = 0;
         minutosrestar = 0;
@@ -122,6 +128,19 @@ public class Resumen extends AppCompatActivity {
         });
 
         comprobarDatos();
+        cancelar=(Button)findViewById(R.id.buttonCancelar);
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                Intent go=new Intent(getApplicationContext(),Menu_Alarma.class);
+                startActivity(go);
+                Toast.makeText(getApplicationContext(),"Alarma Cancelada",Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
 
     }
 
@@ -130,30 +149,44 @@ public class Resumen extends AppCompatActivity {
         if (lunes == true) {
 
             imgLunes.setImageResource(R.drawable.icons8lunes40verde);
+            Container.lunes=true;
+
         }
         if (martes == true) {
 
             imgMartes.setImageResource(R.drawable.icons8martes40verde);
+            Container.martes=true;
+
         }
         if (miercoles == true) {
 
             imgMiercoles.setImageResource(R.drawable.icons8miercoles40verde);
+            Container.miercoles=true;
+
         }
         if (jueves == true) {
 
             imgJueves.setImageResource(R.drawable.icons8jueves40verde);
+            Container.jueves=true;
+
         }
         if (viernes == true) {
 
             imgViernes.setImageResource(R.drawable.icons8viernes40verde);
+            Container.viernes=true;
+
         }
         if (sabado == true) {
 
             imgSabado.setImageResource(R.drawable.icons8sabado40verde);
+            Container.sabado=true;
+
         }
         if (domingo == true) {
 
             imgDomingo.setImageResource(R.drawable.icons8domingo40verde);
+            Container.domingo=true;
+
         }
         if (coche == true) {
             imgModo.setImageResource(R.drawable.icons8cocheverde);
@@ -216,8 +249,9 @@ public class Resumen extends AppCompatActivity {
 
         insertarAlarma();
 
-        Intent go = new Intent(this, Menu_Alarma.class);
+        Intent go = new Intent(getApplicationContext(), Menu_Alarma.class);
         startActivity(go);
+
     }
 
 
@@ -246,9 +280,9 @@ public class Resumen extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
         Calendar time = Calendar.getInstance();
+            Toast.makeText(this, "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
 
 
-        Toast.makeText(getApplicationContext(), "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
 
         if (lunes) {
             time.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -277,6 +311,8 @@ public class Resumen extends AppCompatActivity {
             time.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
 
         }
+
+
 
 
         time.set(Calendar.HOUR_OF_DAY, horadespertar);

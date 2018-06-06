@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -56,6 +57,10 @@ public class ListViewInflater extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
 
+
+
+
+
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.list_view_custom, null);
 
@@ -64,6 +69,42 @@ public class ListViewInflater extends BaseAdapter {
             //viewHolder.imageViewProfilePic = convertView.findViewById(R.id.imageViewProfilePic);
             viewHolder.textViewName = convertView.findViewById(R.id.textViewName);
             viewHolder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
+            viewHolder.lunes=convertView.findViewById(R.id.lunes);
+            viewHolder.martes=convertView.findViewById(R.id.martes);
+            viewHolder.miercoles=convertView.findViewById(R.id.miercoles);
+            viewHolder.jueves=convertView.findViewById(R.id.jueves);
+            viewHolder.viernes=convertView.findViewById(R.id.viernes);
+            viewHolder.sabado=convertView.findViewById(R.id.sabado);
+            viewHolder.domingo=convertView.findViewById(R.id.domingo);
+
+            if(Container.lunes){
+            viewHolder.lunes.setTextColor(Color.GREEN);
+            }else{   viewHolder.lunes.setTextColor(Color.RED);}
+
+            if(Container.martes){
+                viewHolder.martes.setTextColor(Color.GREEN);
+            }else{   viewHolder.martes.setTextColor(Color.RED);}
+
+            if(Container.miercoles){
+                viewHolder.miercoles.setTextColor(Color.GREEN);
+            }else{   viewHolder.miercoles.setTextColor(Color.RED);}
+
+            if(Container.jueves){
+                viewHolder.jueves.setTextColor(Color.GREEN);
+            }else{   viewHolder.jueves.setTextColor(Color.RED);}
+
+            if(Container.viernes){
+                viewHolder.viernes.setTextColor(Color.GREEN);
+            }else{   viewHolder.viernes.setTextColor(Color.RED);}
+
+            if(Container.sabado){
+                viewHolder.sabado.setTextColor(Color.GREEN);
+            }else{   viewHolder.sabado.setTextColor(Color.RED);}
+            if(Container.domingo){
+                viewHolder.domingo.setTextColor(Color.GREEN);
+            }else{   viewHolder.domingo.setTextColor(Color.RED);}
+
+
 
             convertView.setTag(viewHolder);
         } else {
@@ -138,5 +179,13 @@ public class ListViewInflater extends BaseAdapter {
         //ImageView imageViewProfilePic;
         TextView textViewName;
         TextView textViewDescription;
+        TextView lunes;
+        TextView martes;
+        TextView miercoles;
+
+        TextView jueves;
+        TextView viernes;
+        TextView sabado;
+        TextView domingo;
     }
 }
