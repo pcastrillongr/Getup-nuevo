@@ -41,6 +41,7 @@ public class Pasos_Despertar extends AppCompatActivity {
 
 
                 editor.putInt("pasos",pasos.getValue());
+                editor.commit();
                 Toast.makeText(getApplicationContext(),"Pasos Guardados",Toast.LENGTH_SHORT).show();
                 Intent go = new Intent(getApplicationContext(), Preferencias_Alarma.class);
                 startActivity(go);
