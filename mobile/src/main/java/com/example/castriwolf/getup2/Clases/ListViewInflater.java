@@ -104,6 +104,7 @@ public class ListViewInflater extends BaseAdapter {
             if(Container.alarmas.get(position).getSabado()==1){
                 viewHolder.sabado.setTextColor(Color.GREEN);
             }else{   viewHolder.sabado.setTextColor(Color.RED);}
+
             if(Container.alarmas.get(position).getDomingo()==1){
                 viewHolder.domingo.setTextColor(Color.GREEN);
             }else{   viewHolder.domingo.setTextColor(Color.RED);}
@@ -191,18 +192,16 @@ public class ListViewInflater extends BaseAdapter {
         return convertView;
     }
 
-    private void borrarServiciosdeAlarma(Alarma alarma) {
-
-        int idalarma=db.getIDAlarma(alarma);
+    private void borrarServiciosdeAlarma(Alarma alarma)
+    {
 
         Intent intent = new Intent(context, MyAlarmReceiver.class);
-        PendingIntent sender=PendingIntent.getBroadcast(context,idalarma,intent,0);
+        PendingIntent sender=PendingIntent.getBroadcast(context,alarma.getId_alarma(),intent,0);
         AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(sender);
 
 
     }
-
     /*private Drawable getImageDrawable(String imageName) {
         int id = context.getResources().getIdentifier(imageName, "drawable",
                 context.getPackageName());
@@ -216,7 +215,6 @@ public class ListViewInflater extends BaseAdapter {
         TextView lunes;
         TextView martes;
         TextView miercoles;
-
         TextView jueves;
         TextView viernes;
         TextView sabado;

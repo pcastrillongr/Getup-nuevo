@@ -92,12 +92,13 @@ public class Mihelper extends SQLiteOpenHelper {
 
     }
 
-    public int getIDAlarma(Alarma alarma)
+    public int getIDAlarma()
     {
         SQLiteDatabase db=this.getReadableDatabase();
+
         int idalarma=0;
 
-        String query="select idAlarma from Alarma where hSalida="+alarma.getHoraSalida()+" and  Msalida="+alarma.getMinutoSalida();
+        String query="select idAlarma from Alarma  order by idalarma desc limit 1 ";
 
         Cursor cursor = db.rawQuery(query, null);
 

@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/textView5"
-        android:layout_width="194dp"
+        android:layout_width="170dp"
         android:layout_height="35dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -66,12 +66,11 @@
 
     <ImageView
         android:id="@+id/editar"
-        android:layout_width="33dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="201dp"
-        android:layout_toEndOf="@+id/textView5"
+        android:layout_alignBottom="@+id/textView13"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="106dp"
         app:srcCompat="@drawable/editar" />
 
 

@@ -1,5 +1,7 @@
 package com.example.castriwolf.getup2;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,7 +18,10 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
+import com.example.castriwolf.getup2.Clases.Alarma;
+import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.ListViewInflater;
+import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
 
 public class Preferencias_Alarma extends AppCompatActivity {
 
@@ -82,6 +87,14 @@ public class Preferencias_Alarma extends AppCompatActivity {
                         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
+                                for(Alarma a :Container.alarmas){
+
+                                        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+                                        PendingIntent sender=PendingIntent.getBroadcast(getApplicationContext(),a.getId_alarma(),intent,0);
+                                        AlarmManager alarmManager= (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                                        alarmManager.cancel(sender);
+
+                                }
                                 db.eliminarTodaslasAlarmas();
                                 ListViewInflater.listAlarmas.clear();
                                 Menu_Alarma.listView.invalidateViews();

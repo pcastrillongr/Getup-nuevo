@@ -4,6 +4,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
+import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
 
@@ -67,6 +70,7 @@ public class Resumen extends AppCompatActivity {
     private int minutosdespertar;
     ArrayList<Integer> diasdelasemana;
     private ImageView cancelar;
+    int idalarma;
     private int l,m,x,j,v,s,d; //dias de la semana
 
 
@@ -78,7 +82,7 @@ public class Resumen extends AppCompatActivity {
 
         horarestar = 0;
         minutosrestar = 0;
-        crear =(ImageView) findViewById(R.id.guardar);
+        crear = findViewById(R.id.guardar);
         txtHora = findViewById(R.id.txtHora);
         txtSalida = findViewById(R.id.txtsalida);
         txtLlegada = findViewById(R.id.txtllegada);
@@ -246,9 +250,9 @@ public class Resumen extends AppCompatActivity {
 
         formulaCalcularAlarma();
 
-        alarmanager();
-
         insertarAlarma();
+
+        alarmanager();
 
         Intent go = new Intent(getApplicationContext(), Menu_Alarma.class);
         startActivity(go);
@@ -279,7 +283,7 @@ public class Resumen extends AppCompatActivity {
 
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, 0);
         Calendar time = Calendar.getInstance();
             Toast.makeText(this, "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
 
@@ -331,6 +335,7 @@ public class Resumen extends AppCompatActivity {
     private void insertarAlarma() {
 
         Mihelper db = new Mihelper(this);
+
         String lugarSalida = txtSalida.toString();
         String lugarLlegada = txtLlegada.toString();
 
@@ -338,7 +343,12 @@ public class Resumen extends AppCompatActivity {
         boolean result = db.insertarAlarma(lugarSalida, lugarLlegada, horadespertar, minutosdespertar, hora, minuto,l , m , x , j , v , s , d);
         if (result == true) {
 
+            idalarma=db.getIDAlarma();
+
+            db.close();
+
             Toast.makeText(this, "Se ha introducido en la bd", Toast.LENGTH_SHORT).show();
+
         } else {
             Toast.makeText(this, "NO se ha introducido en la bd", Toast.LENGTH_SHORT).show();
 

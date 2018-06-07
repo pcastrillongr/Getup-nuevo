@@ -119,7 +119,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int hora;
     private int minuto;
     private int horaRecorrido;
-    private int minutosRecorrido;
+    private int minutosRecorrido = -1;
 
 
     @Override
@@ -247,7 +247,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (!tiempo.getText().toString().equals("")) {
                     recuperarTiempo();
                 }
-                if (minutosRecorrido > 0 && !placeautocompletesalida.equals("") && !placeautocompletedestino.equals("")) {
+                if (irCoche == true || irBus == true || irBici == true || irAndando == true) {
                     Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
 
                     go.putExtra("Lunes", lunes);
@@ -323,27 +323,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        /**
-         * Boton Calcular
-         * Calcular entre dos distancias
-         */
-        calcular = (Button) findViewById(R.id.calculartiempo);
-        calcular.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (salida.equals("") || destino.equals("") || (irCoche == false && irBus == false && irBici == false && irAndando == false)) {
-
-                    Toast.makeText(getApplicationContext(), "Introduce las dos direcciones y transporte", Toast.LENGTH_LONG).show();
-
-                } else {
-
-                    recorridoJson();
-                }
-            }
-
-
-        });
 
         coche.setOnClickListener(new View.OnClickListener()
 
@@ -351,7 +330,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                if (irCoche == false) {
+                if (irCoche == false && !destino.equals("") && !salida.equals("")) {
                     irCoche = true;
                     irBus = false;
                     irAndando = false;
@@ -361,6 +340,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     bus.setImageResource(R.drawable.icons8autobusgris);
                     bici.setImageResource(R.drawable.icons8bicigris);
                     andar.setImageResource(R.drawable.icons8caminargris);
+
+                    if (salida.equals("") || destino.equals("")) {
+
+                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                    } else {
+
+                        recorridoJson();
+                    }
                 }
 
             }
@@ -372,7 +360,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
 
-                if (irBus == false) {
+                if (irBus == false && !destino.equals("") && !salida.equals("")) {
                     irCoche = false;
                     irBus = true;
                     irAndando = false;
@@ -382,6 +370,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     bus.setImageResource(R.drawable.icons8autobusverde);
                     bici.setImageResource(R.drawable.icons8bicigris);
                     andar.setImageResource(R.drawable.icons8caminargris);
+
+                    if (salida.equals("") || destino.equals("")) {
+
+                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                    } else {
+
+                        recorridoJson();
+                    }
+
                 }
             }
         });
@@ -391,7 +389,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
             @Override
             public void onClick(View v) {
-                if (irBici == false) {
+                if (irBici == false && !destino.equals("") && !salida.equals("")) {
                     irCoche = false;
                     irBus = false;
                     irAndando = false;
@@ -401,6 +399,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     bus.setImageResource(R.drawable.icons8autobusgris);
                     bici.setImageResource(R.drawable.icons8biciverde);
                     andar.setImageResource(R.drawable.icons8caminargris);
+
+                    if (salida.equals("") || destino.equals("")) {
+
+                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                    } else {
+
+                        recorridoJson();
+                    }
                 }
             }
         });
@@ -410,7 +417,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         {
             @Override
             public void onClick(View v) {
-                if (irAndando == false) {
+                if (irAndando == false && !destino.equals("") && !salida.equals("")) {
                     irCoche = false;
                     irBus = false;
                     irAndando = true;
@@ -420,6 +427,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     bus.setImageResource(R.drawable.icons8autobusgris);
                     bici.setImageResource(R.drawable.icons8bicigris);
                     andar.setImageResource(R.drawable.icons8caminarverde);
+
+                    if (salida.equals("") || destino.equals("")) {
+
+                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                    } else {
+
+                        recorridoJson();
+                    }
                 }
 
             }
@@ -494,19 +510,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void miUbicacion() {
 
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            
 
             return;
         } else {
-            LocationManager lctManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            Location location = lctManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            actualizarUbicacion(location);
-            lctManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 00, locListener);
+            final LocationManager lctManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (lctManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                Location location = lctManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                actualizarUbicacion(location);
+                lctManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 00, locListener);
+            }
+
 
 
         }
     }
+
 
     private void showAlert() {
         final AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
@@ -574,10 +595,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             long segundos = 0;
 
 
-
             calendarNow = new GregorianCalendar(TimeZone.getTimeZone("Europe/Madrid"));
             year = calendarNow.get(Calendar.YEAR);
-            month = calendarNow.get(Calendar.MONTH+1);
+            month = calendarNow.get(Calendar.MONTH + 1);
             day = calendarNow.get(Calendar.DAY_OF_MONTH);
             horaDia = calendarNow.get(Calendar.HOUR_OF_DAY);
             minutoDia = calendarNow.get(Calendar.MINUTE);
@@ -587,14 +607,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             if (hora > horaDia) {
 
-                calendarNow.add(Calendar.DAY_OF_MONTH,1);
+                calendarNow.add(Calendar.DAY_OF_MONTH, 1);
                 day = calendarNow.get(Calendar.DAY_OF_MONTH);
                 fechaFin = new GregorianCalendar();
-                fechaFin.set(year, month+1, day);
+                fechaFin.set(year, month + 1, day);
 
-            }else{
+            } else {
                 fechaFin = new GregorianCalendar();
-                fechaFin.set(year, month+1, day);
+                fechaFin.set(year, month + 1, day);
             }
 
             diasMilis = (fechaFin.getTimeInMillis() - fechaInicio.getTimeInMillis());
@@ -602,7 +622,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             segundos = ((hora * 60) + minuto) * 60;
             segundos += diasMilis;
 
-            time = "arrival_time="+segundos;
+            time = "arrival_time=" + segundos;
         }
         if (irBici == true) {
             mode = "mode=bicycling";
@@ -659,7 +679,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     private void traerBundle() {
         parametros = getIntent().getExtras();
-
 
         lunes = parametros.getBoolean("Lunes");
         martes = parametros.getBoolean("Martes");
