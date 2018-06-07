@@ -142,7 +142,7 @@ public class ListViewInflater extends BaseAdapter {
                         db.eliminarAlarma(listAlarmas.get(position).getHoraSalida(),listAlarmas.get(position).getMinutoSalida());
                         listAlarmas.remove(position);
                         Menu_Alarma.listView.invalidateViews();
-                        Toast.makeText(context,"Alarma numero "+position+1+" borrada",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"Alarma numero "+String.valueOf(position+1)+" borrada",Toast.LENGTH_SHORT).show();
 
                     }
                 });
