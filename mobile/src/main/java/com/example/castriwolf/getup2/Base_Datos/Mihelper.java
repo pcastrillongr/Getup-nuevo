@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.castriwolf.getup2.Clases.Alarma;
 import com.google.gson.internal.bind.SqlDateTypeAdapter;
 
 public class Mihelper extends SQLiteOpenHelper {
@@ -88,6 +89,28 @@ public class Mihelper extends SQLiteOpenHelper {
 
         SQLiteDatabase db=this.getWritableDatabase();
         db.execSQL("delete from Alarma");
+
+    }
+
+    public int getIDAlarma(Alarma alarma)
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+        int idalarma=0;
+
+        String query="select idAlarma from Alarma where hSalida="+alarma.getHoraSalida()+" and  Msalida="+alarma.getMinutoSalida();
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        //if TABLE has rows
+        if (cursor.moveToFirst()) {
+            //Loop through the table rows
+            do {
+                idalarma=cursor.getInt(0);
+
+            } while (cursor.moveToNext());
+        }
+
+        return  idalarma;
 
     }
 

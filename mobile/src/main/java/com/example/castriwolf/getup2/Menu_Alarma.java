@@ -1,5 +1,7 @@
 package com.example.castriwolf.getup2;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,6 +19,7 @@ import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.ListViewInflater;
+import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -165,6 +168,7 @@ public class Menu_Alarma extends AppCompatActivity {
 
         db.close();
     }
+
 
 
     @Override

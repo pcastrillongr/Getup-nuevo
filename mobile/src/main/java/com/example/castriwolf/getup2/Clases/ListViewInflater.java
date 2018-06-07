@@ -1,5 +1,7 @@
 package com.example.castriwolf.getup2.Clases;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +16,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.app.AlarmManager;
+
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.Menu_Alarma;
@@ -154,10 +158,13 @@ public class ListViewInflater extends BaseAdapter {
                 builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
+
                         db.eliminarAlarma(listAlarmas.get(position).getHoraSalida(),listAlarmas.get(position).getMinutoSalida());
+                        borrarServiciosdeAlarma(listAlarmas.get(position));
                         listAlarmas.remove(position);
                         Menu_Alarma.listView.invalidateViews();
                         Toast.makeText(context,"Alarma numero "+String.valueOf(position+1)+" borrada",Toast.LENGTH_SHORT).show();
+
 
                     }
                 });
@@ -182,6 +189,18 @@ public class ListViewInflater extends BaseAdapter {
 
 
         return convertView;
+    }
+
+    private void borrarServiciosdeAlarma(Alarma alarma) {
+
+        int idalarma=db.getIDAlarma(alarma);
+
+        Intent intent = new Intent(context, MyAlarmReceiver.class);
+        PendingIntent sender=PendingIntent.getBroadcast(context,idalarma,intent,0);
+        AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.cancel(sender);
+
+
     }
 
     /*private Drawable getImageDrawable(String imageName) {
