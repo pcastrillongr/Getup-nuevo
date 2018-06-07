@@ -62,7 +62,7 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
 
                 } else {
 
-                    Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
+                    Intent go = new Intent(getApplicationContext(), MapsActivity.class);
                     //Dias
                     go.putExtra("Lunes", clunes);
                     go.putExtra("Martes", cmartes);

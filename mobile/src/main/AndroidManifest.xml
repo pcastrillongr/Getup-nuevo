@@ -45,6 +45,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
+            android:name=".Pasos_Despertar"
+            android:screenOrientation="portrait"
+            android:theme="@style/GetUp" />
+        <activity
             android:name=".Menu_Alarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
