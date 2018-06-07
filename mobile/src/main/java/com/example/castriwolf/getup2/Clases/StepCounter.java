@@ -2,10 +2,12 @@ package com.example.castriwolf.getup2.Clases;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -20,16 +22,21 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
     private boolean andando=false;
     private TextView tPasos;
     private int pasos;
+    private int totalpasos;
+    SharedPreferences pref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.step_counter);
+        pref= getSharedPreferences("MisPreferencias", MODE_PRIVATE);
+        totalpasos=pref.getInt("pasos",30);
+
         sensor=(SensorManager)getSystemService(Context.SENSOR_SERVICE);
         tPasos = findViewById(R.id.pasitos);
         pasos=0;
-        tPasos.setText("Te quedan 30 pasos para que la alarma se pare,\nGetUp!");
+        tPasos.setText("Te quedan "+String.valueOf(totalpasos)+" pasos para que la alarma se pare,\nGetUp!");
 
 
     }
@@ -81,7 +88,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
             event.values[0] = pasos;
             pasos += 1;
-            tPasos.setText("Te quedan " + String.valueOf(30 - (int)event.values[0]) + " pasos para que la alarma se pare,\nGetUp!");
+            tPasos.setText("Te quedan " + String.valueOf(totalpasos - (int)event.values[0]) + " pasos para que la alarma se pare,\nGetUp!");
         }
 
     }

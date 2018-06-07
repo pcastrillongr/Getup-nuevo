@@ -108,4 +108,11 @@ public class Preferencias_Alarma extends AppCompatActivity {
                 });
 
             }
+    @Override
+    public void onBackPressed() {
+
+                        Intent go = new Intent(getApplicationContext(),Menu_Alarma.class);
+                       startActivity(go);
+
+    }
         }
