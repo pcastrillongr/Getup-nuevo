@@ -42,7 +42,7 @@ public class Resumen extends AppCompatActivity {
     private Boolean bus;
     private Boolean bici;
     private Boolean andar;
-    private Button crear;
+    private ImageView crear;
     private TextView txtHora;
     private ImageView imgLunes;
     private ImageView imgMartes;
@@ -66,7 +66,7 @@ public class Resumen extends AppCompatActivity {
     private int horadespertar;
     private int minutosdespertar;
     ArrayList<Integer> diasdelasemana;
-    private Button cancelar;
+    private ImageView cancelar;
     private int l,m,x,j,v,s,d; //dias de la semana
 
 
@@ -78,7 +78,7 @@ public class Resumen extends AppCompatActivity {
 
         horarestar = 0;
         minutosrestar = 0;
-        crear = findViewById(R.id.buttonCrear);
+        crear =(ImageView) findViewById(R.id.guardar);
         txtHora = findViewById(R.id.txtHora);
         txtSalida = findViewById(R.id.txtsalida);
         txtLlegada = findViewById(R.id.txtllegada);
@@ -96,6 +96,8 @@ public class Resumen extends AppCompatActivity {
         txtOtros = findViewById(R.id.txtOtros);
         txtTotal = findViewById(R.id.txtResultado);
         txtTrecorrido = findViewById(R.id.txtTrecorrido);
+        cancelar=(ImageView)findViewById(R.id.cancelaralarma);
+
         diasdelasemana = new ArrayList<>();
         recogerDatos();
 
@@ -129,7 +131,6 @@ public class Resumen extends AppCompatActivity {
         });
 
         comprobarDatos();
-        cancelar=(Button)findViewById(R.id.buttonCancelar);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
