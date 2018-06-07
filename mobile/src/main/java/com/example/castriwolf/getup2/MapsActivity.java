@@ -40,6 +40,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -290,7 +291,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 salida = place.getName().toString();
                 punto1 = place;
                 Toast.makeText(getApplicationContext(), salida, Toast.LENGTH_LONG);
-
+                agregarMarcador(punto1.getLatLng().latitude,punto1.getLatLng().longitude);
             }
 
             @Override
@@ -309,7 +310,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 destino = place.getName().toString();
                 punto2 = place;
-
+                agregarMarcador2(punto2.getLatLng().latitude,punto2.getLatLng().longitude);
             }
 
             @Override
@@ -348,6 +349,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     } else {
 
                         recorridoJson();
+
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        builder.include(marcador.getPosition());
+                        builder.include(marcador2.getPosition());
+                        LatLngBounds bounds = builder.build();
+
+                        int width = getResources().getDisplayMetrics().widthPixels;
+                        int height = getResources().getDisplayMetrics().heightPixels;
+                        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                        mMap.stopAnimation();
+                        mMap.animateCamera(cu);
                     }
                 }
 
@@ -378,6 +392,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     } else {
 
                         recorridoJson();
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        builder.include(marcador.getPosition());
+                        builder.include(marcador2.getPosition());
+                        LatLngBounds bounds = builder.build();
+
+                        int width = getResources().getDisplayMetrics().widthPixels;
+                        int height = getResources().getDisplayMetrics().heightPixels;
+                        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                        mMap.stopAnimation();
+                        mMap.animateCamera(cu);
                     }
 
                 }
@@ -407,6 +433,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     } else {
 
                         recorridoJson();
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        builder.include(marcador.getPosition());
+                        builder.include(marcador2.getPosition());
+                        LatLngBounds bounds = builder.build();
+
+                        int width = getResources().getDisplayMetrics().widthPixels;
+                        int height = getResources().getDisplayMetrics().heightPixels;
+                        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                        mMap.stopAnimation();
+                        mMap.animateCamera(cu);
                     }
                 }
             }
@@ -435,6 +473,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     } else {
 
                         recorridoJson();
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        builder.include(marcador.getPosition());
+                        builder.include(marcador2.getPosition());
+                        LatLngBounds bounds = builder.build();
+
+                        int width = getResources().getDisplayMetrics().widthPixels;
+                        int height = getResources().getDisplayMetrics().heightPixels;
+                        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+                        mMap.stopAnimation();
+                        mMap.animateCamera(cu);
                     }
                 }
 
@@ -461,13 +511,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void agregarMarcador(double lat, double lon) {
 
+
         LatLng cordenadas = new LatLng(lat, lon);
         CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(cordenadas, 16);
+
         if (marcador != null) {
             marcador.remove();
         }
 
-        marcador = mMap.addMarker(new MarkerOptions().position(cordenadas).title("Mi posicion actual").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
+        marcador = mMap.addMarker(new MarkerOptions().position(cordenadas).title("Salida").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        mMap.animateCamera(miUbicacion);
+
+
+    }
+
+    private void agregarMarcador2(double lat, double lon) {
+
+        LatLng cordenadas = new LatLng(lat, lon);
+        CameraUpdate miUbicacion = CameraUpdateFactory.newLatLngZoom(cordenadas, 16);
+
+        if (marcador2 != null) {
+            marcador2.remove();
+        }
+
+
+        marcador2 = mMap.addMarker(new MarkerOptions().position(cordenadas).title("Llegada").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
         mMap.animateCamera(miUbicacion);
 
 
@@ -512,7 +581,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            
+
 
             return;
         } else {
@@ -581,7 +650,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         if (irBus == true) {
             mode = "mode=transit";
-            //Hora bus
+            /*//Hora bus
             Calendar calendarNow = null;
             int monthDay = 0;
             int year;
@@ -621,8 +690,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             diasMilis = diasMilis / 1000;
             segundos = ((hora * 60) + minuto) * 60;
             segundos += diasMilis;
-
-            time = "arrival_time=" + segundos;
+*/
+           // time = "arrival_time=" + segundos;
+            time = "departure_time=now";
         }
         if (irBici == true) {
             mode = "mode=bicycling";
