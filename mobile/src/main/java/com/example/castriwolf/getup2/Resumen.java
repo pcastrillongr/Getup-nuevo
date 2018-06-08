@@ -72,6 +72,9 @@ public class Resumen extends AppCompatActivity {
     private ImageView cancelar;
     int idalarma;
     private int l,m,x,j,v,s,d; //dias de la semana
+    Mihelper db;
+    int minutosTotales;
+
 
 
     @Override
@@ -148,6 +151,17 @@ public class Resumen extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void insertarActividad() {
+
+
+       db=new Mihelper(getApplicationContext());
+       db.insertarActividad("tiempolevantarse",Tlevantarse);
+       db.insertarActividad("tiempobaño",Tbano);
+       db.insertarActividad("tiempodesayuno" ,Tdesayuno);
+       db.insertarActividad("tiempootros",Totros);
+       db.insertarActividad("tiemporecorrido",minutosTotales);
     }
 
     private void comprobarDatos() {
@@ -261,7 +275,6 @@ public class Resumen extends AppCompatActivity {
 
 
     private void formulaCalcularAlarma() {
-        int minutosTotales;
         double resultado;
 
         minutosTotales = hora * 60;
@@ -276,6 +289,8 @@ public class Resumen extends AppCompatActivity {
         if (minutosrestar < 60) {
             minutosdespertar = (int) resultado;
         }
+        insertarActividad();
+
 
     }
 

@@ -9,6 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.castriwolf.getup2.Clases.Alarma;
 import com.google.gson.internal.bind.SqlDateTypeAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Mihelper extends SQLiteOpenHelper {
 
     public static final String n_Database ="miDB";
@@ -25,10 +28,10 @@ public class Mihelper extends SQLiteOpenHelper {
                 "");
 
         db.execSQL("Create table Actividad(" +
-                "idAct Integer  primary key," +
-                "razon String,tiempo Integer," +
-                "idAl integer," +
-                "foreign key(idAl)references Alarma(idAlarma));" +
+                "idAct Integer  primary key autoincrement," +
+                "nombreActividad String," +
+                "tiempo integer);" +
+
                 "");
 
         db.execSQL("Create table Alarma(" +
@@ -53,6 +56,19 @@ public class Mihelper extends SQLiteOpenHelper {
 
     }
 
+
+    public void insertarActividad(String nombreActividad,int tiempo)
+    {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("nombreActividad",nombreActividad);
+        contentValues.put("tiempo",tiempo);
+
+        this.getWritableDatabase().insert("Actividad",null,contentValues);
+
+
+
+
+    }
 
     public boolean insertarAlarma(String Lsalida, String Lllegada, int Hsalida, int Msalida, int Hllegad, int Mllegada,int lunes,int martes,int miercoles,int jueves,int viernes,int sabado,int domingo){
         ContentValues contentValues = new ContentValues();
@@ -112,6 +128,37 @@ public class Mihelper extends SQLiteOpenHelper {
         }
 
         return  idalarma;
+
+    }
+
+    public HashMap<String,Integer> getMediaTiempos()
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+
+        HashMap<String,Integer>nombresytiempos=new HashMap<String, Integer>();
+        String actividad;
+        int tiempo;
+
+        String query="select nombreActividad,AVG(tiempo) from Actividad  where nombreActividad like 'tiempolevantarse' " +
+                "and 'tiempobaño' and 'tiempodesayuno' and 'tiempootros' and 'tiemporecorrido' group by nombreActividad";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        //if TABLE has rows
+        if (cursor.moveToFirst()) {
+            //Loop through the table rows
+            do {
+
+                actividad=cursor.getString(0);
+                tiempo=cursor.getInt(1);
+                nombresytiempos.put(actividad,tiempo);
+
+
+            } while (cursor.moveToNext());
+        }
+
+
+        return  nombresytiempos;
 
     }
 
