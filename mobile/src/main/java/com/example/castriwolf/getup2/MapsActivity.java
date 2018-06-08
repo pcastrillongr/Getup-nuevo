@@ -91,25 +91,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Polyline line = null;
     private ImageView next;
     private ImageView ubi;
-
     private ImageView coche;
     private ImageView bus;
     private ImageView bici;
     private ImageView andar;
     private ImageView ajuste;
-
     private Boolean irCoche = false;
     private Boolean irBus = false;
     private Boolean irBici = false;
     private Boolean irAndando = false;
     private Boolean Eautopista = false;
     private Boolean Epeaje = false;
-
     public Boolean pintado = false;
-
-
     Bundle parametros;
-
     private boolean lunes;
     private boolean martes;
     private boolean miercoles;

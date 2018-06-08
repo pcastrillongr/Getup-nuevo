@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.castriwolf.getup2.Crear_Alarma_Paso3"
     android:background="#8fd2ca"
     android:screenOrientation="portrait"
-    >
+    tools:context="com.example.castriwolf.getup2.Crear_Alarma_Paso3">
 
     <ImageView
         android:id="@+id/imageView"
@@ -40,20 +39,19 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="43dp"
-        android:layout_height="21dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="78dp"
+        android:layout_height="22dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="168dp"
         android:text="Minutos"
         android:textColor="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.03"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toEndOf="@+id/numberpicker"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.443" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView
         android:id="@+id/textView7"
@@ -87,5 +85,19 @@
         app:layout_constraintStart_toStartOf="@+id/tiempo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.983" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="308dp"
+        android:layout_marginEnd="383dp"
+        android:layout_marginTop="258dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_end="309dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
