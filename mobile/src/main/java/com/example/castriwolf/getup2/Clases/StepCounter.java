@@ -71,7 +71,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
     @Override
     public void onSensorChanged(SensorEvent event) {
 
-        if(pasos>=30){
+        if(pasos>=totalpasos){
             MyNewIntentService.cancelar();
             event.values[0]=0;
             pasos=0;
