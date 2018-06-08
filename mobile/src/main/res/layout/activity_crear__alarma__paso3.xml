@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#8fd2ca"
     android:screenOrientation="portrait"
-    tools:context="com.example.castriwolf.getup2.Crear_Alarma_Paso3">
+    tools:context="com.example.castriwolf.getup2.Activitys.Crear_Alarma_Paso3">
 
     <ImageView
         android:id="@+id/imageView"

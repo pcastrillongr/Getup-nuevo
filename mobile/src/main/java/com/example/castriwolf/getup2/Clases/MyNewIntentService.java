@@ -11,6 +11,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Vibrator;
 
+import com.example.castriwolf.getup2.Activitys.StepCounter;
+
 /**
  * Created by cristinavilas on 5/17/18.
  */

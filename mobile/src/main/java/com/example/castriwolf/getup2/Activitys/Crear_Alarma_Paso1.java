@@ -1,4 +1,4 @@
-package com.example.castriwolf.getup2;
+package com.example.castriwolf.getup2.Activitys;
 
 import android.content.Intent;
 import android.os.Build;
@@ -11,6 +11,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Base_Datos.UsoBD;
+import com.example.castriwolf.getup2.R;
 
 public class Crear_Alarma_Paso1 extends AppCompatActivity {
 

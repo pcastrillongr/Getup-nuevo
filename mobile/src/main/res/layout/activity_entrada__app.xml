@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#8fd2ca"
-    tools:context=".Entrada_App"
+    tools:context=".Activitys.Entrada_App"
     android:screenOrientation="portrait">
 
     <ImageView

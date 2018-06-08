@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.castriwolf.getup2.MapsActivity"
+    tools:context="com.example.castriwolf.getup2.Activitys.MapsActivity"
     tools:layout_editor_absoluteX="0dp"
     android:background="#8fd2ca"
     tools:layout_editor_absoluteY="81dp"
@@ -29,7 +29,7 @@
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
         map:layout_constraintVertical_bias="0.555"
-        tools:context=".MapsActivity" />
+        tools:context=".Activitys.MapsActivity" />
 
     <fragment
         android:id="@+id/place_autocomplete2"

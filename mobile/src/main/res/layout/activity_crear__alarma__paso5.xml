@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.castriwolf.getup2.Crear_Alarma_Paso5"
+    tools:context="com.example.castriwolf.getup2.Activitys.Crear_Alarma_Paso5"
     android:background="#8fd2ca"
     android:screenOrientation="portrait"
     >

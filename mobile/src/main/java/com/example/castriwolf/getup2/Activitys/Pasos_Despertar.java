@@ -1,4 +1,4 @@
-package com.example.castriwolf.getup2;
+package com.example.castriwolf.getup2.Activitys;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+
+import com.example.castriwolf.getup2.R;
 
 public class Pasos_Despertar extends AppCompatActivity {
 

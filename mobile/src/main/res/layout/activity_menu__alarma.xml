@@ -22,7 +22,7 @@
     android:layout_height="match_parent"
     android:background="#8fd2ca"
 
-    tools:context=".Menu_Alarma"
+    tools:context=".Activitys.Menu_Alarma"
     android:screenOrientation="portrait">
 
     <ImageView

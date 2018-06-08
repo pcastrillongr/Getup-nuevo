@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Crear_Alarma_Paso6"
+    tools:context=".Activitys.Crear_Alarma_Paso6"
     android:background="#8fd2ca"
     android:screenOrientation="portrait">
 

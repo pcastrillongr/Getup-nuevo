@@ -1,8 +1,10 @@
-package com.example.castriwolf.getup2;
+package com.example.castriwolf.getup2.Activitys;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.castriwolf.getup2.R;
 
 public class Quienes_Somos extends AppCompatActivity {
 

@@ -1,7 +1,5 @@
-package com.example.castriwolf.getup2;
+package com.example.castriwolf.getup2.Activitys;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -15,16 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.ListViewInflater;
-import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.castriwolf.getup2.R;
 
 import static com.example.castriwolf.getup2.Clases.Container.alarmas;
 

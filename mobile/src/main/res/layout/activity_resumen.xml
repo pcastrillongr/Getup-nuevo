@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#8fd2ca"
     android:screenOrientation="portrait"
-    tools:context=".Resumen">
+    tools:context=".Activitys.Resumen">
 
     <ImageView
         android:id="@+id/imgDomingo"

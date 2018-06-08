@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#8fd2ca"
-    tools:context="com.example.castriwolf.getup2.Quienes_Somos">
+    tools:context="com.example.castriwolf.getup2.Activitys.Quienes_Somos">
 
     <ImageView
         android:id="@+id/imageView12"

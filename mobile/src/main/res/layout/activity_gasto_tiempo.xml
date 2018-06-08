@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#8fd2ca"
-    tools:context=".GastoTiempo">
+    tools:context=".Activitys.GastoTiempo">
 
 </android.support.constraint.ConstraintLayout>

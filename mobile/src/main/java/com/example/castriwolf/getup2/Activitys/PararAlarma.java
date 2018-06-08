@@ -1,4 +1,4 @@
-package com.example.castriwolf.getup2;
+package com.example.castriwolf.getup2.Activitys;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
 import com.example.castriwolf.getup2.Clases.MyNewIntentService;
+import com.example.castriwolf.getup2.R;
 
 import java.util.Calendar;
 

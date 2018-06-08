@@ -1,4 +1,4 @@
-package com.example.castriwolf.getup2;
+package com.example.castriwolf.getup2.Activitys;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 
-public class Crear_Alarma_Paso5 extends AppCompatActivity {
+import com.example.castriwolf.getup2.R;
+
+public class Crear_Alarma_Paso3 extends AppCompatActivity {
 
     private NumberPicker picker;
     private ImageView next;
@@ -28,73 +30,75 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
     private Boolean bus;
     private Boolean bici;
     private Boolean andar;
-    private int Tlevantarse;
-    private int Tbano;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crear__alarma__paso5);
-        picker = (NumberPicker) findViewById(R.id.numberpicker3);
-        picker.setMaxValue(59);
+        setContentView(R.layout.activity_crear__alarma__paso3);
+        picker=(NumberPicker) findViewById(R.id.numberpicker);
         picker.setMinValue(0);
-        next = (ImageView) findViewById(R.id.next);
+        picker.setMaxValue(59);
+        next=(ImageView)findViewById(R.id.next);
 
-        recogerBundle();
+       recogerBundle();
+
+
+
+
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso6.class);
-                go.putExtra("Lunes", lunes);
-                go.putExtra("Martes", martes);
-                go.putExtra("Miercoles", miercoles);
-                go.putExtra("Jueves", jueves);
-                go.putExtra("Viernes", viernes);
-                go.putExtra("Sabado", sabado);
-                go.putExtra("Domingo", domingo);
+                Intent go=new Intent(getApplicationContext(),Crear_Alarma_Paso4.class);
+                go.putExtra("Lunes",lunes);
+                go.putExtra("Martes",martes);
+                go.putExtra("Miercoles",miercoles);
+                go.putExtra("Jueves",jueves);
+                go.putExtra("Viernes",viernes);
+                go.putExtra("Sabado",sabado);
+                go.putExtra("Domingo",domingo);
 
                 //Hora llegada trabajo
                 go.putExtra("Hora", hora);
                 go.putExtra("HMinuto", minuto);
-                //Tiempo recorrido Maps
+                //tiempo recorrido Maps
                 go.putExtra("HorasRecorrido",horaRecorrido);
                 go.putExtra("MinutosRecorridos",minutosRecorrido);
                 //Lugar de salida y llegada
                 go.putExtra("Lsalida",lsalida);
                 go.putExtra("Lllegada",lLlegada);
+                //tiempo para levantarse
+                go.putExtra("Tlevantarse",picker.getValue());
                 //Modo Transporte
                 go.putExtra("Coche",coche);
                 go.putExtra("Bus",bus);
                 go.putExtra("Bici",bici);
                 go.putExtra("Andar",andar);
-                //Tiempo para levantarse
-                go.putExtra("Tlevantarse",Tlevantarse);
-                //Tiempo del ducha
-                go.putExtra("Tbaño",Tbano);
-                //Tiempo del desayuno
-                go.putExtra("Tdesayuno",picker.getValue());
+
 
                 startActivity(go);
             }
         });
+
+
     }
 
     private void recogerBundle() {
 
-        Bundle parametros = getIntent().getExtras();
-        lunes = parametros.getBoolean("Lunes");
-        martes = parametros.getBoolean("Martes");
-        miercoles = parametros.getBoolean("Miercoles");
-        jueves = parametros.getBoolean("Jueves");
-        viernes = parametros.getBoolean("Viernes");
-        sabado = parametros.getBoolean("Sabado");
-        domingo = parametros.getBoolean("Domingo");
-        //Hora para llegar a tu destino
+        Bundle parametros =getIntent().getExtras();
+        //Dias
+        lunes=parametros.getBoolean("Lunes");
+        martes=parametros.getBoolean("Martes");
+        miercoles=parametros.getBoolean("Miercoles");
+        jueves=parametros.getBoolean("Jueves");
+        viernes=parametros.getBoolean("Viernes");
+        sabado=parametros.getBoolean("Sabado");
+        domingo=parametros.getBoolean("Domingo");
+        //Hora de llegada al destino
         hora = parametros.getInt("Hora");
-        minuto = parametros.getInt("HMinuto");
-        //Tiempo que dedicas en el recorrido
+        minuto=parametros.getInt("HMinuto");
+        //horas y minutos del recorrido
         horaRecorrido = parametros.getInt("HorasRecorrido");
         minutosRecorrido = parametros.getInt("MinutosRecorridos");
         //Lugar de salida y llegada
@@ -105,9 +109,6 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
         bus = parametros.getBoolean("Bus");
         bici = parametros.getBoolean("Bici");
         andar = parametros.getBoolean("Andar");
-        //Tiempo para levantarse
-        Tlevantarse = parametros.getInt("Tlevantarse");
-        //Tiempo del baño
-        Tbano= parametros.getInt("Tbaño");
+
     }
 }

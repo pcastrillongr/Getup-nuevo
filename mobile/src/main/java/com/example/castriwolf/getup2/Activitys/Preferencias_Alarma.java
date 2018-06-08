@@ -1,4 +1,4 @@
-package com.example.castriwolf.getup2;
+package com.example.castriwolf.getup2.Activitys;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -11,9 +11,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -22,6 +20,7 @@ import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.ListViewInflater;
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
+import com.example.castriwolf.getup2.R;
 
 public class Preferencias_Alarma extends AppCompatActivity {
 

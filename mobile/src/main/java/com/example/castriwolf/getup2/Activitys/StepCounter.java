@@ -1,4 +1,4 @@
-package com.example.castriwolf.getup2.Clases;
+package com.example.castriwolf.getup2.Activitys;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,13 +7,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.castriwolf.getup2.Menu_Alarma;
+import com.example.castriwolf.getup2.Clases.MyNewIntentService;
 import com.example.castriwolf.getup2.R;
 
 public class StepCounter extends AppCompatActivity implements SensorEventListener {

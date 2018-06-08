@@ -1,4 +1,4 @@
-package com.example.castriwolf.getup2;
+package com.example.castriwolf.getup2.Activitys;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 
-public class Crear_Alarma_Paso6 extends AppCompatActivity {
+import com.example.castriwolf.getup2.R;
+
+public class Crear_Alarma_Paso4 extends AppCompatActivity {
 
     private NumberPicker picker;
     private ImageView next;
@@ -29,29 +31,24 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
     private Boolean bici;
     private Boolean andar;
     private int Tlevantarse;
-    private int Tbano;
-    private int Tdesayuno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crear__alarma__paso6);
-
-
-        picker = findViewById(R.id.numberpicker4);
+        setContentView(R.layout.activity_crear__alarma__paso4);
+        picker = (NumberPicker) findViewById(R.id.numberpicker2);
         picker.setMaxValue(59);
         picker.setMinValue(0);
-        next = findViewById(R.id.next);
+        next = (ImageView) findViewById(R.id.next);
 
-        recogerDatos();
+       recogerBundle();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                crearAlarma();
-
-                Intent go = new Intent(getApplicationContext(), Resumen.class);
+                Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso5.class);
+                //Dias
                 go.putExtra("Lunes", lunes);
                 go.putExtra("Martes", martes);
                 go.putExtra("Miercoles", miercoles);
@@ -77,21 +74,17 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
                 //Tiempo para levantarse
                 go.putExtra("Tlevantarse",Tlevantarse);
                 //Tiempo del ducha
-                go.putExtra("Tbaño",Tbano);
-                //Tiempo del desayuno
-                go.putExtra("Tdesayuno",Tdesayuno);
-                //Tiempo adiccional
-                go.putExtra("Textra",picker.getValue());
+                go.putExtra("Tbaño",picker.getValue());
 
                 startActivity(go);
-
             }
         });
+
+
     }
 
-    private void recogerDatos(){
+    private void recogerBundle() {
         Bundle parametros = getIntent().getExtras();
-        //Dias
         lunes = parametros.getBoolean("Lunes");
         martes = parametros.getBoolean("Martes");
         miercoles = parametros.getBoolean("Miercoles");
@@ -99,10 +92,10 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
         viernes = parametros.getBoolean("Viernes");
         sabado = parametros.getBoolean("Sabado");
         domingo = parametros.getBoolean("Domingo");
-        //Hora para llegar a tu destino
+        //Hora de llegada al destino
         hora = parametros.getInt("Hora");
         minuto = parametros.getInt("HMinuto");
-        //Tiempo para el recorrido
+        //Tiempo utilizado para ir al destino
         horaRecorrido = parametros.getInt("HorasRecorrido");
         minutosRecorrido = parametros.getInt("MinutosRecorridos");
         //Lugar de salida y llegada
@@ -113,17 +106,7 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
         bus = parametros.getBoolean("Bus");
         bici = parametros.getBoolean("Bici");
         andar = parametros.getBoolean("Andar");
-        //Tiempo para levantarte
+        //Tiempo levantarse
         Tlevantarse = parametros.getInt("Tlevantarse");
-        //Tiempo para el baño
-        Tbano = parametros.getInt("Tbaño");
-        //Tiempo para el desayuno
-        Tdesayuno = parametros.getInt("Tdesayuno");
-    }
-
-    private void crearAlarma() {
-
-        
-
     }
 }

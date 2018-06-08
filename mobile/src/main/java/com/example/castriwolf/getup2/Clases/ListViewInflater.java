@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v7.app.AlertDialog;
@@ -16,12 +15,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.AlarmManager;
 
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
-import com.example.castriwolf.getup2.Menu_Alarma;
-import com.example.castriwolf.getup2.Preferencias_Alarma;
+import com.example.castriwolf.getup2.Activitys.Menu_Alarma;
 import com.example.castriwolf.getup2.R;
 
 import java.util.List;

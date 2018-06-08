@@ -31,7 +31,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Entrada_App"
+            android:name=".Activitys.Entrada_App"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp">
             <intent-filter>
@@ -41,15 +41,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Crear_Alarma_Paso1"
+            android:name=".Activitys.Crear_Alarma_Paso1"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".Pasos_Despertar"
+            android:name=".Activitys.Pasos_Despertar"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".Menu_Alarma"
+            android:name=".Activitys.Menu_Alarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
 
@@ -66,32 +66,32 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".Activitys.MapsActivity"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".Crear_Alarma_Paso3"
+            android:name=".Activitys.Crear_Alarma_Paso3"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".Crear_Alarma_Paso4"
+            android:name=".Activitys.Crear_Alarma_Paso4"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".Crear_Alarma_Paso5"
+            android:name=".Activitys.Crear_Alarma_Paso5"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".Resumen"
+            android:name=".Activitys.Resumen"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".Crear_Alarma_Paso6"
+            android:name=".Activitys.Crear_Alarma_Paso6"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".Preferencias_Alarma"
+            android:name=".Activitys.Preferencias_Alarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
 
@@ -101,11 +101,11 @@
             android:theme="@style/GetUp" />
 
         <activity
-            android:name=".Clases.StepCounter"
+            android:name=".Activitys.StepCounter"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".GastoTiempo"
+            android:name=".Activitys.GastoTiempo"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
 
@@ -115,7 +115,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".PararAlarma"
+            android:name=".Activitys.PararAlarma"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
@@ -123,7 +123,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
         <activity
-            android:name=".Quienes_Somos"
+            android:name=".Activitys.Quienes_Somos"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
     </application>

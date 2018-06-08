@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#8fd2ca"
-    tools:context="com.example.castriwolf.getup2.Preferencias_Alarma">
+    tools:context="com.example.castriwolf.getup2.Activitys.Preferencias_Alarma">
 
     <TextView
         android:id="@+id/textView5"
