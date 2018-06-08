@@ -48,21 +48,22 @@ public class MyNewIntentService extends IntentService {
         player.setLooping(true);
         player.start();
 
+        Intent go = new Intent(getApplicationContext(), StepCounter.class);
+        go.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(go);
 
         if(vibrar)
         {
             while(player.isPlaying()) {
                 vibrator.vibrate(300);        }
         }
+        //startActivity(go);
+
 
 
 
 
         //Intent go = new Intent(this, PararAlarma.class);
-        //startActivity(go);
-        Intent go = new Intent(getApplicationContext(), StepCounter.class);
-        go.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(go);
 
 
 
