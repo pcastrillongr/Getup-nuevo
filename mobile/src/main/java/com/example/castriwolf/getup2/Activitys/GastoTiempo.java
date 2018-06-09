@@ -66,19 +66,19 @@ public class GastoTiempo extends AppCompatActivity {
         else {
 
             for (Map.Entry<String, Integer> aux : nombresymedias.entrySet()) {
-                if (aux.getKey() == "tiemporecorrido") {
+                if (aux.getKey().equals("tiemporecorrido")) {
                     mediarecorrido = aux.getValue();
                 }
-                if (aux.getKey() == "tiempolevantarse") {
+                if (aux.getKey().equals("tiempolevantarse")) {
                     mediadespertar = aux.getValue();
                 }
-                if (aux.getKey() == "tiempobaño") {
+                if (aux.getKey().equals("tiempobaño")) {
                     mediabaño = aux.getValue();
                 }
-                if (aux.getKey() == "tiempodesayuno") {
+                if (aux.getKey().equals("tiempodesayuno")) {
                     mediadesayuno = aux.getValue();
                 }
-                if (aux.getKey() == "tiempootros") {
+                if (aux.getKey().equals("tiempootros")) {
                     mediaotros = aux.getValue();
                 }
 

@@ -259,8 +259,8 @@ public class Resumen extends AppCompatActivity {
 
         formulaCalcularAlarma();
 
-        insertarAlarma();
 
+        insertarAlarma();
         alarmanager();
 
         Intent go = new Intent(getApplicationContext(), Menu_Alarma.class);
