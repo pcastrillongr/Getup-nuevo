@@ -139,8 +139,7 @@ public class Mihelper extends SQLiteOpenHelper {
         String actividad;
         int tiempo;
 
-        String query="select nombreActividad,AVG(tiempo) from Actividad  where nombreActividad like 'tiempolevantarse' " +
-                "and 'tiempobaño' and 'tiempodesayuno' and 'tiempootros' and 'tiemporecorrido' group by nombreActividad";
+        String query="select nombreActividad,AVG(tiempo) from Actividad  group by nombreActividad";
 
         Cursor cursor = db.rawQuery(query, null);
 
