@@ -336,7 +336,7 @@ public class Resumen extends AppCompatActivity {
 
 
 
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time1.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, time1.getTimeInMillis(), pendingIntent);
 
 
 
@@ -360,7 +360,7 @@ public class Resumen extends AppCompatActivity {
                 time2.add(Calendar.DATE,1);
             }
 
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time2.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, time2.getTimeInMillis(), pendingIntent);
 
 
 
@@ -384,7 +384,7 @@ public class Resumen extends AppCompatActivity {
             }
 
 
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time3.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, time3.getTimeInMillis(), pendingIntent);
 
 
         }
@@ -406,7 +406,7 @@ public class Resumen extends AppCompatActivity {
                 time4.add(Calendar.DATE,1);
             }
 
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time4.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, time4.getTimeInMillis(), pendingIntent);
 
 
         }
@@ -429,7 +429,7 @@ public class Resumen extends AppCompatActivity {
 
 
 
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time5.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, time5.getTimeInMillis(), pendingIntent);
 
         }
         if (sabado) {
@@ -450,7 +450,7 @@ public class Resumen extends AppCompatActivity {
                 time6.add(Calendar.DATE,1);
             }
 
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time6.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, time6.getTimeInMillis(), pendingIntent);
 
 
         }
@@ -473,7 +473,7 @@ public class Resumen extends AppCompatActivity {
 
 
 
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time7.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+            alarmMgr.set(AlarmManager.RTC_WAKEUP, time7.getTimeInMillis(), pendingIntent);
 
 
         }
