@@ -158,8 +158,7 @@ public class Resumen extends AppCompatActivity {
        db.insertarActividad("tiempodesayuno" ,Tdesayuno);
        db.insertarActividad("tiempootros",Totros);
        recorridosEnMinutos = (horaRecorrido*60)+minutosRecorrido;
-
-       db.insertarActividad("tiemporecorrido",minutosTotales);
+       db.insertarActividad("tiemporecorrido",recorridosEnMinutos);
     }
 
     private void comprobarDatos() {
