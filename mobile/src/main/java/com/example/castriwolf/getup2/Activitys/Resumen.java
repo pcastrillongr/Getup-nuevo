@@ -293,9 +293,7 @@ public class Resumen extends AppCompatActivity {
 
     private void alarmanager() {
 
-        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, 0);
+
         Calendar time = Calendar.getInstance();
             Toast.makeText(this, "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
 
@@ -328,9 +326,14 @@ public class Resumen extends AppCompatActivity {
             time.set(Calendar.DAY_OF_WEEK, 1);
 
         }
+        if(time.before(Calendar.getInstance())){//if its in the past increment
+            time.add(Calendar.DATE,1);
+        }
 
 
-        time.set(Calendar.DATE,1);
+        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, 0);
 
         time.set(Calendar.HOUR_OF_DAY, horadespertar);
         time.set(Calendar.MINUTE, minutosdespertar);
