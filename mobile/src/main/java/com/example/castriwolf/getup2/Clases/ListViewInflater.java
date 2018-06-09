@@ -116,21 +116,21 @@ public class ListViewInflater extends BaseAdapter {
 
         if(alarma.getHoraSalida()<10&&alarma.getMinutoSalida()<10)
         {
-            viewHolder.textViewDescription.setText("0"+String.valueOf(+alarma.getHoraSalida() +":0"+ alarma.getMinutoSalida()));
+            viewHolder.textViewDescription.setText("0"+String.valueOf(alarma.getHoraSalida() +":0"+ alarma.getMinutoSalida()));
 
         }
         if(alarma.getHoraSalida()<10)
         {
-            viewHolder.textViewDescription.setText("0"+String.valueOf(+alarma.getHoraSalida() +":"+ alarma.getMinutoSalida()));
+            viewHolder.textViewDescription.setText("0"+String.valueOf(alarma.getHoraSalida() +":"+ alarma.getMinutoSalida()));
 
         }
 
         if(alarma.getMinutoSalida()<10){
-            viewHolder.textViewDescription.setText(String.valueOf(+alarma.getHoraSalida() +":0"+ alarma.getMinutoSalida()));
+            viewHolder.textViewDescription.setText(String.valueOf(alarma.getHoraSalida() +":0"+ alarma.getMinutoSalida()));
         }
         if(alarma.getHoraSalida()>=10&&alarma.getMinutoSalida()>=10)
         {
-            viewHolder.textViewDescription.setText(String.valueOf(+alarma.getHoraSalida() +":"+ alarma.getMinutoSalida()));
+            viewHolder.textViewDescription.setText(String.valueOf(alarma.getHoraSalida() +":"+ alarma.getMinutoSalida()));
 
 
         }

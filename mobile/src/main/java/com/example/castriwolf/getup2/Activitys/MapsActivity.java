@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -116,6 +117,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int minutosRecorrido = -1;
     private CameraUpdate Cllegada ;
     private CameraUpdate Csalida;
+    ProgressBar progressBar;
 
 
 
@@ -141,6 +143,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bici = findViewById(R.id.ivBici);
         andar = findViewById(R.id.ivAndar);
         ajuste = findViewById(R.id.ivAjustes);
+    progressBar=findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
 
         /**
@@ -679,8 +683,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 taskRequestDirections.execute(url);
                 stringBuilder = DirectionsParser.traerContenidoStringBuilder(url);
 
-                tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
-                distancia.setText(directionsParser.parsingKM(stringBuilder));
+
 
             }
 
