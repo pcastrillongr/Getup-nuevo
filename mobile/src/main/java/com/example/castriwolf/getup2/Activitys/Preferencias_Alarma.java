@@ -89,9 +89,24 @@ public class Preferencias_Alarma extends AppCompatActivity {
                                     for (Alarma a : Container.alarmas) {
 
                                         Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-                                        PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma(), intent, 0);
+                                        PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+1, intent, 0);
+                                        PendingIntent sender2 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+2, intent, 0);
+                                        PendingIntent sender3 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+3, intent, 0);
+                                        PendingIntent sender4 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+4, intent, 0);
+                                        PendingIntent sender5 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+5, intent, 0);
+                                        PendingIntent sender6 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+6, intent, 0);
+                                        PendingIntent sender7 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+7, intent, 0);
+
+
                                         AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
                                         alarmManager.cancel(sender);
+                                        alarmManager.cancel(sender2);
+                                        alarmManager.cancel(sender3);
+                                        alarmManager.cancel(sender4);
+                                        alarmManager.cancel(sender5);
+                                        alarmManager.cancel(sender6);
+                                        alarmManager.cancel(sender7);
+
 
                                     }
                                     db.eliminarTodaslasAlarmas();
