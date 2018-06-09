@@ -117,7 +117,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int minutosRecorrido = -1;
     private CameraUpdate Cllegada ;
     private CameraUpdate Csalida;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
+
 
 
 
@@ -143,7 +144,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bici = findViewById(R.id.ivBici);
         andar = findViewById(R.id.ivAndar);
         ajuste = findViewById(R.id.ivAjustes);
-
+        progressBar=findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
 
         /**
@@ -347,8 +349,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     } else {
 
+                        progressBar.setVisibility(View.VISIBLE);
                         recorridoJson();
                         movimientoCamara();
+                        progressBar.setVisibility(View.INVISIBLE);
                     }}}
                 });
 
@@ -374,9 +378,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
 
                             } else {
-
+                                progressBar.
+                                progressBar.setVisibility(View.VISIBLE);
                                 recorridoJson();
                                 movimientoCamara();
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
 
                         }
@@ -405,8 +411,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             } else {
 
+                                progressBar.setVisibility(View.VISIBLE);
                                 recorridoJson();
-                               movimientoCamara();
+                                movimientoCamara();
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
                         }
                     }
@@ -434,8 +442,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             } else {
 
+                                progressBar.setVisibility(View.VISIBLE);
                                 recorridoJson();
                                 movimientoCamara();
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
                         }
 
