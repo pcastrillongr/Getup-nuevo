@@ -303,35 +303,35 @@ public class Resumen extends AppCompatActivity {
 
 
         if (lunes) {
-            time.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+            time.set(Calendar.DAY_OF_WEEK, 2);
         }
         if (martes) {
-            time.set(Calendar.DAY_OF_WEEK, Calendar.TUESDAY);
+            time.set(Calendar.DAY_OF_WEEK, 3);
 
         }
         if (miercoles) {
-            time.set(Calendar.DAY_OF_WEEK, Calendar.WEDNESDAY);
+            time.set(Calendar.DAY_OF_WEEK, 4);
 
         }
         if (jueves) {
-            time.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+            time.set(Calendar.DAY_OF_WEEK, 5);
 
         }
         if (viernes) {
-            time.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+            time.set(Calendar.DAY_OF_WEEK, 6);
 
         }
         if (sabado) {
-            time.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            time.set(Calendar.DAY_OF_WEEK, 7);
 
         }
         if (domingo) {
-            time.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            time.set(Calendar.DAY_OF_WEEK, 1);
 
         }
 
 
-
+        time.set(Calendar.DATE,1);
 
         time.set(Calendar.HOUR_OF_DAY, horadespertar);
         time.set(Calendar.MINUTE, minutosdespertar);
