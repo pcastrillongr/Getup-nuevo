@@ -59,7 +59,7 @@ public class MyNewIntentService extends IntentService {
         if(vibrar)
         {
             while(player.isPlaying()) {
-                vibrator.vibrate(pattern,1000);        }
+                vibrator.vibrate(pattern,0);        }
         }
         //startActivity(go);
 

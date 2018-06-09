@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.Clases.Alarma;
@@ -90,9 +91,13 @@ public class Menu_Alarma extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso1.class);
-                startActivity(go);
-
+                if(Container.alarmas.size()>=6)
+                {
+                    Toast.makeText(getApplicationContext(),"Lista de alarmas llena",Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso1.class);
+                    startActivity(go);
+                }
             }
         });
         menupreferencias.setOnClickListener(new View.OnClickListener() {
