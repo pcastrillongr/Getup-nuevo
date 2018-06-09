@@ -68,7 +68,8 @@ public class Resumen extends AppCompatActivity {
     int idalarma;
     private int l,m,x,j,v,s,d; //dias de la semana
     Mihelper db;
-    int minutosTotales;
+    private int minutosTotales;
+    private int recorridosEnMinutos;
 
 
 
@@ -156,6 +157,8 @@ public class Resumen extends AppCompatActivity {
        db.insertarActividad("tiempobaño",Tbano);
        db.insertarActividad("tiempodesayuno" ,Tdesayuno);
        db.insertarActividad("tiempootros",Totros);
+       recorridosEnMinutos = (horaRecorrido*60)+minutosRecorrido;
+
        db.insertarActividad("tiemporecorrido",minutosTotales);
     }
 
