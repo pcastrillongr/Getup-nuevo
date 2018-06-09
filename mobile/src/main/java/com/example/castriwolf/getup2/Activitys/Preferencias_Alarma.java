@@ -85,21 +85,24 @@ public class Preferencias_Alarma extends AppCompatActivity {
                         builder.setMessage("Estás seguro que deseas borrar todas las alarmas?");
                         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
-                                for(Alarma a :Container.alarmas){
+                                if (!Container.alarmas.isEmpty()) {
+                                    for (Alarma a : Container.alarmas) {
 
                                         Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-                                        PendingIntent sender=PendingIntent.getBroadcast(getApplicationContext(),a.getId_alarma(),intent,0);
-                                        AlarmManager alarmManager= (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                                        PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma(), intent, 0);
+                                        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
                                         alarmManager.cancel(sender);
 
-                                }
-                                db.eliminarTodaslasAlarmas();
-                                ListViewInflater.listAlarmas.clear();
-                                Menu_Alarma.listView.invalidateViews();
-                                Toast.makeText(getApplicationContext(),"Alarmas borradas",Toast.LENGTH_SHORT).show();
+                                    }
+                                    db.eliminarTodaslasAlarmas();
+                                    ListViewInflater.listAlarmas.clear();
+                                    Menu_Alarma.listView.invalidateViews();
+                                    Toast.makeText(getApplicationContext(), "Alarmas borradas", Toast.LENGTH_SHORT).show();
 
-                                        }
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "No existen alarmas", Toast.LENGTH_LONG).show();
+                                }
+                            }
                         });
                         builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

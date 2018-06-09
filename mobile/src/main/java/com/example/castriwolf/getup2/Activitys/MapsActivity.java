@@ -143,8 +143,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bici = findViewById(R.id.ivBici);
         andar = findViewById(R.id.ivAndar);
         ajuste = findViewById(R.id.ivAjustes);
-    progressBar=findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
+
 
 
         /**
@@ -683,6 +682,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 taskRequestDirections.execute(url);
                 stringBuilder = DirectionsParser.traerContenidoStringBuilder(url);
 
+                tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
+                distancia.setText(directionsParser.parsingKM(stringBuilder));
 
 
             }
