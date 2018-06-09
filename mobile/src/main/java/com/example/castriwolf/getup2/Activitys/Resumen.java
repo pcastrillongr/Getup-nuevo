@@ -98,7 +98,7 @@ public class Resumen extends AppCompatActivity {
         txtOtros = findViewById(R.id.txtOtros);
         txtTotal = findViewById(R.id.txtResultado);
         txtTrecorrido = findViewById(R.id.txtTrecorrido);
-        cancelar=(ImageView)findViewById(R.id.cancelaralarma);
+        cancelar=findViewById(R.id.cancelaralarma);
 
         diasdelasemana = new ArrayList<>();
         recogerDatos();
