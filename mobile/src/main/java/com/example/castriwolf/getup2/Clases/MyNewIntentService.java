@@ -28,6 +28,7 @@ public class MyNewIntentService extends IntentService {
     boolean vibrar;
 
 
+
     public MyNewIntentService() {
         super("MyNewIntentService");
     }
@@ -37,6 +38,7 @@ public class MyNewIntentService extends IntentService {
 
          pref= getSharedPreferences("Mispreferencias", MODE_PRIVATE);
          vibrar=pref.getBoolean("vibracion",false);
+        long[] pattern = { 0, 2000, 5000, 2000, 5000, 2000, 5000, 2000, 5000, 2000, 5000};
 
         boolean sonar = true;
         Uri alarmUri = RingtoneManager
@@ -57,7 +59,7 @@ public class MyNewIntentService extends IntentService {
         if(vibrar)
         {
             while(player.isPlaying()) {
-                vibrator.vibrate(300);        }
+                vibrator.vibrate(pattern,1000);        }
         }
         //startActivity(go);
 
