@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -70,6 +71,9 @@ public class Resumen extends AppCompatActivity {
     Mihelper db;
     private int minutosTotales;
     private int recorridosEnMinutos;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+
 
 
 
@@ -100,6 +104,8 @@ public class Resumen extends AppCompatActivity {
         txtTotal = findViewById(R.id.txtResultado);
         txtTrecorrido = findViewById(R.id.txtTrecorrido);
         cancelar=findViewById(R.id.cancelaralarma);
+        pref=getSharedPreferences("preferenciasdias", Context.MODE_PRIVATE);
+        editor=pref.edit();
 
         diasdelasemana = new ArrayList<>();
         recogerDatos();
@@ -294,53 +300,186 @@ public class Resumen extends AppCompatActivity {
     private void alarmanager() {
 
 
-        Calendar time = Calendar.getInstance();
+
             Toast.makeText(this, "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
+            Calendar time1;
+            Calendar time2;
+        Calendar time3;
+        Calendar time4;
+        Calendar time5;
+        Calendar time6;
+        Calendar time7;
+
+
+
+        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+
 
 
 
         if (lunes) {
-            time.set(Calendar.DAY_OF_WEEK, 2);
+
+            Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+            idalarma=db.getIDAlarma()+1;
+            editor.putBoolean("lunes",true);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+             time1= Calendar.getInstance();
+            time1.set(Calendar.HOUR_OF_DAY, horadespertar);
+            time1.set(Calendar.MINUTE, minutosdespertar);
+            time1.set(Calendar.SECOND, 0);
+            time1.set(Calendar.MILLISECOND, 0);
+
+            if(Calendar.getInstance().after(time1)){//if its in the past increment
+                time1.add(Calendar.DATE,1);
+            }
+
+
+
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time1.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+
+
+
+
+
         }
         if (martes) {
-            time.set(Calendar.DAY_OF_WEEK, 3);
+
+            Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+            idalarma=db.getIDAlarma()+2;
+            editor.putBoolean("martes",true);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            time2= Calendar.getInstance();
+            time2.set(Calendar.HOUR_OF_DAY, horadespertar);
+            time2.set(Calendar.MINUTE, minutosdespertar);
+            time2.set(Calendar.SECOND, 0);
+            time2.set(Calendar.MILLISECOND, 0);
+
+            if(Calendar.getInstance().after(time2)){//if its in the past increment
+                time2.add(Calendar.DATE,1);
+            }
+
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time2.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+
+
 
         }
         if (miercoles) {
-            time.set(Calendar.DAY_OF_WEEK, 4);
+
+            Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+            idalarma=db.getIDAlarma()+3;
+            editor.putBoolean("miercoles",true);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            time3 = Calendar.getInstance();
+            time3.set(Calendar.HOUR_OF_DAY, horadespertar);
+            time3.set(Calendar.MINUTE, minutosdespertar);
+            time3.set(Calendar.SECOND, 0);
+            time3.set(Calendar.MILLISECOND, 0);
+
+            if(Calendar.getInstance().after(time3)){//if its in the past increment
+                time3.add(Calendar.DATE,1);
+            }
+
+
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time3.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+
 
         }
         if (jueves) {
-            time.set(Calendar.DAY_OF_WEEK, 5);
+
+            Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+            idalarma=db.getIDAlarma()+4;
+           editor.putBoolean("jueves",true);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+             time4 = Calendar.getInstance();
+            time4.set(Calendar.HOUR_OF_DAY, horadespertar);
+            time4.set(Calendar.MINUTE, minutosdespertar);
+            time4.set(Calendar.SECOND, 0);
+            time4.set(Calendar.MILLISECOND, 0);
+
+            if(Calendar.getInstance().after(time4)){//if its in the past increment
+                time4.add(Calendar.DATE,1);
+            }
+
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time4.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+
 
         }
         if (viernes) {
-            time.set(Calendar.DAY_OF_WEEK, 6);
+            Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            idalarma=db.getIDAlarma()+5;
+            editor.putBoolean("viernes",true);
+
+            time5 = Calendar.getInstance();
+            time5.set(Calendar.HOUR_OF_DAY, horadespertar);
+            time5.set(Calendar.MINUTE, minutosdespertar);
+            time5.set(Calendar.SECOND, 0);
+            time5.set(Calendar.MILLISECOND, 0);
+
+            if(Calendar.getInstance().after(time5)){//if its in the past increment
+                time5.add(Calendar.DATE,1);
+            }
+
+
+
+
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time5.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
 
         }
         if (sabado) {
-            time.set(Calendar.DAY_OF_WEEK, 7);
+
+            Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+            idalarma=db.getIDAlarma()+6;
+            editor.putBoolean("sabado",true);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+             time6 = Calendar.getInstance();
+            time6.set(Calendar.HOUR_OF_DAY, horadespertar);
+            time6.set(Calendar.MINUTE, minutosdespertar);
+            time6.set(Calendar.SECOND, 0);
+            time6.set(Calendar.MILLISECOND, 0);
+
+            if(Calendar.getInstance().after(time6)){//if its in the past increment
+                time6.add(Calendar.DATE,1);
+            }
+
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time6.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+
 
         }
         if (domingo) {
-            time.set(Calendar.DAY_OF_WEEK, 1);
+            Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+            idalarma=db.getIDAlarma()+7;
+            editor.putBoolean("domingo",true);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            time7 = Calendar.getInstance();
+            time7.set(Calendar.HOUR_OF_DAY, horadespertar);
+            time7.set(Calendar.MINUTE, minutosdespertar);
+            time7.set(Calendar.SECOND, 0);
+            time7.set(Calendar.MILLISECOND, 0);
+
+            if(Calendar.getInstance().after(time7)){//if its in the past increment
+                time7.add(Calendar.DATE,1);
+            }
+
+
+
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time7.getTimeInMillis(),24 * 7 * 60 * 60 * 1000, pendingIntent);
+
 
         }
-        if(time.before(Calendar.getInstance())){//if its in the past increment
-            time.add(Calendar.DATE,1);
-        }
+        editor.commit();
 
 
-        AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, 0);
-
-        time.set(Calendar.HOUR_OF_DAY, horadespertar);
-        time.set(Calendar.MINUTE, minutosdespertar);
-        time.set(Calendar.SECOND, 0);
-        time.set(Calendar.MILLISECOND, 0);
-        //time.setTimeInMillis(System.currentTimeMillis());
-        alarmMgr.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
 
 
 
@@ -358,7 +497,6 @@ public class Resumen extends AppCompatActivity {
         boolean result = db.insertarAlarma(lugarSalida, lugarLlegada, horadespertar, minutosdespertar, hora, minuto,l , m , x , j , v , s , d);
         if (result == true) {
 
-            idalarma=db.getIDAlarma();
 
             db.close();
 
