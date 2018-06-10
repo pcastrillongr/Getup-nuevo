@@ -114,7 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int hora;
     private int minuto;
     private int horaRecorrido;
-    private int minutosRecorrido = -1;
+    private int minutosRecorrido;
     private CameraUpdate Cllegada ;
     private CameraUpdate Csalida;
     private ProgressBar progressBar;
@@ -246,10 +246,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                if (!tiempo.getText().toString().equals("")) {
-                    recuperarTiempo();
-                }
-                if (irCoche == true || irBus == true || irBici == true || irAndando == true) {
+                if (irCoche == true || irBus == true || irBici == true || irAndando == true && minutosRecorrido > 0  ) {
                     Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
 
                     go.putExtra("Lunes", lunes);
@@ -694,7 +691,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
                 distancia.setText(directionsParser.parsingKM(stringBuilder));
-
+                recuperarTiempo();
 
             }
 
@@ -738,20 +735,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 } else {
 
-                    String[] tiempos = tiempo.getText().toString().split(" mins");
+                    String[] tiempos = tiempo.getText().toString().split(" min");
 
                     try {
+
                         minutosRecorrido = Integer.parseInt(tiempos[0].toString());
                     } catch (NumberFormatException e) {
 
                     }
-                }
 
 
-            }
+
+            }}
 
             private void movimientoCamara() {
-
 
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 builder.include(marcador.getPosition());

@@ -175,15 +175,14 @@
     <TextView
         android:id="@+id/txtsalida"
         android:layout_width="185dp"
-        android:layout_height="27dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="TextView"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintEnd_toStartOf="@+id/txtTrecorrido"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
@@ -208,18 +207,18 @@
         android:layout_width="186dp"
         android:layout_height="29dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/divider5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintEnd_toStartOf="@+id/imgModo"
+        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.222" />
 
     <View
         android:id="@+id/divider5"
@@ -353,12 +352,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/txtllegada"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTrecorrido"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.312"
         app:srcCompat="@drawable/icons8cocheverde" />
 
     <TextView
@@ -401,7 +400,7 @@
     <TextView
         android:id="@+id/txtTrecorrido"
         android:layout_width="150dp"
-        android:layout_height="20dp"
+        android:layout_height="23dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"

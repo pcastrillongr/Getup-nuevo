@@ -193,27 +193,15 @@ public class ListViewInflater extends BaseAdapter {
 
     private void borrarServiciosdeAlarma(Alarma alarma)
     {
+        for(Pending p : Container.pendings) {
+            if(p.getIdAlarma()==alarma.getId_alarma()) {
+                Intent intent = new Intent(context, MyAlarmReceiver.class);
+                PendingIntent sender = PendingIntent.getBroadcast(context, p.getIdPending(), intent, 0);
 
-        Intent intent = new Intent(context, MyAlarmReceiver.class);
-        PendingIntent sender=PendingIntent.getBroadcast(context,alarma.getId_alarma()+1,intent,0);
-        PendingIntent sender2=PendingIntent.getBroadcast(context,alarma.getId_alarma()+2,intent,0);
-        PendingIntent sender3=PendingIntent.getBroadcast(context,alarma.getId_alarma()+3,intent,0);
-        PendingIntent sender4=PendingIntent.getBroadcast(context,alarma.getId_alarma()+4,intent,0);
-        PendingIntent sender5=PendingIntent.getBroadcast(context,alarma.getId_alarma()+5,intent,0);
-        PendingIntent sender6=PendingIntent.getBroadcast(context,alarma.getId_alarma()+6,intent,0);
-        PendingIntent sender7=PendingIntent.getBroadcast(context,alarma.getId_alarma()+7,intent,0);
-
-
-        AlarmManager alarmManager= (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(sender);
-        alarmManager.cancel(sender2);
-        alarmManager.cancel(sender3);
-        alarmManager.cancel(sender4);
-        alarmManager.cancel(sender5);
-        alarmManager.cancel(sender6);
-        alarmManager.cancel(sender7);
-
-
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                alarmManager.cancel(sender);
+            }
+        }
     }
     /*private Drawable getImageDrawable(String imageName) {
         int id = context.getResources().getIdentifier(imageName, "drawable",

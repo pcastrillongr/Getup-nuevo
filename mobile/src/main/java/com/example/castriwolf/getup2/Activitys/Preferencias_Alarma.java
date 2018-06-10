@@ -20,6 +20,7 @@ import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.ListViewInflater;
 import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
+import com.example.castriwolf.getup2.Clases.Pending;
 import com.example.castriwolf.getup2.R;
 
 public class Preferencias_Alarma extends AppCompatActivity {
@@ -86,35 +87,24 @@ public class Preferencias_Alarma extends AppCompatActivity {
                         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 if (!Container.alarmas.isEmpty()) {
+                                    if(!Container.pendings.isEmpty()){
                                     for (Alarma a : Container.alarmas) {
+                                        for (Pending p : Container.pendings) {
+                                            if (p.getIdAlarma() == a.getId_alarma()) {
+                                                Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+                                                PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), p.getIdPending(), intent, 0);
 
-                                        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-                                        PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+1, intent, 0);
-                                        PendingIntent sender2 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+2, intent, 0);
-                                        PendingIntent sender3 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+3, intent, 0);
-                                        PendingIntent sender4 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+4, intent, 0);
-                                        PendingIntent sender5 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+5, intent, 0);
-                                        PendingIntent sender6 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+6, intent, 0);
-                                        PendingIntent sender7 = PendingIntent.getBroadcast(getApplicationContext(), a.getId_alarma()+7, intent, 0);
-
-
-                                        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
-                                        alarmManager.cancel(sender);
-                                        alarmManager.cancel(sender2);
-                                        alarmManager.cancel(sender3);
-                                        alarmManager.cancel(sender4);
-                                        alarmManager.cancel(sender5);
-                                        alarmManager.cancel(sender6);
-                                        alarmManager.cancel(sender7);
-
-
+                                                AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                                                alarmManager.cancel(sender);
+                                            }
+                                        }
                                     }
                                     db.eliminarTodaslasAlarmas();
                                     ListViewInflater.listAlarmas.clear();
                                     Menu_Alarma.listView.invalidateViews();
                                     Toast.makeText(getApplicationContext(), "Alarmas borradas", Toast.LENGTH_SHORT).show();
 
-                                } else {
+                                } }else {
                                     Toast.makeText(getApplicationContext(), "No existen alarmas", Toast.LENGTH_LONG).show();
                                 }
                             }

@@ -49,6 +49,12 @@ public class Mihelper extends SQLiteOpenHelper {
                 "viernes boolean," +
                 "sabado boolean," +
                 "domingo boolean)");
+
+        db.execSQL("Create table Pending(" +
+                "idPending Integer primary key autoincrement ," +
+                "idAlarma Integer References Alarma(idAlarma) );");
+
+
     }
 
     @Override
@@ -64,8 +70,6 @@ public class Mihelper extends SQLiteOpenHelper {
         contentValues.put("tiempo",tiempo);
 
         this.getWritableDatabase().insert("Actividad",null,contentValues);
-
-
 
 
     }
@@ -205,6 +209,40 @@ public class Mihelper extends SQLiteOpenHelper {
 
     }
 
+
+    public void insertarPending(int idAlarma){
+
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put("idAlarma",idAlarma);
+
+        this.getWritableDatabase().insert("Pending",null,contentValues);
+
+
+    }
+
+    public int recuperaridPending(){
+
+        SQLiteDatabase db=this.getReadableDatabase();
+
+        int idPending=0;
+
+        String query="select idPending from Pending  order by idPending desc limit 1 ";
+
+        Cursor cursor = db.rawQuery(query, null);
+
+        //if TABLE has rows
+        if (cursor.moveToFirst()) {
+            //Loop through the table rows
+            do {
+                idPending=cursor.getInt(0);
+
+            } while (cursor.moveToNext());
+        }
+
+        return  idPending;
+    }
 
 
 }

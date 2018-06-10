@@ -19,6 +19,7 @@ import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.Clases.Alarma;
 import com.example.castriwolf.getup2.Clases.Container;
 import com.example.castriwolf.getup2.Clases.ListViewInflater;
+import com.example.castriwolf.getup2.Clases.Pending;
 import com.example.castriwolf.getup2.R;
 
 import static com.example.castriwolf.getup2.Clases.Container.alarmas;
@@ -32,7 +33,7 @@ public class Menu_Alarma extends AppCompatActivity {
     private ListView listViewDrawer;
     public static ListView listView;
     private ArrayAdapter<String> adaptadorMenu;
-    private boolean datos=false;
+    private boolean datos = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class Menu_Alarma extends AppCompatActivity {
                         i = new Intent(getApplicationContext(), Preferencias_Alarma.class);
                         break;
                     case 2:
-                        i = new Intent(getApplicationContext(),Quienes_Somos.class);
+                        i = new Intent(getApplicationContext(), Quienes_Somos.class);
                         break;
                     case 3:
 
@@ -78,7 +79,7 @@ public class Menu_Alarma extends AppCompatActivity {
             }
         });
         comprobarAlarmas();
-        if (datos==true) {
+        if (datos == true) {
 
             listView.setAdapter(new ListViewInflater(this, alarmas));
 
@@ -91,10 +92,9 @@ public class Menu_Alarma extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if(Container.alarmas.size()>=6)
-                {
-                    Toast.makeText(getApplicationContext(),"Lista de alarmas llena",Toast.LENGTH_SHORT).show();
-                }else {
+                if (Container.alarmas.size() >= 6) {
+                    Toast.makeText(getApplicationContext(), "Lista de alarmas llena", Toast.LENGTH_SHORT).show();
+                } else {
                     Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso1.class);
                     startActivity(go);
                 }
@@ -124,7 +124,7 @@ public class Menu_Alarma extends AppCompatActivity {
 
         }*/
 
-  //  }
+    //  }
 
     private void comprobarAlarmas() {
 
@@ -135,6 +135,7 @@ public class Menu_Alarma extends AppCompatActivity {
 
 //Nos aseguramos de que existe al menos un registro
         Container.alarmas.clear();
+        Container.pendings.clear();
         try {
 
             if (c.moveToFirst()) {
@@ -155,7 +156,7 @@ public class Menu_Alarma extends AppCompatActivity {
                     int sabado = c.getInt(12);
                     int domingo = c.getInt(13);
 
-                    Alarma alarma = new Alarma (id_alarma,Lsalida,Lllegada,hSalida,mSalida,hLlegada,mLlegada,lunes,martes,miercoles,jueves,viernes,sabado,domingo);
+                    Alarma alarma = new Alarma(id_alarma, Lsalida, Lllegada, hSalida, mSalida, hLlegada, mLlegada, lunes, martes, miercoles, jueves, viernes, sabado, domingo);
                     Container.alarmas.add(alarma);
                     datos = true;
                 } while (c.moveToNext());
@@ -165,25 +166,40 @@ public class Menu_Alarma extends AppCompatActivity {
 
         }
 
+        Cursor p = db.rawQuery("SELECT * FROM Pending", null);
+
+        try {
+            if (p.moveToFirst()) {
+                do {
+
+                    int idPending = p.getInt(0);
+                    int idAlarma = p.getInt(1);
+                    Pending pending = new Pending(idPending,idAlarma);
+                    Container.pendings.add(pending);
+
+                } while (p.moveToNext());
+
+            }
+        } catch (Exception e) {
+
+        }
         db.close();
     }
 
-
-
-    @Override
-    public void onBackPressed() {
-        new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
-                .setMessage("Deseas salir de GetUp!?")
-                .setView(R.layout.custom_layout)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(Intent.ACTION_MAIN);
-                        intent.addCategory(Intent.CATEGORY_HOME);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-                    }
-                }).setNegativeButton(android.R.string.no, null).show();
+        @Override
+        public void onBackPressed () {
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
+                    .setMessage("Deseas salir de GetUp!?")
+                    .setView(R.layout.custom_layout)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Intent.ACTION_MAIN);
+                            intent.addCategory(Intent.CATEGORY_HOME);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).setNegativeButton(android.R.string.no, null).show();
+        }
     }
-}

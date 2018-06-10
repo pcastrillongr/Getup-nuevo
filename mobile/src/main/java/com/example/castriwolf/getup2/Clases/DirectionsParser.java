@@ -123,6 +123,7 @@ public class DirectionsParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         return t;
     }
 

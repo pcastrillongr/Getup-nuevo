@@ -300,31 +300,26 @@ public class Resumen extends AppCompatActivity {
     private void alarmanager() {
 
 
-
-            Toast.makeText(this, "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
-            Calendar time1;
-            Calendar time2;
+        Toast.makeText(this, "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
+        Calendar time1;
+        Calendar time2;
         Calendar time3;
         Calendar time4;
         Calendar time5;
         Calendar time6;
         Calendar time7;
 
-
+        idalarma = db.getIDAlarma();
 
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-
-
-
 
         if (lunes) {
 
             Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-            idalarma=db.getIDAlarma()+1;
-            editor.putBoolean("lunes",true);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-             time1= Calendar.getInstance();
+            insertarPending();
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), recuperarIdPending(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            time1= Calendar.getInstance();
             time1.set(Calendar.HOUR_OF_DAY, horadespertar);
             time1.set(Calendar.MINUTE, minutosdespertar);
             time1.set(Calendar.SECOND, 0);
@@ -335,21 +330,14 @@ public class Resumen extends AppCompatActivity {
             }
 
 
-
             alarmMgr.set(AlarmManager.RTC_WAKEUP, time1.getTimeInMillis(), pendingIntent);
-
-
-
-
 
         }
         if (martes) {
 
             Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-            idalarma=db.getIDAlarma()+2;
-            editor.putBoolean("martes",true);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
+            insertarPending();
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), recuperarIdPending(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
             time2= Calendar.getInstance();
             time2.set(Calendar.HOUR_OF_DAY, horadespertar);
             time2.set(Calendar.MINUTE, minutosdespertar);
@@ -362,16 +350,13 @@ public class Resumen extends AppCompatActivity {
 
             alarmMgr.set(AlarmManager.RTC_WAKEUP, time2.getTimeInMillis(), pendingIntent);
 
-
-
         }
         if (miercoles) {
 
             Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-            idalarma=db.getIDAlarma()+3;
-            editor.putBoolean("miercoles",true);
+            insertarPending();
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), recuperarIdPending(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             time3 = Calendar.getInstance();
             time3.set(Calendar.HOUR_OF_DAY, horadespertar);
@@ -391,10 +376,9 @@ public class Resumen extends AppCompatActivity {
         if (jueves) {
 
             Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-            idalarma=db.getIDAlarma()+4;
-           editor.putBoolean("jueves",true);
+            insertarPending();
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), recuperarIdPending(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
              time4 = Calendar.getInstance();
             time4.set(Calendar.HOUR_OF_DAY, horadespertar);
@@ -412,9 +396,9 @@ public class Resumen extends AppCompatActivity {
         }
         if (viernes) {
             Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            idalarma=db.getIDAlarma()+5;
-            editor.putBoolean("viernes",true);
+            insertarPending();
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), recuperarIdPending(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             time5 = Calendar.getInstance();
             time5.set(Calendar.HOUR_OF_DAY, horadespertar);
@@ -435,12 +419,11 @@ public class Resumen extends AppCompatActivity {
         if (sabado) {
 
             Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-            idalarma=db.getIDAlarma()+6;
-            editor.putBoolean("sabado",true);
+            insertarPending();
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), recuperarIdPending(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-             time6 = Calendar.getInstance();
+            time6 = Calendar.getInstance();
             time6.set(Calendar.HOUR_OF_DAY, horadespertar);
             time6.set(Calendar.MINUTE, minutosdespertar);
             time6.set(Calendar.SECOND, 0);
@@ -456,10 +439,9 @@ public class Resumen extends AppCompatActivity {
         }
         if (domingo) {
             Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
-            idalarma=db.getIDAlarma()+7;
-            editor.putBoolean("domingo",true);
+            insertarPending();
 
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), idalarma, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), recuperarIdPending(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             time7 = Calendar.getInstance();
             time7.set(Calendar.HOUR_OF_DAY, horadespertar);
@@ -478,9 +460,6 @@ public class Resumen extends AppCompatActivity {
 
         }
         editor.commit();
-
-
-
 
 
     }
@@ -508,4 +487,20 @@ public class Resumen extends AppCompatActivity {
         }
 
         db.close();
-}}
+}
+
+        private void insertarPending() {
+            Mihelper db = new Mihelper(this);
+
+            db.insertarPending(idalarma);
+            db.close();
+        }
+
+        private int recuperarIdPending(){
+            Mihelper db = new Mihelper(this);
+            int result = db.recuperaridPending();
+            db.close();
+            return result;
+        }
+
+}
