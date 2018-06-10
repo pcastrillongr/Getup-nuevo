@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -17,29 +19,74 @@ public class MyAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        boolean lunes;
-        boolean martes;
-        boolean miercoles;
-        boolean jueves;
-        boolean viernes;
-        boolean sabado;
-        boolean domingo;
+        int nlunes=0;
+        int nmartes=0;
+        int nmiercoles=0;
+        int njueves=0;
+        int nviernes=0;
+        int nsabado=0;
+        int ndomingo=0;
+        boolean lunes=false;
+        boolean martes=false;
+        boolean miercoles=false;
+        boolean jueves=false;
+        boolean viernes=false;
+        boolean sabado=false;
+        boolean domingo=false;
         Intent go=new Intent(context,MyNewIntentService.class);
-        SharedPreferences pref= context.getSharedPreferences("preferenciasdias", context.MODE_PRIVATE);
-        SharedPreferences.Editor editor=pref.edit();
+
+        Mihelper db=new Mihelper(context);
+        int hora;
+        int minutos;
+        Calendar c=Calendar.getInstance();
+        hora=c.get(Calendar.HOUR_OF_DAY);
+        minutos=c.get(Calendar.MINUTE);
+
+        ArrayList<Integer>diassonar=db.diasAlarma(hora,minutos);
+
+
+        nlunes=diassonar.get(0);
+        nmartes=diassonar.get(1);
+        nmiercoles=diassonar.get(2);
+        njueves=diassonar.get(3);
+        nviernes=diassonar.get(4);
+        nsabado=diassonar.get(5);
+        ndomingo=diassonar.get(6);
+
+        if(nlunes==1)
+        {
+            lunes=true;
+        }
+        if(nmartes==1)
+        {
+            martes=true;
+        }
+        if(nmiercoles==1)
+        {
+            miercoles=true;
+        }
+        if(njueves==1)
+        {
+            jueves=true;
+        }
+        if(nviernes==1)
+        {
+            viernes=true;
+        }
+        if(nsabado==1)
+        {
+            sabado=true;
+        }
+        if(ndomingo==1)
+        {
+            domingo=true;
+        }
 
 
 
 
-        Calendar calendar=Calendar.getInstance();
-       lunes=pref.getBoolean("lunes",false);
-       martes=pref.getBoolean("martes",false);
-       miercoles=pref.getBoolean("miercoles",false);
-       jueves=pref.getBoolean("jueves",false);
-       viernes=pref.getBoolean("viernes",false);
-       sabado=pref.getBoolean("sabado",false);
-       domingo=pref.getBoolean("domingo",false);
-        int dia= calendar.get(Calendar.DAY_OF_WEEK);
+
+        int dia= c.get(Calendar.DAY_OF_WEEK);
 
 
 
@@ -72,7 +119,6 @@ public class MyAlarmReceiver extends BroadcastReceiver {
 
             context.startService(go);
         }
-        pref.edit().clear().commit();
 
 
     }

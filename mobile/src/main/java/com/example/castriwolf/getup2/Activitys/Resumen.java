@@ -494,7 +494,7 @@ public class Resumen extends AppCompatActivity {
         String lugarLlegada = txtLlegada.toString();
 
 
-        boolean result = db.insertarAlarma(lugarSalida, lugarLlegada, horadespertar, minutosdespertar, hora, minuto,l , m , x , j , v , s , d);
+        boolean result = db.insertarAlarma(lugarSalida, lugarLlegada, horadespertar, minutosdespertar, hora, minuto,lunes , martes , miercoles , jueves , viernes , sabado , domingo);
         if (result == true) {
 
 

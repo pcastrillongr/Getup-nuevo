@@ -42,13 +42,13 @@ public class Mihelper extends SQLiteOpenHelper {
                 "Msalida Integer," +
                 "Hllegada Integer," +
                 "Mllegada Integer," +
-                "lunes Integer," +
-                "martes Integer," +
-                "miercoles Integer," +
-                "jueves Integer," +
-                "viernes Integer," +
-                "sabado Integer," +
-                "domingo Integer)");
+                "lunes boolean," +
+                "martes boolean," +
+                "miercoles boolean," +
+                "jueves boolean," +
+                "viernes boolean," +
+                "sabado boolean," +
+                "domingo boolean)");
     }
 
     @Override
@@ -70,7 +70,51 @@ public class Mihelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean insertarAlarma(String Lsalida, String Lllegada, int Hsalida, int Msalida, int Hllegad, int Mllegada,int lunes,int martes,int miercoles,int jueves,int viernes,int sabado,int domingo){
+    public ArrayList<Integer>diasAlarma(int hora,int minutos)
+    {
+        SQLiteDatabase db=this.getReadableDatabase();
+        ArrayList<Integer>dias=new ArrayList<Integer>();
+
+        String query="select lunes,martes,miercoles,jueves,viernes,sabado,domingo from Alarma  where Hsalida="+String.valueOf(hora)+" and Msalida="+String.valueOf(minutos);
+
+        Cursor cursor = db.rawQuery(query, null);
+        int lunes=0;
+        int martes=0;
+        int miercoles=0;
+        int jueves=0;
+        int viernes=0;
+        int sabado=0;
+        int domingo=0;
+
+        //if TABLE has rows
+        if (cursor.moveToFirst()) {
+            //Loop through the table rows
+            do {
+                lunes=(cursor.getInt(0));
+                martes=(cursor.getInt(1));
+                miercoles=(cursor.getInt(2));
+                jueves=(cursor.getInt(3));
+                viernes=(cursor.getInt(4));
+                sabado=(cursor.getInt(5));
+                domingo=(cursor.getInt(6));
+
+            } while (cursor.moveToNext());
+        }
+        dias.add(lunes);
+        dias.add(martes);
+        dias.add(miercoles);
+        dias.add(jueves);
+        dias.add(viernes);
+        dias.add(sabado);
+        dias.add(domingo);
+
+
+
+       return  dias;
+
+    }
+
+    public boolean insertarAlarma(String Lsalida, String Lllegada, int Hsalida, int Msalida, int Hllegad, int Mllegada,boolean lunes,boolean martes,boolean miercoles,boolean jueves,boolean viernes,boolean sabado,boolean domingo){
         ContentValues contentValues = new ContentValues();
         contentValues.put("Lsalida",Lsalida);
         contentValues.put("Lllegada",Lllegada);
