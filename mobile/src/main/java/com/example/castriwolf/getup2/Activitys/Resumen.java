@@ -330,7 +330,7 @@ public class Resumen extends AppCompatActivity {
             }
 
 
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, time1.getTimeInMillis(), pendingIntent);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time1.getTimeInMillis(),AlarmManager.INTERVAL_DAY*7, pendingIntent);
 
         }
         if (martes) {
@@ -348,7 +348,7 @@ public class Resumen extends AppCompatActivity {
                 time2.add(Calendar.DATE,1);
             }
 
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, time2.getTimeInMillis(), pendingIntent);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time2.getTimeInMillis(),AlarmManager.INTERVAL_DAY*7, pendingIntent);
 
         }
         if (miercoles) {
@@ -369,7 +369,7 @@ public class Resumen extends AppCompatActivity {
             }
 
 
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, time3.getTimeInMillis(), pendingIntent);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time3.getTimeInMillis(),AlarmManager.INTERVAL_DAY*7, pendingIntent);
 
 
         }
@@ -390,7 +390,7 @@ public class Resumen extends AppCompatActivity {
                 time4.add(Calendar.DATE,1);
             }
 
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, time4.getTimeInMillis(), pendingIntent);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time4.getTimeInMillis(),AlarmManager.INTERVAL_DAY*7, pendingIntent);
 
 
         }
@@ -413,7 +413,7 @@ public class Resumen extends AppCompatActivity {
 
 
 
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, time5.getTimeInMillis(), pendingIntent);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time5.getTimeInMillis(),AlarmManager.INTERVAL_DAY*7, pendingIntent);
 
         }
         if (sabado) {
@@ -433,7 +433,7 @@ public class Resumen extends AppCompatActivity {
                 time6.add(Calendar.DATE,1);
             }
 
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, time6.getTimeInMillis(), pendingIntent);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time6.getTimeInMillis(),AlarmManager.INTERVAL_DAY*7, pendingIntent);
 
 
         }
@@ -455,7 +455,7 @@ public class Resumen extends AppCompatActivity {
 
 
 
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, time7.getTimeInMillis(), pendingIntent);
+            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time7.getTimeInMillis(),AlarmManager.INTERVAL_DAY*7, pendingIntent);
 
 
         }
