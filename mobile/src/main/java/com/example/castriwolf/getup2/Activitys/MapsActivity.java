@@ -142,7 +142,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bici = findViewById(R.id.ivBici);
         andar = findViewById(R.id.ivAndar);
         ajuste = findViewById(R.id.ivAjustes);
-        progressBar = findViewById(R.id.progressBar);
+
 
 
         /**
@@ -687,7 +687,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onTick(long l) {
 
-                progressBar.setProgress((int) l);
                 Toast.makeText(getApplicationContext(), "Calculando...", Toast.LENGTH_SHORT).show();
 
             }
@@ -703,7 +702,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     recorridoJson();
                 }
                 recuperarTiempo();
-                progressBar.setVisibility(View.INVISIBLE);
+
             }
         }.start();
 
