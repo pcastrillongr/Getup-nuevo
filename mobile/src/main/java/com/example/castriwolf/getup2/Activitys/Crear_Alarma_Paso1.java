@@ -41,6 +41,7 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear_alarma_paso1);
 
+        //variables de botones
         toggleButton1 = (ImageButton) findViewById(R.id.toggleButtonLunes);
         toggleButton2 = (ImageButton) findViewById(R.id.toggleButtonMartes);
         toggleButton3 = (ImageButton) findViewById(R.id.toggleButtonMiercoles);
@@ -48,6 +49,8 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
         toggleButton5 = (ImageButton) findViewById(R.id.toggleButtonViernes);
         toggleButton6 = (ImageButton) findViewById(R.id.toggleButtonSabado);
         toggleButton7 = (ImageButton) findViewById(R.id.toggleButtonDomingo);
+
+        //timepicker para escoger la hora a la que deseamos llegar al destino
         hora = findViewById(R.id.timePicker3);
         hora.setIs24HourView(true);
         next = (ImageView) findViewById(R.id.next);
@@ -57,6 +60,12 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
             public void onClick(View view) {
 
 
+                /**
+                 *   Nos comprueba si al menos un día esta seleccionado,de no estarlo nos mandará un aviso
+                 *   de estarlo, nos enviará a MapsActivity
+                 *
+                 *
+                 */
                 if (clunes == false && cmartes == false && cmiercoles == false && cjueves == false && cviernes == false && csabado == false && cdomingo == false) {
 
                     Toast.makeText(Crear_Alarma_Paso1.this, "La alarma debe tener minimo un dia asignado", Toast.LENGTH_SHORT).show();
@@ -88,6 +97,8 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
                 }
             }
         });
+
+        //cambia el color de los botones entre rojo y verde dependiendo de la elección del usuario
 
         toggleButton1.setOnClickListener(new View.OnClickListener() {
             @Override
