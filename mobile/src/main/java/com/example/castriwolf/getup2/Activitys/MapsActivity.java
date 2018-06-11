@@ -341,12 +341,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
 
                     } else {
-                        progressBar.setIndeterminate(true);
-                        progressBar.setVisibility(View.VISIBLE);
+
                         recorridoJson();
                         movimientoCamara();
-                        progressBar.setIndeterminate(false);
-                        progressBar.setVisibility(View.INVISIBLE);
+                      
                     }
                 }
             }
