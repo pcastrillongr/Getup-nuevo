@@ -683,7 +683,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 stringBuilder= DirectionsParser.traerContenidoStringBuilder(url);
 
 
-                new CountDownTimer(0, 0) {
+                new CountDownTimer(3000, 3000) {
                     @Override
                     public void onTick(long l) {
 
