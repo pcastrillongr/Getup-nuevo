@@ -115,11 +115,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int minuto;
     private int horaRecorrido;
     private int minutosRecorrido;
-    private CameraUpdate Cllegada ;
+    private CameraUpdate Cllegada;
     private CameraUpdate Csalida;
-
-
-
+    private ProgressBar progressBar;
 
 
     @Override
@@ -144,7 +142,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         bici = findViewById(R.id.ivBici);
         andar = findViewById(R.id.ivAndar);
         ajuste = findViewById(R.id.ivAjustes);
-
+        progressBar = findViewById(R.id.progressBar);
 
 
         /**
@@ -203,7 +201,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-
                 new CountDownTimer(4000, 4000) {
                     @Override
                     public void onTick(long l) {
@@ -245,7 +242,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View view) {
 
-                if (irCoche == true || irBus == true || irBici == true || irAndando == true && minutosRecorrido > 0  ) {
+                if (irCoche == true || irBus == true || irBici == true || irAndando == true && minutosRecorrido > 0) {
                     Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
 
                     go.putExtra("Lunes", lunes);
@@ -344,259 +341,264 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
 
                     } else {
+                        progressBar.setIndeterminate(true);
+                        progressBar.setVisibility(View.VISIBLE);
+                        recorridoJson();
+                        movimientoCamara();
+                        progressBar.setIndeterminate(false);
+                        progressBar.setVisibility(View.INVISIBLE);
+                    }
+                }
+            }
+        });
+
+        bus.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick(View v) {
+
+                if (irBus == false && !destino.equals("") && !salida.equals("")) {
+                    irCoche = false;
+                    irBus = true;
+                    irAndando = false;
+                    irBici = false;
+
+                    coche.setImageResource(R.drawable.icons8cochegris);
+                    bus.setImageResource(R.drawable.icons8autobusverde);
+                    bici.setImageResource(R.drawable.icons8bicigris);
+                    andar.setImageResource(R.drawable.icons8caminargris);
+
+                    if (salida.equals("") || destino.equals("")) {
+
+                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                    } else {
 
                         recorridoJson();
                         movimientoCamara();
-                    }}}
-                });
-
-                bus.setOnClickListener(new View.OnClickListener()
-
-                {
-                    @Override
-                    public void onClick(View v) {
-
-                        if (irBus == false && !destino.equals("") && !salida.equals("")) {
-                            irCoche = false;
-                            irBus = true;
-                            irAndando = false;
-                            irBici = false;
-
-                            coche.setImageResource(R.drawable.icons8cochegris);
-                            bus.setImageResource(R.drawable.icons8autobusverde);
-                            bici.setImageResource(R.drawable.icons8bicigris);
-                            andar.setImageResource(R.drawable.icons8caminargris);
-
-                            if (salida.equals("") || destino.equals("")) {
-
-                                Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
-
-                            } else {
-
-                                recorridoJson();
-                                movimientoCamara();
-                            }
-
-                        }
                     }
-                });
 
-                bici.setOnClickListener(new View.OnClickListener()
-
-                {
-                    @Override
-                    public void onClick(View v) {
-                        if (irBici == false && !destino.equals("") && !salida.equals("")) {
-                            irCoche = false;
-                            irBus = false;
-                            irAndando = false;
-                            irBici = true;
-
-                            coche.setImageResource(R.drawable.icons8cochegris);
-                            bus.setImageResource(R.drawable.icons8autobusgris);
-                            bici.setImageResource(R.drawable.icons8biciverde);
-                            andar.setImageResource(R.drawable.icons8caminargris);
-
-                            if (salida.equals("") || destino.equals("")) {
-
-                                Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
-
-                            } else {
-
-                                recorridoJson();
-                                movimientoCamara();
-                            }
-                        }
-                    }
-                });
-
-                andar.setOnClickListener(new View.OnClickListener()
-
-                {
-                    @Override
-                    public void onClick(View v) {
-                        if (irAndando == false && !destino.equals("") && !salida.equals("")) {
-                            irCoche = false;
-                            irBus = false;
-                            irAndando = true;
-                            irBici = false;
-
-                            coche.setImageResource(R.drawable.icons8cochegris);
-                            bus.setImageResource(R.drawable.icons8autobusgris);
-                            bici.setImageResource(R.drawable.icons8bicigris);
-                            andar.setImageResource(R.drawable.icons8caminarverde);
-
-                            if (salida.equals("") || destino.equals("")) {
-
-                                Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
-
-                            } else {
-
-                                recorridoJson();
-                                movimientoCamara();
-                            }
-                        }
-
-                    }
-                });
-
+                }
             }
+        });
 
+        bici.setOnClickListener(new View.OnClickListener()
 
-            /**
-             * Todos estos metodos funcionan para ubicar
-             * tu ubicacion en el mapa.
-             */
+        {
             @Override
-            public void onMapReady(GoogleMap googleMap) {
-                mMap = googleMap;
-                mMap.getUiSettings().setZoomControlsEnabled(true);
-                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
-                    return;
-                }
+            public void onClick(View v) {
+                if (irBici == false && !destino.equals("") && !salida.equals("")) {
+                    irCoche = false;
+                    irBus = false;
+                    irAndando = false;
+                    irBici = true;
 
-            }
+                    coche.setImageResource(R.drawable.icons8cochegris);
+                    bus.setImageResource(R.drawable.icons8autobusgris);
+                    bici.setImageResource(R.drawable.icons8biciverde);
+                    andar.setImageResource(R.drawable.icons8caminargris);
 
-            private void agregarMarcador(double lat, double lon) {
+                    if (salida.equals("") || destino.equals("")) {
 
+                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
 
-                LatLng cordenadas = new LatLng(lat, lon);
-                Csalida = CameraUpdateFactory.newLatLngZoom(cordenadas, 16);
+                    } else {
 
-                if (marcador != null) {
-                    marcador.remove();
-                }
-
-
-                marcador = mMap.addMarker(new MarkerOptions().position(cordenadas).title("Salida").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                mMap.animateCamera(Csalida);
-
-
-            }
-
-            private void agregarMarcador2(double lat, double lon) {
-                LatLng cordenadas = new LatLng(lat, lon);
-                Csalida = CameraUpdateFactory.newLatLngZoom(cordenadas, 16);
-
-                if (marcador2 != null) {
-                    marcador2.remove();
-                }
-
-
-                marcador2 = mMap.addMarker(new MarkerOptions().position(cordenadas).title("Llegada").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                mMap.animateCamera(Csalida);
-
-
-            }
-
-            private void actualizarUbicacion(Location location) {
-
-                if (location != null) {
-                    latsal = 0;
-                    lonsal = 0;
-                    latsal = location.getLatitude();
-                    lonsal = location.getLongitude();
-                    agregarMarcador(latsal, lonsal);
-                }
-            }
-
-            LocationListener locListener = new LocationListener() {
-                @Override
-                public void onLocationChanged(Location location) {
-                    actualizarUbicacion(location);
-
-                }
-
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                }
-
-                @Override
-                public void onProviderEnabled(String provider) {
-                    Toast.makeText(getApplicationContext(), "Gps Activado", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onProviderDisabled(String provider) {
-                    showAlert();
-
-                }
-            };
-
-            private void miUbicacion() {
-
-
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-
-                    return;
-                } else {
-                    final LocationManager lctManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                    if (lctManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                        Location location = lctManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                        actualizarUbicacion(location);
-                        lctManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 00, locListener);
+                        recorridoJson();
+                        movimientoCamara();
                     }
-
-
                 }
+            }
+        });
+
+        andar.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick(View v) {
+                if (irAndando == false && !destino.equals("") && !salida.equals("")) {
+                    irCoche = false;
+                    irBus = false;
+                    irAndando = true;
+                    irBici = false;
+
+                    coche.setImageResource(R.drawable.icons8cochegris);
+                    bus.setImageResource(R.drawable.icons8autobusgris);
+                    bici.setImageResource(R.drawable.icons8bicigris);
+                    andar.setImageResource(R.drawable.icons8caminarverde);
+
+                    if (salida.equals("") || destino.equals("")) {
+
+                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                    } else {
+
+                        recorridoJson();
+                        movimientoCamara();
+                    }
+                }
+
+            }
+        });
+
+    }
+
+
+    /**
+     * Todos estos metodos funcionan para ubicar
+     * tu ubicacion en el mapa.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_REQUEST);
+            return;
+        }
+
+    }
+
+    private void agregarMarcador(double lat, double lon) {
+
+
+        LatLng cordenadas = new LatLng(lat, lon);
+        Csalida = CameraUpdateFactory.newLatLngZoom(cordenadas, 16);
+
+        if (marcador != null) {
+            marcador.remove();
+        }
+
+
+        marcador = mMap.addMarker(new MarkerOptions().position(cordenadas).title("Salida").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+        mMap.animateCamera(Csalida);
+
+
+    }
+
+    private void agregarMarcador2(double lat, double lon) {
+        LatLng cordenadas = new LatLng(lat, lon);
+        Csalida = CameraUpdateFactory.newLatLngZoom(cordenadas, 16);
+
+        if (marcador2 != null) {
+            marcador2.remove();
+        }
+
+
+        marcador2 = mMap.addMarker(new MarkerOptions().position(cordenadas).title("Llegada").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+        mMap.animateCamera(Csalida);
+
+
+    }
+
+    private void actualizarUbicacion(Location location) {
+
+        if (location != null) {
+            latsal = 0;
+            lonsal = 0;
+            latsal = location.getLatitude();
+            lonsal = location.getLongitude();
+            agregarMarcador(latsal, lonsal);
+        }
+    }
+
+    LocationListener locListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            actualizarUbicacion(location);
+
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+            Toast.makeText(getApplicationContext(), "Gps Activado", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            showAlert();
+
+        }
+    };
+
+    private void miUbicacion() {
+
+
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+
+            return;
+        } else {
+            final LocationManager lctManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (lctManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                Location location = lctManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                actualizarUbicacion(location);
+                lctManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 15000, 00, locListener);
             }
 
 
-            private void showAlert() {
-                final AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
-                dialog.setTitle("Enable Location")
-                        .setMessage("Su ubicación esta desactivada.\npor favor active su ubicación usa esta app")
-                        .setPositiveButton("Configuración de ubicación", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                                Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                startActivity(myIntent);
-                            }
-                        })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                            }
-                        });
-                dialog.show();
+        }
+    }
 
 
-            }
-            /**
-             * --------------------------------------------
-             */
+    private void showAlert() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder(getApplicationContext());
+        dialog.setTitle("Enable Location")
+                .setMessage("Su ubicación esta desactivada.\npor favor active su ubicación usa esta app")
+                .setPositiveButton("Configuración de ubicación", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                        Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(myIntent);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                    }
+                });
+        dialog.show();
 
 
-            /**
-             * Creas los parametros de la busqueda Json
-             *
-             * @param place1
-             * @param place2
-             * @return
-             */
-            private String getRequestUrl(Place place1, Place place2) {
-                //origen
-                String str_org = "";
-                String mode = "";
-                String time = "";
-                if (place1 != null) {
-                    str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
-                } else {
-                    str_org = "origin=" + latsal + "," + lonsal;
-                }
-                //destino
-                String str_dest = "destination=" + place2.getLatLng().latitude + "," + place2.getLatLng().longitude;
-                //sensor
-                String sensor = "sensor=false";
-                //Modo transporte
-                if (irCoche == true) {
-                    mode = "mode=driving";
-                }
-                if (irBus == true) {
-                    mode = "mode=transit";
+    }
+    /**
+     * --------------------------------------------
+     */
+
+
+    /**
+     * Creas los parametros de la busqueda Json
+     *
+     * @param place1
+     * @param place2
+     * @return
+     */
+    private String getRequestUrl(Place place1, Place place2) {
+        //origen
+        String str_org = "";
+        String mode = "";
+        String time = "";
+        if (place1 != null) {
+            str_org = "origin=" + place1.getLatLng().latitude + "," + place1.getLatLng().longitude;
+        } else {
+            str_org = "origin=" + latsal + "," + lonsal;
+        }
+        //destino
+        String str_dest = "destination=" + place2.getLatLng().latitude + "," + place2.getLatLng().longitude;
+        //sensor
+        String sensor = "sensor=false";
+        //Modo transporte
+        if (irCoche == true) {
+            mode = "mode=driving";
+        }
+        if (irBus == true) {
+            mode = "mode=transit";
             /*//Hora bus
             Calendar calendarNow = null;
             int monthDay = 0;
@@ -638,137 +640,152 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             segundos = ((hora * 60) + minuto) * 60;
             segundos += diasMilis;
 */
-                    // time = "arrival_time=" + segundos;
-                    time = "departure_time=now";
-                }
-                if (irBici == true) {
-                    mode = "mode=bicycling";
-                }
-                if (irAndando == true) {
-                    mode = "mode=walking";
-                }
-
-                if (irBus == false) {
-                    //Trafico
-                    time = "departure_time=now";
-                }
-                //Build the full param
-                String param = str_org + "&" + str_dest + "&" + sensor + "&" + mode + "&" + time;
-                //Output format
-                String output = "json";
-                //Create url to request
-                String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + param;
-                return url;
-            }
-
-            /**
-             * Busqueda Json
-             * Busca la informacion entre el punto de
-             * salida y llegada.
-             */
-            private void recorridoJson() {
-
-
-
-                String path = "";
-                DirectionsParser directionsParser = new DirectionsParser();
-                TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
-
-                tiempo.setText("");
-                distancia.setText("");
-                StringBuilder stringBuilder;
-
-                String url = getRequestUrl(punto1, punto2);
-                taskRequestDirections.execute(url);
-                stringBuilder= DirectionsParser.traerContenidoStringBuilder(url);
-                        tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
-                        distancia.setText(directionsParser.parsingKM(stringBuilder));
-
-                        //si no ha dado tiempoo a la api a coger los resultados , lo mando de vuelta al metodo
-                        if(tiempo.getText().equals("")||distancia.getText().equals(""))
-                        {
-                            recorridoJson();
-                        }
-                        recuperarTiempo();
-
-                    }
-
-
-
-
-
-
-
-            /**
-             * Trae la informacion del Bundle
-             * desde otra activity
-             */
-            private void traerBundle() {
-                parametros = getIntent().getExtras();
-
-                lunes = parametros.getBoolean("Lunes");
-                martes = parametros.getBoolean("Martes");
-                miercoles = parametros.getBoolean("Miercoles");
-                jueves = parametros.getBoolean("Jueves");
-                viernes = parametros.getBoolean("Viernes");
-                sabado = parametros.getBoolean("Sabado");
-                domingo = parametros.getBoolean("Domingo");
-                hora = parametros.getInt("Hora");
-                minuto = parametros.getInt("HMinuto");
-            }
-
-            private void recuperarTiempo() {
-
-                if (tiempo.getText().toString().contains("hours")) {
-                    String[] tiempos = tiempo.getText().toString().split(" hours ");
-                    try {
-                        horaRecorrido = Integer.parseInt(tiempos[0]);
-                    } catch (NumberFormatException e) {
-
-
-                    }
-
-
-                    String[] tiempos2 = tiempos[1].toString().split(" mins");
-
-                    try {
-                        minutosRecorrido = Integer.parseInt(tiempos2[0].toString());
-                    } catch (NumberFormatException e) {
-
-
-                    }
-                } else {
-
-                    String[] tiempos = tiempo.getText().toString().split(" min");
-
-                    try {
-
-                        minutosRecorrido = Integer.parseInt(tiempos[0].toString());
-                    } catch (NumberFormatException e) {
-
-                    }
-
-
-
-            }}
-
-            private void movimientoCamara() {
-
-                LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                builder.include(marcador.getPosition());
-                builder.include(marcador2.getPosition());
-                LatLngBounds bounds = builder.build();
-
-                int width = getResources().getDisplayMetrics().widthPixels;
-                int height = getResources().getDisplayMetrics().heightPixels;
-                int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
-
-                Csalida = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-                mMap.animateCamera(Csalida);
-            }
-
-
+            // time = "arrival_time=" + segundos;
+            time = "departure_time=now";
         }
+        if (irBici == true) {
+            mode = "mode=bicycling";
+        }
+        if (irAndando == true) {
+            mode = "mode=walking";
+        }
+
+        if (irBus == false) {
+            //Trafico
+            time = "departure_time=now";
+        }
+        //Build the full param
+        String param = str_org + "&" + str_dest + "&" + sensor + "&" + mode + "&" + time;
+        //Output format
+        String output = "json";
+        //Create url to request
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + param;
+        return url;
+    }
+
+    /**
+     * Busqueda Json
+     * Busca la informacion entre el punto de
+     * salida y llegada.
+     */
+    private void recorridoJson() {
+
+
+        String path = "";
+        DirectionsParser directionsParser = new DirectionsParser();
+        TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
+
+        tiempo.setText("");
+        distancia.setText("");
+        StringBuilder stringBuilder;
+
+        String url = getRequestUrl(punto1, punto2);
+        taskRequestDirections.execute(url);
+        stringBuilder = DirectionsParser.traerContenidoStringBuilder(url);
+
+        new CountDownTimer(1500, 1000) {
+            @Override
+            public void onTick(long l) {
+
+                progressBar.setProgress((int) l);
+                Toast.makeText(getApplicationContext(), "Calculando...", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
+                distancia.setText(directionsParser.parsingKM(stringBuilder));
+
+
+                if (tiempo.getText().equals("") || distancia.getText().equals("")) {
+                    recorridoJson();
+                }
+                recuperarTiempo();
+                progressBar.setVisibility(View.INVISIBLE);
+            }
+        }.start();
+
+        //si no ha dado tiempoo a la api a coger los resultados , lo mando de vuelta al metodo
+       /* if (tiempo.getText().equals("") || distancia.getText().equals("")) {
+            recorridoJson();
+            recuperarTiempo();
+        }
+*/
+
+
+    }
+
+
+    /**
+     * Trae la informacion del Bundle
+     * desde otra activity
+     */
+    private void traerBundle() {
+        parametros = getIntent().getExtras();
+
+        lunes = parametros.getBoolean("Lunes");
+        martes = parametros.getBoolean("Martes");
+        miercoles = parametros.getBoolean("Miercoles");
+        jueves = parametros.getBoolean("Jueves");
+        viernes = parametros.getBoolean("Viernes");
+        sabado = parametros.getBoolean("Sabado");
+        domingo = parametros.getBoolean("Domingo");
+        hora = parametros.getInt("Hora");
+        minuto = parametros.getInt("HMinuto");
+    }
+
+    private void recuperarTiempo() {
+
+        if (tiempo.getText().toString().contains("hours")) {
+            String[] tiempos = tiempo.getText().toString().split(" hours ");
+            try {
+                horaRecorrido = Integer.parseInt(tiempos[0]);
+            } catch (NumberFormatException e) {
+
+
+            }
+
+
+            String[] tiempos2 = tiempos[1].toString().split(" mins");
+
+            try {
+                minutosRecorrido = Integer.parseInt(tiempos2[0].toString());
+            } catch (NumberFormatException e) {
+
+
+            }
+        } else {
+
+            String[] tiempos = tiempo.getText().toString().split(" min");
+
+            try {
+
+                minutosRecorrido = Integer.parseInt(tiempos[0].toString());
+            } catch (NumberFormatException e) {
+
+            }
+        }
+    }
+
+    private void movimientoCamara() {
+
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(marcador.getPosition());
+        builder.include(marcador2.getPosition());
+        LatLngBounds bounds = builder.build();
+
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int padding = (int) (width * 0.10); // offset from edges of the map 10% of screen
+
+        Csalida = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+        mMap.animateCamera(Csalida);
+    }
+
+
+}
 
 
 
