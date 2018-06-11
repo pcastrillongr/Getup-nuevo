@@ -117,7 +117,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private int minutosRecorrido;
     private CameraUpdate Cllegada;
     private CameraUpdate Csalida;
-    private ProgressBar progressBar;
+
 
 
     @Override
