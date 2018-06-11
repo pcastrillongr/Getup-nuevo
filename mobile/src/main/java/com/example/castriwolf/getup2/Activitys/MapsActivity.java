@@ -679,19 +679,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String path = "";
                 DirectionsParser directionsParser = new DirectionsParser();
                 TaskRequestDirections taskRequestDirections = new TaskRequestDirections();
-                StringBuilder stringBuilder;
-
 
                 tiempo.setText("");
                 distancia.setText("");
+                StringBuilder stringBuilder;
 
                 String url = getRequestUrl(punto1, punto2);
                 taskRequestDirections.execute(url);
-                stringBuilder = DirectionsParser.traerContenidoStringBuilder(url);
+                stringBuilder= DirectionsParser.traerContenidoStringBuilder(url);
 
-                tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
-                distancia.setText(directionsParser.parsingKM(stringBuilder));
-                recuperarTiempo();
+
+                new CountDownTimer(3000, 3000) {
+                    @Override
+                    public void onTick(long l) {
+
+
+                        Toast.makeText(getApplicationContext(), "Calculando...", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onFinish() {
+
+                        tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
+                        distancia.setText(directionsParser.parsingKM(stringBuilder));
+                        recuperarTiempo();
+
+                    }
+                }.start();
+
+
+
 
             }
 
