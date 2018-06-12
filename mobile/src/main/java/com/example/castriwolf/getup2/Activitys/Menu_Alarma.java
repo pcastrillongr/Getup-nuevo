@@ -26,6 +26,7 @@ import static com.example.castriwolf.getup2.Clases.Container.alarmas;
 
 public class Menu_Alarma extends AppCompatActivity {
 
+    //variables
     private String[] opciones = {"En que gasto el tiempo", "Preferencias", "Sobre nosotros"};
     private DrawerLayout drawerLayout;
     private ImageView anhadiralarma;
@@ -51,6 +52,8 @@ public class Menu_Alarma extends AppCompatActivity {
 
         adaptadorMenu = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opciones);
         listViewDrawer.setAdapter(adaptadorMenu);
+
+        //Opciones de nuestro menu
         listViewDrawer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -87,6 +90,7 @@ public class Menu_Alarma extends AppCompatActivity {
             comprobarAlarmas();
         }
 
+        //Nos envia al primer activity de crear alarma si la lista no es ==6
         anhadiralarma.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -128,6 +132,7 @@ public class Menu_Alarma extends AppCompatActivity {
 
     private void comprobarAlarmas() {
 
+        //recupera todas lar alarmas de nuestra BBDD
         Mihelper mihelper = new Mihelper(getApplicationContext());
         SQLiteDatabase db = mihelper.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM Alarma", null);
@@ -188,6 +193,7 @@ public class Menu_Alarma extends AppCompatActivity {
 
         @Override
         public void onBackPressed () {
+            //SI clicamos en el boton de atras nos pregunta si queremos salir
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Exit")
                     .setMessage("Deseas salir de GetUp!?")
                     .setView(R.layout.custom_layout)

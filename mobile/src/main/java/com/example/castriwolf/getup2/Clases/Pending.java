@@ -2,6 +2,7 @@ package com.example.castriwolf.getup2.Clases;
 
 public class Pending {
 
+    //clase pending intent
     private int idPending;
     private int idAlarma;
 

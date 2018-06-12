@@ -157,6 +157,7 @@ public class Resumen extends AppCompatActivity {
 
     private void insertarActividad() {
 
+        //Inserta nuestra actividad en la BBDD
 
        db=new Mihelper(getApplicationContext());
        db.insertarActividad("tiempolevantarse",Tlevantarse);
@@ -168,6 +169,7 @@ public class Resumen extends AppCompatActivity {
     }
 
     private void comprobarDatos() {
+        //Comprueba el valor de los booleanos de los dias para cambiar la imagen entre roja y ver
 
         if (lunes == true) {
 
@@ -227,6 +229,8 @@ public class Resumen extends AppCompatActivity {
     }
 
     private void recogerDatos() {
+
+        //recoge los datos del Bundle para enviarlos a la siguiente actividad
         Bundle parametros = getIntent().getExtras();
         //Dias
         lunes = parametros.getBoolean("Lunes");
@@ -264,9 +268,8 @@ public class Resumen extends AppCompatActivity {
 
     private void establecerAlarma() {
 
-
+        //envio a diferentes metodos
         formulaCalcularAlarma();
-
 
         insertarAlarma();
         alarmanager();
@@ -278,6 +281,8 @@ public class Resumen extends AppCompatActivity {
 
 
     private void formulaCalcularAlarma() {
+
+        //Algoritmo que nos calcula la hora que a la que la alarma tiene que sonar
         double resultado;
 
         minutosTotales = hora * 60;
@@ -299,6 +304,7 @@ public class Resumen extends AppCompatActivity {
 
     private void alarmanager() {
 
+        //Creacion de la alarma dependiendo de los dias deseados con varios Calendar
 
         Toast.makeText(this, "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
         Calendar time1;
@@ -467,6 +473,8 @@ public class Resumen extends AppCompatActivity {
 
     private void insertarAlarma() {
 
+        //Metodo para insertar nuestra alarma en la BBDD
+
         Mihelper db = new Mihelper(this);
 
         String lugarSalida = txtSalida.toString();
@@ -479,8 +487,6 @@ public class Resumen extends AppCompatActivity {
 
             db.close();
 
-            Toast.makeText(this, "Se ha introducido en la bd", Toast.LENGTH_SHORT).show();
-
         } else {
             Toast.makeText(this, "NO se ha introducido en la bd", Toast.LENGTH_SHORT).show();
 
@@ -490,6 +496,8 @@ public class Resumen extends AppCompatActivity {
 }
 
         private void insertarPending() {
+
+        //Funcion para insertar nuestro pendingintent en la BBDD
             Mihelper db = new Mihelper(this);
 
             db.insertarPending(idalarma);
@@ -497,6 +505,8 @@ public class Resumen extends AppCompatActivity {
         }
 
         private int recuperarIdPending(){
+
+        //Recuperamos el pendind de nuestra BBDD
             Mihelper db = new Mihelper(this);
             int result = db.recuperaridPending();
             db.close();

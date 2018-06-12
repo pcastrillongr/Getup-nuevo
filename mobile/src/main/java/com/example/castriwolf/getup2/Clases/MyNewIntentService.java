@@ -36,8 +36,12 @@ public class MyNewIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
+        //comprueba el valor de la vibracion en preferencias para hacer vibrar o no
+
          pref= getSharedPreferences("Mispreferencias", MODE_PRIVATE);
          vibrar=pref.getBoolean("vibracion",false);
+
+
         long[] pattern = { 0, 2000, 5000, 2000, 5000, 2000, 5000, 2000, 5000, 2000, 5000};
 
         boolean sonar = true;
@@ -48,6 +52,7 @@ public class MyNewIntentService extends IntentService {
                     .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         }
          vibrator = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        //hacemos sonar la musica en loop
          player = MediaPlayer.create(this, alarmUri);
         player.setLooping(true);
         player.start();
@@ -56,23 +61,18 @@ public class MyNewIntentService extends IntentService {
         go.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(go);
 
+        //if vibrar es true, mientras suena hace que vibra
         if(vibrar)
         {
             while(player.isPlaying()) {
                 vibrator.vibrate(pattern,0);        }
         }
-        //startActivity(go);
-
-
-
-
-
-        //Intent go = new Intent(this, PararAlarma.class);
 
 
 
     }
 
+    //metodo que nos para la musica al llegar a la cantidad de pasos exigida
     public static void cancelar() {
         player.stop();
 

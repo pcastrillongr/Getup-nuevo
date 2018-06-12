@@ -23,6 +23,7 @@ public class Pasos_Despertar extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //Acitivad para guardar el numero de pasos que desamos caminar
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pasos_despertar);
@@ -40,7 +41,7 @@ public class Pasos_Despertar extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+            //guardamos nuestros pasos con el editor
 
                 editor.putInt("pasos",pasos.getValue());
                 editor.commit();

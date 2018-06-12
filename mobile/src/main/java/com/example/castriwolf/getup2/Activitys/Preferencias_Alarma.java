@@ -49,6 +49,8 @@ public class Preferencias_Alarma extends AppCompatActivity {
                 vibracion=(Switch)findViewById(R.id.switch5);
                 vibracion.setChecked(pref.getBoolean("vibracion",false));
 
+
+                //Guardamos el valor de la vibracion en un booleano en nuestro sharedpreferences
                 vibracion.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -69,7 +71,7 @@ public class Preferencias_Alarma extends AppCompatActivity {
                 });
 
 
-                //alert dialog que nos preguntara si deseamos salir de la alarma
+                //alert dialog que nos preguntara si deseamosborrar todas las alarmas
                 borrar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -131,6 +133,7 @@ public class Preferencias_Alarma extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        //nos envia de vuelta al menu principal de nuestra app
                         Intent go = new Intent(getApplicationContext(),Menu_Alarma.class);
                        startActivity(go);
 

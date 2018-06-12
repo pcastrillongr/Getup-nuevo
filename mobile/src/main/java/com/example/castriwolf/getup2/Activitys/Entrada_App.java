@@ -32,7 +32,8 @@ public class Entrada_App extends AppCompatActivity {
 
     private void countTimer() {
 
-        new CountDownTimer(1000, 1000) {
+        //espera un segundo y meddio antes de llevamos al menu de nuestra aplicacion
+        new CountDownTimer(1500, 1500) {
             @Override
             public void onTick(long l) {
 

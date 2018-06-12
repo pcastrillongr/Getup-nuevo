@@ -720,6 +720,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * desde otra activity
      */
     private void traerBundle() {
+
         parametros = getIntent().getExtras();
 
         lunes = parametros.getBoolean("Lunes");
@@ -735,6 +736,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void recuperarTiempo() {
 
+        //recuperamos el tiempo del JSON
         if (tiempo.getText().toString().contains("hours")) {
             String[] tiempos = tiempo.getText().toString().split(" hours ");
             try {
@@ -768,6 +770,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void movimientoCamara() {
 
+        //nos mueve la cama segun las direcciones
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         builder.include(marcador.getPosition());
         builder.include(marcador2.getPosition());

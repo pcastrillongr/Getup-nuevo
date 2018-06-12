@@ -16,6 +16,8 @@ import java.util.Calendar;
  */
 
 public class MyAlarmReceiver extends BroadcastReceiver {
+
+    //sReceiver que nos envio a nuestro servicio cuando el alarmmanager lo llama
     @Override
     public void onReceive(Context context, Intent intent) {
 

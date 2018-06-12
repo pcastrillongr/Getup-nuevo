@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 
 public class Alarma {
-
+//Clase alarma
     private int id_alarma;
     private String lugarSalida;
     private String lugarLlegada;

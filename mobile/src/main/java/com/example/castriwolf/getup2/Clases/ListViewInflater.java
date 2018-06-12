@@ -25,6 +25,8 @@ import java.util.List;
 
 public class ListViewInflater extends BaseAdapter {
 
+    //Listview pra inflar en nuestro menu cuando añadimos alarmaas
+
     private Context context;
     public static List<Alarma> listAlarmas;
     ImageView borrar;
@@ -139,6 +141,7 @@ public class ListViewInflater extends BaseAdapter {
 
        // viewHolder.imageViewProfilePic.setImageDrawable(getImageDrawable(person.getImageName()));
 
+        //Borramos la alarma en la posicion del listview
         borrar=(ImageView)convertView.findViewById(R.id.buttonEliminar);
         borrar.setOnClickListener(new View.OnClickListener() {
             @Override

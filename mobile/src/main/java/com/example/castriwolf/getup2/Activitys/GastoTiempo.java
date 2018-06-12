@@ -38,6 +38,8 @@ public class GastoTiempo extends AppCompatActivity {
 
         getMediaAcitividades();
 
+        //Escribimos en nuestro layout las medias de cada actividad
+
         recorrido.setText(String.valueOf(mediarecorrido)+" minutos");
         despertar.setText(String.valueOf(mediadespertar)+" minutos");
         baño.setText(String.valueOf(mediabaño)+" minutos");
@@ -51,6 +53,8 @@ public class GastoTiempo extends AppCompatActivity {
     public void getMediaAcitividades()
     {
 
+        //recuperamos un Hashmap haciendo una consulta a nuestra BBDD de el nombre y el valor de cada actividad donde
+        //nos devuelve la media de cada actividad
 
         HashMap<String,Integer> nombresymedias=bd.getMediaTiempos();
 

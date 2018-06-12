@@ -23,6 +23,7 @@ public class Mihelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db ) {
 
+        //creamos nuestra tablas en nuestra BBDD
         db.execSQL("Create table Lugares(" +
                 "idLugar integer  primary key,Lugar String);" +
                 "");
@@ -65,6 +66,7 @@ public class Mihelper extends SQLiteOpenHelper {
 
     public void insertarActividad(String nombreActividad,int tiempo)
     {
+        //metodo para insertar las actividad que reciimos por parametro
         ContentValues contentValues = new ContentValues();
         contentValues.put("nombreActividad",nombreActividad);
         contentValues.put("tiempo",tiempo);
@@ -76,6 +78,8 @@ public class Mihelper extends SQLiteOpenHelper {
 
     public ArrayList<Integer>diasAlarma(int hora,int minutos)
     {
+
+        //devolvemos un array con los dias de la alarma con la hora y minutos que recibimos por parametro
         SQLiteDatabase db=this.getReadableDatabase();
         ArrayList<Integer>dias=new ArrayList<Integer>();
 
@@ -119,6 +123,8 @@ public class Mihelper extends SQLiteOpenHelper {
     }
 
     public boolean insertarAlarma(String Lsalida, String Lllegada, int Hsalida, int Msalida, int Hllegad, int Mllegada,boolean lunes,boolean martes,boolean miercoles,boolean jueves,boolean viernes,boolean sabado,boolean domingo){
+
+        //Insertamos en nuestra BBDD la alarma con los datos recibidos
         ContentValues contentValues = new ContentValues();
         contentValues.put("Lsalida",Lsalida);
         contentValues.put("Lllegada",Lllegada);
@@ -150,6 +156,7 @@ public class Mihelper extends SQLiteOpenHelper {
     }
     public void eliminarTodaslasAlarmas()
     {
+        //metodo para eliminamos todas las alarmas
 
         SQLiteDatabase db=this.getWritableDatabase();
         db.execSQL("delete from Alarma");
@@ -158,6 +165,7 @@ public class Mihelper extends SQLiteOpenHelper {
 
     public int getIDAlarma()
     {
+        //nos devuelve el ultimo ID de la alarma
         SQLiteDatabase db=this.getReadableDatabase();
 
         int idalarma=0;
@@ -181,6 +189,8 @@ public class Mihelper extends SQLiteOpenHelper {
 
     public HashMap<String,Integer> getMediaTiempos()
     {
+
+        //metodo que devuelve un Hashmap con las actividades
         SQLiteDatabase db=this.getReadableDatabase();
 
         HashMap<String,Integer>nombresytiempos=new HashMap<String, Integer>();
@@ -212,7 +222,7 @@ public class Mihelper extends SQLiteOpenHelper {
 
     public void insertarPending(int idAlarma){
 
-
+//metodo que inserta en   nuestra BBDD los pendingIntent
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("idAlarma",idAlarma);
@@ -224,6 +234,7 @@ public class Mihelper extends SQLiteOpenHelper {
 
     public int recuperaridPending(){
 
+        //metodo para recuperar los pendinginten
         SQLiteDatabase db=this.getReadableDatabase();
 
         int idPending=0;

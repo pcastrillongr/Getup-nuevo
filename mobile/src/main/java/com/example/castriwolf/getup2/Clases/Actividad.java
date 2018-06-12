@@ -2,6 +2,7 @@ package com.example.castriwolf.getup2.Clases;
 
 public class Actividad {
 
+    //Clase Actividad
     private int id_Actividad;
     private Alarma alarma;
     private String razon;
