@@ -41,7 +41,7 @@ public class Pasos_Despertar extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            //guardamos nuestros pasos con el editor
+            //guardamos nuestros pasos con el editor del sharedpreferences
 
                 editor.putInt("pasos",pasos.getValue());
                 editor.commit();

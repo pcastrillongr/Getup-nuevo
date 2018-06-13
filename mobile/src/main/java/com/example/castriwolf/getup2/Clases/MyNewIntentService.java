@@ -18,6 +18,8 @@ import com.example.castriwolf.getup2.Activitys.StepCounter;
  */
 
 public class MyNewIntentService extends IntentService {
+
+    //Servicio de nuestra alarma
     private static final int NOTIFICATION_ID = 3;
     private Notification notificationCompat;
     private static NotificationManager managerCompat;
@@ -41,6 +43,7 @@ public class MyNewIntentService extends IntentService {
          pref= getSharedPreferences("Mispreferencias", MODE_PRIVATE);
          vibrar=pref.getBoolean("vibracion",false);
 
+         //patron de vibracion del movil
 
         long[] pattern = { 0, 2000, 5000, 2000, 5000, 2000, 5000, 2000, 5000, 2000, 5000};
 
@@ -57,6 +60,7 @@ public class MyNewIntentService extends IntentService {
         player.setLooping(true);
         player.start();
 
+        //Envio a clase cuentapasos
         Intent go = new Intent(getApplicationContext(), StepCounter.class);
         go.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(go);

@@ -176,6 +176,7 @@ public class Menu_Alarma extends AppCompatActivity {
         try {
             if (p.moveToFirst()) {
                 do {
+                    //añadimos todos los pendingintent de la bbdd al container auxiliar
 
                     int idPending = p.getInt(0);
                     int idAlarma = p.getInt(1);

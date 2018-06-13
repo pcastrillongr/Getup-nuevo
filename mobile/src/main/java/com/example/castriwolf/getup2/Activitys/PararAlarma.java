@@ -18,6 +18,9 @@ import java.util.Calendar;
 
 public class PararAlarma extends AppCompatActivity{
 
+
+    //clase que será usada en futuras mejoras, no usada actualmente
+
     private Button cancelar;
     private Button posponer;
 

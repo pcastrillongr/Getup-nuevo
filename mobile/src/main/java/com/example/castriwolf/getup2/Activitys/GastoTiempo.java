@@ -58,6 +58,7 @@ public class GastoTiempo extends AppCompatActivity {
 
         HashMap<String,Integer> nombresymedias=bd.getMediaTiempos();
 
+        //si el tamaño del hashmap es 0 asignamos todas las medias a 0
         if(nombresymedias.size()==0)
         {
 
@@ -69,6 +70,7 @@ public class GastoTiempo extends AppCompatActivity {
         }
         else {
 
+            //Asignamos el valor del hashmap a las variables de la media  de cada key
             for (Map.Entry<String, Integer> aux : nombresymedias.entrySet()) {
                 if (aux.getKey().equals("tiemporecorrido")) {
                     mediarecorrido = aux.getValue();

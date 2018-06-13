@@ -205,6 +205,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onTick(long l) {
 
+                        //envio al metodo que nos encuentra la UBI
                         miUbicacion();
                         Toast.makeText(getApplicationContext(), "Buscando tu ubicacion", Toast.LENGTH_SHORT).show();
 
@@ -213,9 +214,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     @Override
                     public void onFinish() {
 
+
                         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
                         try {
                             List<Address> addresses = geocoder.getFromLocation(latsal, lonsal, 1);
+                            //seteamos el autocomplete de salida con la direccion escrita de la latitud y longitud de la salida
                             if (addresses.size() >= 1) {
                                 placeautocompletesalida.setText(addresses.get(0).getAddressLine(0));
                                 salida = addresses.get(0).getAddressLine(0);
@@ -245,6 +248,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (irCoche == true || irBus == true || irBici == true || irAndando == true && minutosRecorrido > 0) {
                     Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
 
+                    //mandamos las variables al next activity
                     go.putExtra("Lunes", lunes);
                     go.putExtra("Martes", martes);
                     go.putExtra("Miercoles", miercoles);
@@ -281,6 +285,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onPlaceSelected(Place place) {
+
 
                 salida = place.getName().toString();
                 punto1 = place;
@@ -527,7 +532,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void miUbicacion() {
 
-
+        //comprueba si  tenemos acceso a nuestra ubicacion
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
@@ -565,9 +570,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     }
-    /**
-     * --------------------------------------------
-     */
 
 
     /**
@@ -692,10 +694,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onFinish() {
 
+                //seteamos los textview con el texto del stringbuilder
+
                 tiempo.setText(directionsParser.parsingTiempo(stringBuilder));
                 distancia.setText(directionsParser.parsingKM(stringBuilder));
 
 
+                //si no le da tiempo a la API a traer los resultados ,hacemos recursividad hasta que traiga los resultados
                 if (tiempo.getText().equals("") || distancia.getText().equals("")) {
                     recorridoJson();
                 }
@@ -704,12 +709,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }.start();
 
-        //si no ha dado tiempoo a la api a coger los resultados , lo mando de vuelta al metodo
-       /* if (tiempo.getText().equals("") || distancia.getText().equals("")) {
-            recorridoJson();
-            recuperarTiempo();
-        }
-*/
+
 
 
     }

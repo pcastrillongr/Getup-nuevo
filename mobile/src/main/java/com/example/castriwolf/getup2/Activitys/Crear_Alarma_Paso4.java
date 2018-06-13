@@ -41,6 +41,7 @@ public class Crear_Alarma_Paso4 extends AppCompatActivity {
         picker.setMinValue(0);
         next = (ImageView) findViewById(R.id.next);
 
+        //recogemos datos del bundle
        recogerBundle();
 
         next.setOnClickListener(new View.OnClickListener() {

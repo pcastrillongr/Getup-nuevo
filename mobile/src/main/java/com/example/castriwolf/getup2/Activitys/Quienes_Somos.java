@@ -8,7 +8,7 @@ import com.example.castriwolf.getup2.R;
 
 public class Quienes_Somos extends AppCompatActivity {
 
-
+// Activity usada solamente como diseño y muestra de quienes somos
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

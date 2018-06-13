@@ -17,6 +17,8 @@ import com.example.castriwolf.getup2.R;
 
 public class Pantalla_Alarma extends AppCompatActivity {
 
+
+    //Clase no usada actualmente, utilizable en futuras mejoras
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

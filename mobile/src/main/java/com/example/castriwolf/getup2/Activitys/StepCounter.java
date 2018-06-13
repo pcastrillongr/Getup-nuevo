@@ -98,8 +98,11 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
 
             //si los pasos son menor que 30 sigue sonando y va aumentando el valor de los pasos
 
+            //asignamos al event el valor de los pasos
             event.values[0] = pasos;
+            //vamos incrementando los pasos segun se vaya moviendo
             pasos += 1;
+            //nos indica el numero de pasos restantes
             tPasos.setText("Te quedan " + String.valueOf(totalpasos - (int)event.values[0]) + " pasos para que la alarma se pare,\nGetUp!");
         }
 

@@ -11,6 +11,7 @@ import com.example.castriwolf.getup2.R;
 
 public class Crear_Alarma_Paso6 extends AppCompatActivity {
 
+    //variables
     private NumberPicker picker;
     private ImageView next;
     private boolean lunes;
@@ -51,7 +52,6 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                crearAlarma();
 
                 Intent go = new Intent(getApplicationContext(), Resumen.class);
                 go.putExtra("Lunes", lunes);
@@ -123,9 +123,5 @@ public class Crear_Alarma_Paso6 extends AppCompatActivity {
         Tdesayuno = parametros.getInt("Tdesayuno");
     }
 
-    private void crearAlarma() {
 
-        
-
-    }
 }

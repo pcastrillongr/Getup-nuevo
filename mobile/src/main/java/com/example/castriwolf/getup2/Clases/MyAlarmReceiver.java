@@ -17,7 +17,7 @@ import java.util.Calendar;
 
 public class MyAlarmReceiver extends BroadcastReceiver {
 
-    //sReceiver que nos envio a nuestro servicio cuando el alarmmanager lo llama
+    //Recibe la llamda de la alarma y nos envia a nuestro servicio cuando el alarmmanager lo llama
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -44,6 +44,8 @@ public class MyAlarmReceiver extends BroadcastReceiver {
         hora=c.get(Calendar.HOUR_OF_DAY);
         minutos=c.get(Calendar.MINUTE);
 
+        //recuperamos los dias que suena la alarma, pasandole por parametro la hora y los minutos
+
         ArrayList<Integer>diassonar=db.diasAlarma(hora,minutos);
 
 
@@ -55,6 +57,9 @@ public class MyAlarmReceiver extends BroadcastReceiver {
         nsabado=diassonar.get(5);
         ndomingo=diassonar.get(6);
 
+        /*
+        Comparamos lod dias que tiene que sonar con el dia actual y si coincide lanzamos el servicio
+         */
         if(nlunes==1)
         {
             lunes=true;

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.example.castriwolf.getup2.Base_Datos.UsoBD;
 import com.example.castriwolf.getup2.R;
 
 public class Entrada_App extends AppCompatActivity {
@@ -16,7 +15,6 @@ public class Entrada_App extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entrada__app);
-        UsoBD.iniciarDb(this);
         imageView = findViewById(R.id.imageViewInicio);
         countTimer();
 
@@ -24,6 +22,7 @@ public class Entrada_App extends AppCompatActivity {
     }
 
 
+    //envio al menú principl
     private void menuInicio() {
 
         Intent go=new Intent(this,Menu_Alarma.class);

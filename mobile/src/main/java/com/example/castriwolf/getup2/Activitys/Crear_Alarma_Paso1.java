@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.example.castriwolf.getup2.Base_Datos.UsoBD;
 import com.example.castriwolf.getup2.R;
 
 public class Crear_Alarma_Paso1 extends AppCompatActivity {
@@ -33,7 +32,6 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
     private Boolean cdomingo = false;
 
     private TimePicker hora;
-    UsoBD usoBD;
 
 
     @Override
@@ -73,7 +71,7 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
                 } else {
 
                     Intent go = new Intent(getApplicationContext(), MapsActivity.class);
-                    //Dias
+                    //Mandamos los booleanos de los dias al siguiente acitivity
                     go.putExtra("Lunes", clunes);
                     go.putExtra("Martes", cmartes);
                     go.putExtra("Miercoles", cmiercoles);

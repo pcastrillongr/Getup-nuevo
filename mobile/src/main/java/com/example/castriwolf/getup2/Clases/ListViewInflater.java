@@ -161,9 +161,12 @@ public class ListViewInflater extends BaseAdapter {
                 builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 
+                        //Eliminar la alarma de nuestra BBDD
 
                         db.eliminarAlarma(listAlarmas.get(position).getHoraSalida(),listAlarmas.get(position).getMinutoSalida());
+                        //Borra todos los servicios pendiente de esa alarma
                         borrarServiciosdeAlarma(listAlarmas.get(position));
+                        //borramos la alarma de nuestra lista de alarmas del listview
                         listAlarmas.remove(position);
                         Menu_Alarma.listView.invalidateViews();
                         Toast.makeText(context,"Alarma numero "+String.valueOf(position+1)+" borrada",Toast.LENGTH_SHORT).show();
@@ -196,6 +199,7 @@ public class ListViewInflater extends BaseAdapter {
 
     private void borrarServiciosdeAlarma(Alarma alarma)
     {
+        //borramos todos los pendingintent que tenia esa aalarma asignados, comparando el id de cada pending con el de la alarma
         for(Pending p : Container.pendings) {
             if(p.getIdAlarma()==alarma.getId_alarma()) {
                 Intent intent = new Intent(context, MyAlarmReceiver.class);
@@ -206,12 +210,7 @@ public class ListViewInflater extends BaseAdapter {
             }
         }
     }
-    /*private Drawable getImageDrawable(String imageName) {
-        int id = context.getResources().getIdentifier(imageName, "drawable",
-                context.getPackageName());
-        return context.getResources().getDrawable(id);
-    }
-*/
+
     class ViewHolder {
         //ImageView imageViewProfilePic;
         TextView textViewName;

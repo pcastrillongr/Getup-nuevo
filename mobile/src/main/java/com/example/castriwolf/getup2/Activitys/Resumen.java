@@ -22,6 +22,8 @@ import java.util.Calendar;
 
 public class Resumen extends AppCompatActivity {
 
+
+    //variables
     private boolean lunes;
     private boolean martes;
     private boolean miercoles;
@@ -108,8 +110,9 @@ public class Resumen extends AppCompatActivity {
         editor=pref.edit();
 
         diasdelasemana = new ArrayList<>();
+        //Recogemos los datos del Bundle
         recogerDatos();
-
+        //colocamos un cero delante si los minutos es <0
         if (minuto < 10) {
             txtHora.setText(hora + ":0" + minuto);
         } else {
@@ -297,6 +300,7 @@ public class Resumen extends AppCompatActivity {
         if (minutosrestar < 60) {
             minutosdespertar = (int) resultado;
         }
+        //lamada a metodo que nos insertará la actividad en nuestra BBDD
         insertarActividad();
 
 
@@ -304,7 +308,10 @@ public class Resumen extends AppCompatActivity {
 
     private void alarmanager() {
 
-        //Creacion de la alarma dependiendo de los dias deseados con varios Calendar
+        /*
+        Creacion de la alarma dependiendo de los dias deseados con varios Calendar diferentes
+        según los dias que hemos ido guardando y trayendo en el bundle
+         */
 
         Toast.makeText(this, "Alarma Creada a la/s " + horadespertar + ":" + minutosdespertar, Toast.LENGTH_SHORT).show();
         Calendar time1;
@@ -481,10 +488,11 @@ public class Resumen extends AppCompatActivity {
         String lugarLlegada = txtLlegada.toString();
 
 
+        //insertamos la alarma en la BBDD
         boolean result = db.insertarAlarma(lugarSalida, lugarLlegada, horadespertar, minutosdespertar, hora, minuto,lunes , martes , miercoles , jueves , viernes , sabado , domingo);
         if (result == true) {
 
-
+            //si el resultado es true cerramos la bbdd
             db.close();
 
         } else {

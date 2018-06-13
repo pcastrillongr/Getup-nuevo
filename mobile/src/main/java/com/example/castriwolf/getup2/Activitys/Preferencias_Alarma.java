@@ -86,6 +86,12 @@ public class Preferencias_Alarma extends AppCompatActivity {
                         builder.setView(R.layout.custom_layout);
                         builder.setTitle("Borrar Alarmas!");
                         builder.setMessage("Estás seguro que deseas borrar todas las alarmas?");
+                        /**
+                         * Borramos todas las alarmas recorriendo recorriendo los pendingintent de
+                         * cada una y creando pendingintent auxiliares nuevos que
+                         *usaremos para borrar los que habian quedado pendientes
+                         * y asi borrar las alarmas
+                         * */
                         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 if (!Container.alarmas.isEmpty()) {
@@ -133,7 +139,7 @@ public class Preferencias_Alarma extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        //nos envia de vuelta al menu principal de nuestra app
+                         //nos envia de vuelta al menu principal de nuestra app
                         Intent go = new Intent(getApplicationContext(),Menu_Alarma.class);
                        startActivity(go);
 

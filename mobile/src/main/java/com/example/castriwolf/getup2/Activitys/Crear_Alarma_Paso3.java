@@ -11,6 +11,7 @@ import com.example.castriwolf.getup2.R;
 
 public class Crear_Alarma_Paso3 extends AppCompatActivity {
 
+    //variables
     private NumberPicker picker;
     private ImageView next;
     private boolean lunes;
@@ -33,6 +34,7 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear__alarma__paso3);
         picker=(NumberPicker) findViewById(R.id.numberpicker);
@@ -40,6 +42,7 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
         picker.setMaxValue(59);
         next=(ImageView)findViewById(R.id.next);
 
+        //recogemos los datos del bundle
        recogerBundle();
 
 
@@ -50,6 +53,7 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                //mandamos las variables por  el bundle
                 Intent go=new Intent(getApplicationContext(),Crear_Alarma_Paso4.class);
                 go.putExtra("Lunes",lunes);
                 go.putExtra("Martes",martes);
