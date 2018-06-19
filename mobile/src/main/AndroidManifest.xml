@@ -114,6 +114,7 @@
             android:enabled="true"
             android:exported="false" />
 
+
         <activity
             android:name=".Activitys.PararAlarma"
             android:screenOrientation="portrait"
@@ -126,6 +127,7 @@
             android:name=".Activitys.Quienes_Somos"
             android:screenOrientation="portrait"
             android:theme="@style/GetUp" />
+        <activity android:name=".Activitys.Editar_Alarma"></activity>
     </application>
 
 </manifest>

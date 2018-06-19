@@ -1,9 +1,13 @@
 package com.example.castriwolf.getup2.Activitys;
 
+import android.app.AlarmManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.Preference;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +39,8 @@ public class Menu_Alarma extends AppCompatActivity {
     public static ListView listView;
     private ArrayAdapter<String> adaptadorMenu;
     private boolean datos = false;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,8 @@ public class Menu_Alarma extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         drawerLayout.removeView(listViewDrawer);
         drawerLayout.addView(listViewDrawer);
+        sharedPreferences=getSharedPreferences("Editar", Context.MODE_PRIVATE);
+        editor=sharedPreferences.edit();
 
 
         adaptadorMenu = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, opciones);
@@ -111,6 +119,43 @@ public class Menu_Alarma extends AppCompatActivity {
                 drawerLayout.openDrawer(listViewDrawer);
 
             }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+                editor.clear();
+                ListViewInflater listViewInflater=new ListViewInflater(getApplicationContext(),Container.alarmas);
+
+                Alarma alarma=(Alarma)listView.getAdapter().getItem(position);
+                int hora=alarma.getHoraSalida();
+                int minuto=alarma.getMinutoSalida();
+                int lunes=alarma.getLunes();
+                int martes=alarma.getMartes();
+                int miercoles= alarma.getMiercoles();
+                int jueves=alarma.getJueves();
+                int viernes=alarma.getViernes();
+                int sabado=alarma.getSabado();
+                int domingo=alarma.getDomingo();
+                int horaalarmaeditar=alarma.getHoraSalida();
+                int minutosalarmaeditar=alarma.getMinutoSalida();
+                editor.putInt("horaalarmaeditar",horaalarmaeditar);
+                editor.putInt("minutosalarmaeditar",minutosalarmaeditar);
+                editor.putInt("horaeditar",hora);
+                editor.putInt("minutoseditar",minuto);
+                editor.putInt("editarlunes",lunes);
+                editor.putInt("editarmartes",martes);
+                editor.putInt("editarmiercoles",miercoles);
+                editor.putInt("editarjueves",jueves);
+                editor.putInt("editarviernes",viernes);
+                editor.putInt("editarsabado",sabado);
+                editor.putInt("editardomingo",domingo);
+                editor.commit();
+                Intent go=new Intent(getApplicationContext(),Editar_Alarma.class);
+                startActivity(go);
+            ;}
         });
 
     }
@@ -189,8 +234,7 @@ public class Menu_Alarma extends AppCompatActivity {
         } catch (Exception e) {
 
         }
-        db.close();
-    }
+        db.close();}
 
         @Override
         public void onBackPressed () {

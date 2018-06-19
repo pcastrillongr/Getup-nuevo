@@ -98,6 +98,7 @@ public class MyAlarmReceiver extends BroadcastReceiver {
 
 
 
+
         if(lunes&&dia==2) {
 
         context.startService(go);
