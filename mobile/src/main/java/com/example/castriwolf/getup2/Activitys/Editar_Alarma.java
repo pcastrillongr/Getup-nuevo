@@ -1,14 +1,22 @@
 package com.example.castriwolf.getup2.Activitys;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
+import com.example.castriwolf.getup2.Clases.Container;
+import com.example.castriwolf.getup2.Clases.ListViewInflater;
+import com.example.castriwolf.getup2.Clases.MyAlarmReceiver;
+import com.example.castriwolf.getup2.Clases.Pending;
 import com.example.castriwolf.getup2.R;
 
 import java.util.ArrayList;
@@ -25,6 +33,12 @@ public class Editar_Alarma extends AppCompatActivity {
     CheckBox ch5;
     CheckBox ch6;
     CheckBox ch7;
+    ImageView save;
+    int horaalarma;
+    int minutosalarma;
+    int idalarma;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -40,14 +54,19 @@ public class Editar_Alarma extends AppCompatActivity {
         ch5=findViewById(R.id.checkBox5);
         ch6=findViewById(R.id.checkBox6);
         ch7=findViewById(R.id.checkBox7);
+        save=findViewById(R.id.guardareditado);
+
+
 
 
 
         sharedPreferences=getSharedPreferences("Editar", Context.MODE_PRIVATE);
         tp.setHour(sharedPreferences.getInt("horaeditar",00));
         tp.setMinute(sharedPreferences.getInt("minutoseditar",00));
-        int horaalarma=sharedPreferences.getInt("horaalarmaeditar",0);
-        int minutosalarma=sharedPreferences.getInt("minutosalarmaeditar",0);
+         horaalarma=sharedPreferences.getInt("horaalarmaeditar",0);
+         minutosalarma=sharedPreferences.getInt("minutosalarmaeditar",0);
+         idalarma=sharedPreferences.getInt("idalarmaeditar",0);
+
 
         ArrayList<Integer>diasalarma=bd.diasAlarma(horaalarma,minutosalarma);
 
@@ -86,41 +105,30 @@ public class Editar_Alarma extends AppCompatActivity {
         }
 
 
-        if(sharedPreferences.getInt("luneseditar",0)==0)
-        {
-
-        }
-        if(sharedPreferences.getInt("marteseditar",0)==0)
-        {
-
-        }
-
-        if(sharedPreferences.getInt("miercoleseditar",0)==0)
-        {
-
-        }
-
-        if(sharedPreferences.getInt("jueveseditar",0)==0)
-        {
-
-        }
-
-        if(sharedPreferences.getInt("vierneseditar",0)==0)
-        {
-
-        }
-
-        if(sharedPreferences.getInt("sabadoeditar",0)==0)
-        {
-
-        }
-
-        if(sharedPreferences.getInt("domingoeditar",0)==0)
-        {
-
-        }
 
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                for(Pending pi:Container.pendings)
+                {
+                    if(pi.getIdAlarma()==idalarma)
+                    {
+                        Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+                        PendingIntent sender = PendingIntent.getBroadcast(getApplicationContext(), pi.getIdPending(), intent, 0);
+                        AlarmManager alarmManager = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                        alarmManager.cancel(sender);
+                    }
+
+
+                }
+                bd.insertarAlarma(null, null, tp.getHour(), tp.getMinute(), 0, 0,ch1.isChecked() , ch2.isChecked() , ch3.isChecked() , ch4.isChecked() , ch5.isChecked() , ch6.isChecked(), ch7.isChecked());
+
+
+            }
+        });
 
 
     }

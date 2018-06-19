@@ -174,7 +174,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView19"
+        android:id="@+id/guardareditado"
         android:layout_width="95dp"
         android:layout_height="78dp"
         android:layout_marginBottom="19dp"

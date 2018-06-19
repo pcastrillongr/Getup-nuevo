@@ -130,28 +130,13 @@ public class Menu_Alarma extends AppCompatActivity {
                 ListViewInflater listViewInflater=new ListViewInflater(getApplicationContext(),Container.alarmas);
 
                 Alarma alarma=(Alarma)listView.getAdapter().getItem(position);
-                int hora=alarma.getHoraSalida();
-                int minuto=alarma.getMinutoSalida();
-                int lunes=alarma.getLunes();
-                int martes=alarma.getMartes();
-                int miercoles= alarma.getMiercoles();
-                int jueves=alarma.getJueves();
-                int viernes=alarma.getViernes();
-                int sabado=alarma.getSabado();
-                int domingo=alarma.getDomingo();
+
+                int idalarma=alarma.getId_alarma();
                 int horaalarmaeditar=alarma.getHoraSalida();
                 int minutosalarmaeditar=alarma.getMinutoSalida();
                 editor.putInt("horaalarmaeditar",horaalarmaeditar);
                 editor.putInt("minutosalarmaeditar",minutosalarmaeditar);
-                editor.putInt("horaeditar",hora);
-                editor.putInt("minutoseditar",minuto);
-                editor.putInt("editarlunes",lunes);
-                editor.putInt("editarmartes",martes);
-                editor.putInt("editarmiercoles",miercoles);
-                editor.putInt("editarjueves",jueves);
-                editor.putInt("editarviernes",viernes);
-                editor.putInt("editarsabado",sabado);
-                editor.putInt("editardomingo",domingo);
+                editor.putInt("idalarmaeditar",idalarma);
                 editor.commit();
                 Intent go=new Intent(getApplicationContext(),Editar_Alarma.class);
                 startActivity(go);
