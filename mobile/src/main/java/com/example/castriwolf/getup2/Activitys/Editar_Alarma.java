@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.castriwolf.getup2.Base_Datos.Mihelper;
 import com.example.castriwolf.getup2.Clases.Container;
@@ -20,6 +21,7 @@ import com.example.castriwolf.getup2.Clases.Pending;
 import com.example.castriwolf.getup2.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Editar_Alarma extends AppCompatActivity {
 
@@ -61,8 +63,8 @@ public class Editar_Alarma extends AppCompatActivity {
 
 
         sharedPreferences=getSharedPreferences("Editar", Context.MODE_PRIVATE);
-        tp.setHour(sharedPreferences.getInt("horaeditar",00));
-        tp.setMinute(sharedPreferences.getInt("minutoseditar",00));
+        tp.setHour(sharedPreferences.getInt("horaalarmaeditar",00));
+        tp.setMinute(sharedPreferences.getInt("minutosalarmaeditar",00));
          horaalarma=sharedPreferences.getInt("horaalarmaeditar",0);
          minutosalarma=sharedPreferences.getInt("minutosalarmaeditar",0);
          idalarma=sharedPreferences.getInt("idalarmaeditar",0);
@@ -124,11 +126,36 @@ public class Editar_Alarma extends AppCompatActivity {
 
 
                 }
-                bd.insertarAlarma(null, null, tp.getHour(), tp.getMinute(), 0, 0,ch1.isChecked() , ch2.isChecked() , ch3.isChecked() , ch4.isChecked() , ch5.isChecked() , ch6.isChecked(), ch7.isChecked());
+
+                Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
+                Mihelper db=new Mihelper(getApplicationContext());
+                db.insertarPending(idalarma);
+                db.editAlarm(idalarma,tp.getHour(),tp.getMinute(),ch1.isChecked(),ch2.isChecked(),ch3.isChecked(),ch4.isChecked(),ch5.isChecked(),ch6.isChecked(),ch7.isChecked());
+                AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),db.recuperaridPending(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+                Calendar time=Calendar.getInstance();
+                time = Calendar.getInstance();
+                time.set(Calendar.HOUR_OF_DAY, tp.getHour());
+                time.set(Calendar.MINUTE, tp.getMinute());
+                time.set(Calendar.SECOND, 0);
+                time.set(Calendar.MILLISECOND, 0);
+
+                if(Calendar.getInstance().after(time)){//if its in the past increment
+                    time.add(Calendar.DATE,1);
+                }
+
+
+
+                alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
 
 
             }
         });
+
+        Toast.makeText(getApplicationContext(),"Alarma Editada",Toast.LENGTH_SHORT).show();
+        Intent go=new Intent(getApplicationContext(),Menu_Alarma.class);
+        startActivity(go);
 
 
     }

@@ -43,13 +43,13 @@ public class Mihelper extends SQLiteOpenHelper {
                 "Msalida Integer," +
                 "Hllegada Integer," +
                 "Mllegada Integer," +
-                "lunes boolean," +
-                "martes boolean," +
-                "miercoles boolean," +
-                "jueves boolean," +
-                "viernes boolean," +
-                "sabado boolean," +
-                "domingo boolean)");
+                "lunes Integer," +
+                "martes Integer," +
+                "miercoles Integer," +
+                "jueves Integer," +
+                "viernes Integer," +
+                "sabado Integer," +
+                "domingo Integer)");
 
         db.execSQL("Create table Pending(" +
                 "idPending Integer primary key autoincrement ," +
@@ -151,7 +151,7 @@ public class Mihelper extends SQLiteOpenHelper {
     public void eliminarAlarma(int hora,int minutos)
     {
         SQLiteDatabase db=this.getWritableDatabase();
-        db.execSQL("delete from Alarma where Hsalida="+String.valueOf(hora)+" and Msalida="+ String.valueOf(minutos));
+        db.execSQL("delete from Alarma where Hsalida="+String.valueOf(hora)+" and Msalida="+String.valueOf(minutos));
 
     }
     public void eliminarTodaslasAlarmas()
@@ -253,6 +253,35 @@ public class Mihelper extends SQLiteOpenHelper {
         }
 
         return  idPending;
+    }
+
+    public void editAlarm(int id,int hora,int minutos,boolean clunes,boolean cmartes,boolean cmiercoles,boolean cjueves,boolean cviernes,boolean csabado,boolean cdomingo)
+    {
+
+        int lunes;
+        int martes;
+        int miercoles;
+        int jueves;
+        int viernes;
+        int sabado;
+        int domingo;
+        if(clunes){lunes=1;}else{lunes=0;}
+        if(cmartes){martes=1;}else{martes=0;}
+        if(cmiercoles){miercoles=1;}else{miercoles=0;}
+        if(cjueves){jueves=1;}else{jueves=0;}
+        if(cviernes){viernes=1;}else{viernes=0;}
+        if(csabado){sabado=1;}else{sabado=0;}
+        if(cdomingo){domingo=1;}else{domingo=0;}
+
+
+        SQLiteDatabase db=this.getWritableDatabase();
+        db.execSQL("update Alarma set Hsalida="+String.valueOf(hora)+",Msalida="+String.valueOf(minutos)+
+                ",Lunes="+String.valueOf(lunes)+",Martes="+String.valueOf(martes)+",Miercoles="+
+                String.valueOf(miercoles)+",Jueves="+String.valueOf(jueves)+",Viernes="+
+                String.valueOf(viernes)+",Sabado="+String.valueOf(sabado)+
+                ",Domingo="+String.valueOf(domingo)+" where idAlarma ="+String.valueOf(id));
+
+
     }
 
 

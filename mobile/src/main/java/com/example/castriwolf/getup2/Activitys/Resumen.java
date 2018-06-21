@@ -478,7 +478,7 @@ public class Resumen extends AppCompatActivity {
     }
 
 
-    private void insertarAlarma() {
+    public void insertarAlarma() {
 
         //Metodo para insertar nuestra alarma en la BBDD
 
@@ -503,7 +503,7 @@ public class Resumen extends AppCompatActivity {
         db.close();
 }
 
-        private void insertarPending() {
+        public void insertarPending() {
 
         //Funcion para insertar nuestro pendingintent en la BBDD
             Mihelper db = new Mihelper(this);
