@@ -150,12 +150,13 @@ public class Editar_Alarma extends AppCompatActivity {
                 alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
 
 
+                Toast.makeText(getApplicationContext(),"Alarma Editada",Toast.LENGTH_SHORT).show();
+                Intent go=new Intent(getApplicationContext(),Menu_Alarma.class);
+                startActivity(go);
             }
         });
 
-        Toast.makeText(getApplicationContext(),"Alarma Editada",Toast.LENGTH_SHORT).show();
-        Intent go=new Intent(getApplicationContext(),Menu_Alarma.class);
-        startActivity(go);
+
 
 
     }
