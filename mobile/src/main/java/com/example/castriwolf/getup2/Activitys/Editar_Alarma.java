@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -28,85 +29,245 @@ public class Editar_Alarma extends AppCompatActivity {
     TimePicker tp;
     SharedPreferences sharedPreferences;
     Mihelper bd;
-    CheckBox ch1;
-    CheckBox ch2;
-    CheckBox ch3;
-    CheckBox ch4;
-    CheckBox ch5;
-    CheckBox ch6;
-    CheckBox ch7;
+
     ImageView save;
+    private ImageButton toggleButton1;
+    private ImageButton toggleButton2;
+    private ImageButton toggleButton3;
+    private ImageButton toggleButton4;
+    private ImageButton toggleButton5;
+    private ImageButton toggleButton6;
+    private ImageButton toggleButton7;
+    boolean lunesverde;
+    boolean martesverde;
+    boolean miercolesverde;
+    boolean juevesverde;
+    boolean viernesverde;
+    boolean sabadoverde;
+    boolean domingoverde;
     int horaalarma;
     int minutosalarma;
     int idalarma;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_alarma);
-        bd=new Mihelper(getApplicationContext());
-        tp=findViewById(R.id.timePicker3);
+        bd = new Mihelper(getApplicationContext());
+        tp = findViewById(R.id.timePicker3);
         tp.setIs24HourView(true);
-        ch1=findViewById(R.id.checkBox);
-        ch2=findViewById(R.id.checkBox2);
-        ch3=findViewById(R.id.checkBox3);
-        ch4=findViewById(R.id.checkBox4);
-        ch5=findViewById(R.id.checkBox5);
-        ch6=findViewById(R.id.checkBox6);
-        ch7=findViewById(R.id.checkBox7);
-        save=findViewById(R.id.guardareditado);
+        save=findViewById(R.id.save);
+        toggleButton1 = (ImageButton) findViewById(R.id.toggleButtonLunes);
+        toggleButton2 = (ImageButton) findViewById(R.id.toggleButtonMartes);
+        toggleButton3 = (ImageButton) findViewById(R.id.toggleButtonMiercoles);
+        toggleButton4 = (ImageButton) findViewById(R.id.toggleButtonJueves);
+        toggleButton5 = (ImageButton) findViewById(R.id.toggleButtonViernes);
+        toggleButton6 = (ImageButton) findViewById(R.id.toggleButtonSabado);
+        toggleButton7 = (ImageButton) findViewById(R.id.toggleButtonDomingo);
 
 
+        sharedPreferences = getSharedPreferences("Editar" , Context.MODE_PRIVATE);
+        tp.setHour(sharedPreferences.getInt("horaalarmaeditar" , 00));
+        tp.setMinute(sharedPreferences.getInt("minutosalarmaeditar" , 00));
+        horaalarma = sharedPreferences.getInt("horaalarmaeditar" , 0);
+        minutosalarma = sharedPreferences.getInt("minutosalarmaeditar" , 0);
+        idalarma = sharedPreferences.getInt("idalarmaeditar" , 0);
 
 
-
-        sharedPreferences=getSharedPreferences("Editar", Context.MODE_PRIVATE);
-        tp.setHour(sharedPreferences.getInt("horaalarmaeditar",00));
-        tp.setMinute(sharedPreferences.getInt("minutosalarmaeditar",00));
-         horaalarma=sharedPreferences.getInt("horaalarmaeditar",0);
-         minutosalarma=sharedPreferences.getInt("minutosalarmaeditar",0);
-         idalarma=sharedPreferences.getInt("idalarmaeditar",0);
+        ArrayList<Integer> diasalarma = bd.diasAlarma(horaalarma, minutosalarma);
 
 
-        ArrayList<Integer>diasalarma=bd.diasAlarma(horaalarma,minutosalarma);
-
-
-        if(diasalarma.get(0)==1)
-        {
-            ch1.setChecked(true);
+        if (diasalarma.get(0) == 1) {
+            toggleButton1.setImageResource(R.drawable.icons8lunes40verde);
+            lunesverde=true;
+        } else {
+            toggleButton1.setImageResource(R.drawable.icons8lunes40);
+            lunesverde=false;
         }
-        if(diasalarma.get(1)==1)
-        {
-            ch2.setChecked(true);
+
+        if(diasalarma.get(1)==1){
+
+            toggleButton2.setImageResource(R.drawable.icons8martes40verde);
+            martesverde=true;
+        }
+        else {
+            toggleButton2.setImageResource(R.drawable.icons8martes40);
+            martesverde=false;
         }
 
         if(diasalarma.get(2)==1)
         {
-            ch3.setChecked(true);
-        }
+            toggleButton3.setImageResource(R.drawable.icons8miercoles40verde);
+        miercolesverde=true;}
+            else {
+        toggleButton3.setImageResource(R.drawable.icons8miercoles40);
+        miercolesverde=false;
+    }
 
         if(diasalarma.get(3)==1)
         {
-            ch4.setChecked(true);
+            toggleButton4.setImageResource(R.drawable.icons8jueves40verde);
+            juevesverde=true;
+        }
+        else {
+            toggleButton4.setImageResource(R.drawable.icons8jueves40);
+            juevesverde=false;
         }
         if(diasalarma.get(4)==1)
         {
-            ch5.setChecked(true);
-        }
+            toggleButton5.setImageResource(R.drawable.icons8viernes40verde);
+        viernesverde=true;}
+        else {
+            toggleButton5.setImageResource(R.drawable.icons8viernes40);
+        viernesverde=false;}
 
         if(diasalarma.get(5)==1)
         {
-            ch6.setChecked(true);
-        }
+            toggleButton6.setImageResource(R.drawable.icons8sabado40verde);
+        sabadoverde=true;}
+        else {
+            toggleButton6.setImageResource(R.drawable.icons8sabado40);
+        sabadoverde=false;}
 
         if(diasalarma.get(6)==1)
         {
-            ch7.setChecked(true);
-        }
+            toggleButton7.setImageResource(R.drawable.icons8domingo40verde);
+        domingoverde=true;}
+        else {
+            toggleButton7.setImageResource(R.drawable.icons8domingo40);
+        domingoverde=false;}
 
 
+        toggleButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!lunesverde)
+                {
+                    toggleButton1.setImageResource(R.drawable.icons8lunes40verde);
+                    lunesverde=true;
+                } else {
+                    toggleButton1.setImageResource(R.drawable.icons8lunes40);
+                    lunesverde=false;
+                }
+
+            }
+
+        });
+
+        toggleButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!lunesverde)
+                {
+                    toggleButton1.setImageResource(R.drawable.icons8lunes40verde);
+                    lunesverde=true;
+                } else {
+                    toggleButton1.setImageResource(R.drawable.icons8lunes40);
+                    lunesverde=false;
+                }
+
+            }
+
+        });
+        toggleButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!martesverde)
+                {
+                    toggleButton2.setImageResource(R.drawable.icons8martes40verde);
+                    martesverde=true;
+                } else {
+                    toggleButton2.setImageResource(R.drawable.icons8martes40);
+                    martesverde=false;
+                }
+
+            }
+
+        });
+        toggleButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!miercolesverde)
+                {
+                    toggleButton3.setImageResource(R.drawable.icons8miercoles40verde);
+                    miercolesverde=true;
+                } else {
+                    toggleButton3.setImageResource(R.drawable.icons8miercoles40);
+                    miercolesverde=false;
+                }
+
+            }
+
+        });
+        toggleButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!juevesverde)
+                {
+                    toggleButton4.setImageResource(R.drawable.icons8jueves40verde);
+                    juevesverde=true;
+                } else {
+                    toggleButton4.setImageResource(R.drawable.icons8jueves40);
+                    juevesverde=false;
+                }
+
+            }
+
+        });
+        toggleButton5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!viernesverde)
+                {
+                    toggleButton5.setImageResource(R.drawable.icons8viernes40verde);
+                    viernesverde=true;
+                } else {
+                    toggleButton5.setImageResource(R.drawable.icons8viernes40);
+                    viernesverde=false;
+                }
+
+            }
+
+        });
+        toggleButton6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!sabadoverde)
+                {
+                    toggleButton6.setImageResource(R.drawable.icons8sabado40verde);
+                    sabadoverde=true;
+                } else {
+                    toggleButton6.setImageResource(R.drawable.icons8sabado40);
+                    sabadoverde=false;
+                }
+
+            }
+
+        });
+        toggleButton7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(!domingoverde)
+                {
+                    toggleButton7.setImageResource(R.drawable.icons8domingo40verde);
+                    domingoverde=true;
+                } else {
+                    toggleButton7.setImageResource(R.drawable.icons8domingo40);
+                    domingoverde=false;
+                }
+
+            }
+
+        });
 
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +291,7 @@ public class Editar_Alarma extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), MyAlarmReceiver.class);
                 Mihelper db=new Mihelper(getApplicationContext());
                 db.insertarPending(idalarma);
-                db.editAlarm(idalarma,tp.getHour(),tp.getMinute(),ch1.isChecked(),ch2.isChecked(),ch3.isChecked(),ch4.isChecked(),ch5.isChecked(),ch6.isChecked(),ch7.isChecked());
+                db.editAlarm(idalarma,tp.getHour(),tp.getMinute(),lunesverde,martesverde,miercolesverde,juevesverde,viernesverde,sabadoverde,domingoverde);
                 AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),db.recuperaridPending(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
