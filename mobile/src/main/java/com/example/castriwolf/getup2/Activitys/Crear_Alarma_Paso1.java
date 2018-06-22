@@ -40,18 +40,18 @@ public class Crear_Alarma_Paso1 extends AppCompatActivity {
         setContentView(R.layout.activity_crear_alarma_paso1);
 
         //variables de botones
-        toggleButton1 = (ImageButton) findViewById(R.id.toggleButtonLunes);
-        toggleButton2 = (ImageButton) findViewById(R.id.toggleButtonMartes);
-        toggleButton3 = (ImageButton) findViewById(R.id.toggleButtonMiercoles);
-        toggleButton4 = (ImageButton) findViewById(R.id.toggleButtonJueves);
-        toggleButton5 = (ImageButton) findViewById(R.id.toggleButtonViernes);
-        toggleButton6 = (ImageButton) findViewById(R.id.toggleButtonSabado);
-        toggleButton7 = (ImageButton) findViewById(R.id.toggleButtonDomingo);
+        toggleButton1 = findViewById(R.id.toggleButtonLunes);
+        toggleButton2 = findViewById(R.id.toggleButtonMartes);
+        toggleButton3 = findViewById(R.id.toggleButtonMiercoles);
+        toggleButton4 = findViewById(R.id.toggleButtonJueves);
+        toggleButton5 = findViewById(R.id.toggleButtonViernes);
+        toggleButton6 = findViewById(R.id.toggleButtonSabado);
+        toggleButton7 = findViewById(R.id.toggleButtonDomingo);
 
         //timepicker para escoger la hora a la que deseamos llegar al destino
         hora = findViewById(R.id.timePicker3);
         hora.setIs24HourView(true);
-        next = (ImageView) findViewById(R.id.next);
+        next = findViewById(R.id.next);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override

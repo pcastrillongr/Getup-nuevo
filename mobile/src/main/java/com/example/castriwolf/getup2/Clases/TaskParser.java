@@ -23,7 +23,7 @@ import static com.example.castriwolf.getup2.Activitys.MapsActivity.pintado;
  */
 public class TaskParser extends AsyncTask<String, Void, List<List<HashMap<String, String>>>> {
 
-    public TaskParser(){};
+    public TaskParser(){}
 
 
     @Override

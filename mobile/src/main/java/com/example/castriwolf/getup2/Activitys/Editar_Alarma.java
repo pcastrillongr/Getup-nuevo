@@ -58,13 +58,13 @@ public class Editar_Alarma extends AppCompatActivity {
         tp = findViewById(R.id.timePicker3);
         tp.setIs24HourView(true);
         save=findViewById(R.id.save);
-        toggleButton1 = (ImageButton) findViewById(R.id.toggleButtonLunes);
-        toggleButton2 = (ImageButton) findViewById(R.id.toggleButtonMartes);
-        toggleButton3 = (ImageButton) findViewById(R.id.toggleButtonMiercoles);
-        toggleButton4 = (ImageButton) findViewById(R.id.toggleButtonJueves);
-        toggleButton5 = (ImageButton) findViewById(R.id.toggleButtonViernes);
-        toggleButton6 = (ImageButton) findViewById(R.id.toggleButtonSabado);
-        toggleButton7 = (ImageButton) findViewById(R.id.toggleButtonDomingo);
+        toggleButton1 = findViewById(R.id.toggleButtonLunes);
+        toggleButton2 = findViewById(R.id.toggleButtonMartes);
+        toggleButton3 = findViewById(R.id.toggleButtonMiercoles);
+        toggleButton4 = findViewById(R.id.toggleButtonJueves);
+        toggleButton5 = findViewById(R.id.toggleButtonViernes);
+        toggleButton6 = findViewById(R.id.toggleButtonSabado);
+        toggleButton7 = findViewById(R.id.toggleButtonDomingo);
 
 
         sharedPreferences = getSharedPreferences("Editar" , Context.MODE_PRIVATE);

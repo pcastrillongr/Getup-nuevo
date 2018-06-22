@@ -46,7 +46,7 @@ public class Preferencias_Alarma extends AppCompatActivity {
                 db=new Mihelper(getApplicationContext());
                 pref=getSharedPreferences("Mispreferencias", Context.MODE_PRIVATE);
                 editor=pref.edit();
-                vibracion=(Switch)findViewById(R.id.switch5);
+                vibracion= findViewById(R.id.switch5);
                 vibracion.setChecked(pref.getBoolean("vibracion",false));
 
 

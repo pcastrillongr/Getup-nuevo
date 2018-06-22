@@ -81,7 +81,8 @@
         app:layout_constraintEnd_toStartOf="@+id/toggleButtonMiercoles"
         app:layout_constraintStart_toEndOf="@+id/toggleButtonLunes"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="TODO" />
 
     <ImageButton
         android:id="@+id/toggleButtonDomingo"
@@ -100,7 +101,8 @@
         app:layout_constraintBottom_toTopOf="@+id/next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/toggleButtonSabado"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker3" />
+        app:layout_constraintTop_toBottomOf="@+id/timePicker3"
+        android:contentDescription="TODO" />
 
     <ImageButton
         android:id="@+id/toggleButtonViernes"
@@ -122,7 +124,8 @@
         app:layout_constraintEnd_toStartOf="@+id/toggleButtonSabado"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/toggleButtonJueves"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        android:contentDescription="TODO" />
     />
 
     <ImageButton
@@ -143,7 +146,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toggleButtonViernes"
         app:layout_constraintStart_toEndOf="@+id/toggleButtonMiercoles"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        android:contentDescription="TODO" />
     />
 
     <ImageView
@@ -162,7 +166,8 @@
         app:layout_constraintHorizontal_bias="0.87"
         app:layout_constraintStart_toStartOf="@+id/tiempo"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.983" />
+        app:layout_constraintVertical_bias="0.983"
+        android:contentDescription="TODO" />
 
     <ImageButton
         android:id="@+id/toggleButtonSabado"
@@ -181,7 +186,8 @@
         app:layout_constraintBottom_toTopOf="@+id/next"
         app:layout_constraintEnd_toStartOf="@+id/toggleButtonDomingo"
         app:layout_constraintStart_toEndOf="@+id/toggleButtonViernes"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        android:contentDescription="TODO" />
     />
 
     <ImageButton
@@ -201,7 +207,8 @@
         app:layout_constraintEnd_toStartOf="@+id/toggleButtonMartes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timePicker3"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="TODO" />
     />
 
     <ImageButton
@@ -222,7 +229,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/toggleButtonJueves"
         app:layout_constraintStart_toEndOf="@+id/toggleButtonMartes"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        android:contentDescription="TODO" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"

@@ -140,7 +140,7 @@ public class Menu_Alarma extends AppCompatActivity {
                 editor.commit();
                 Intent go=new Intent(getApplicationContext(),Editar_Alarma.class);
                 startActivity(go);
-            ;}
+            }
         });
 
     }

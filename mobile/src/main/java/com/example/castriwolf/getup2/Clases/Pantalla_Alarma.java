@@ -50,7 +50,7 @@ public class Pantalla_Alarma extends AppCompatActivity {
                         .setPriority(Notification.PRIORITY_MAX);
 
         mBuilder.setContentIntent(contentIntent);
-        mNotificationManager.notify((int) 10, mBuilder.build());
+        mNotificationManager.notify(10, mBuilder.build());
 
 
     }

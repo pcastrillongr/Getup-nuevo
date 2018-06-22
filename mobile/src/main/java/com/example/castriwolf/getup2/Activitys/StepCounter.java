@@ -22,7 +22,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
     private TextView tPasos;
     private int pasos;
     private int totalpasos;
-    SharedPreferences pref;
+    private SharedPreferences pref;
 
 
     @Override
@@ -56,7 +56,7 @@ public class StepCounter extends AppCompatActivity implements SensorEventListene
         {
             sensor.registerListener(this,counteSensor,SensorManager.SENSOR_DELAY_UI);
         }else{
-            Toast.makeText(this,"Sensor no encontrado", Toast.LENGTH_LONG);
+            Toast.makeText(this,"Sensor no encontrado", Toast.LENGTH_LONG).show();
         }
 
     }

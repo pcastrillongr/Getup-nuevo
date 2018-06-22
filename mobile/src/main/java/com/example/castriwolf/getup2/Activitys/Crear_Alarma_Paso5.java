@@ -37,10 +37,10 @@ public class Crear_Alarma_Paso5 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear__alarma__paso5);
-        picker = (NumberPicker) findViewById(R.id.numberpicker3);
+        picker = findViewById(R.id.numberpicker3);
         picker.setMaxValue(59);
         picker.setMinValue(0);
-        next = (ImageView) findViewById(R.id.next);
+        next = findViewById(R.id.next);
 
         recogerBundle();
 

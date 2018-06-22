@@ -37,10 +37,10 @@ public class Crear_Alarma_Paso3 extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crear__alarma__paso3);
-        picker=(NumberPicker) findViewById(R.id.numberpicker);
+        picker= findViewById(R.id.numberpicker);
         picker.setMinValue(0);
         picker.setMaxValue(59);
-        next=(ImageView)findViewById(R.id.next);
+        next= findViewById(R.id.next);
 
         //recogemos los datos del bundle
        recogerBundle();

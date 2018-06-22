@@ -141,12 +141,7 @@ public class Mihelper extends SQLiteOpenHelper {
         contentValues.put("Domingo",domingo);
         long result = this.getWritableDatabase().insert("Alarma",null,contentValues);
 
-        if(result == -1){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return result != -1;
     }
     public void eliminarAlarma(int hora,int minutos)
     {

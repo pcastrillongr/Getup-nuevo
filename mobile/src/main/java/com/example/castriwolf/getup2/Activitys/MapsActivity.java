@@ -63,7 +63,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, View.OnClickListener {
 
     private static final int LOCATION_REQUEST = 500;
     final CharSequence[] items = {"Evitar autopista", "Evitar peajes"};
@@ -119,7 +119,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private CameraUpdate Csalida;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,141 +142,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         andar = findViewById(R.id.ivAndar);
         ajuste = findViewById(R.id.ivAjustes);
 
-
-
-        /**
-         * Boton de ajustes
-         * abre un dialog alert para indicar tipo ajustes de ruta.
-         */
-        ajuste.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog dialog = new AlertDialog.Builder(MapsActivity.this)
-                        .setTitle("Parametros")
-                        .setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
-                                if (isChecked) {
-                                    // If the user checked the item, add it to the selected items
-                                    seletedItems.add(indexSelected);
-                                } else if (seletedItems.contains(indexSelected)) {
-                                    // Else, if the item is already in the array, remove it
-                                    seletedItems.remove(Integer.valueOf(indexSelected));
-                                }
-                            }
-                        }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                //  Your code when user clicked on OK
-                                //  You can write the code  to save the selected item here
-
-                                for (int i = 0; 0 > seletedItems.size(); i++) {
-
-                                    if (seletedItems.get(i).equals(items)) {
-
-                                    }
-                                }
-
-                            }
-                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int id) {
-                                //  Your code when user clicked on Cancel
-                                Eautopista = false;
-                                Epeaje = false;
-                            }
-                        }).create();
-                dialog.show();
-
-            }
-        });
-
-
-        /**
-         * Boton ubi
-         * para encontrar tu ubicacion actual.
-         */
-        ubi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                new CountDownTimer(4000, 4000) {
-                    @Override
-                    public void onTick(long l) {
-
-                        //envio al metodo que nos encuentra la UBI
-                        miUbicacion();
-                        Toast.makeText(getApplicationContext(), "Buscando tu ubicacion", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    @Override
-                    public void onFinish() {
-
-
-                        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
-                        try {
-                            List<Address> addresses = geocoder.getFromLocation(latsal, lonsal, 1);
-                            //seteamos el autocomplete de salida con la direccion escrita de la latitud y longitud de la salida
-                            if (addresses.size() >= 1) {
-                                placeautocompletesalida.setText(addresses.get(0).getAddressLine(0));
-                                salida = addresses.get(0).getAddressLine(0);
-                                latsal = addresses.get(0).getLatitude();
-                                lonsal = addresses.get(0).getLongitude();
-                            } else {
-                                Toast.makeText(getApplicationContext(), "No pudimos encontrar su ubicacion revise su conexión y permisos", Toast.LENGTH_LONG).show();
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }.start();
-
-
-            }
-        });
-        /**
-         * Boton Next
-         * para seguir al siguiente paso.
-         */
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (irCoche == true || irBus == true || irBici == true || irAndando == true && minutosRecorrido > 0) {
-                    Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
-
-                    //mandamos las variables al next activity
-                    go.putExtra("Lunes", lunes);
-                    go.putExtra("Martes", martes);
-                    go.putExtra("Miercoles", miercoles);
-                    go.putExtra("Jueves", jueves);
-                    go.putExtra("Viernes", viernes);
-                    go.putExtra("Sabado", sabado);
-                    go.putExtra("Domingo", domingo);
-                    //Hora de llegada al destino
-                    go.putExtra("Hora", hora);
-                    go.putExtra("HMinuto", minuto);
-                    //Tiempo ruta
-                    go.putExtra("HorasRecorrido", horaRecorrido);
-                    go.putExtra("MinutosRecorridos", minutosRecorrido);
-                    // Lugar de salida y llegada
-                    go.putExtra("Lsalida", salida);
-                    go.putExtra("Lllegada", destino);
-                    //Modo Transporte
-                    go.putExtra("Coche", irCoche);
-                    go.putExtra("Bus", irBus);
-                    go.putExtra("Bici", irBici);
-                    go.putExtra("Andar", irAndando);
-
-
-                    startActivity(go);
-                } else {
-                    Toast.makeText(getApplicationContext(), "Debes introducir direcciones y calcular ruta.", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
+        next.setOnClickListener(this);
+        ubi.setOnClickListener(this);
+        coche.setOnClickListener(this);
+        bus.setOnClickListener(this);
+        bici.setOnClickListener(this);
+        andar.setOnClickListener(this);
+        ajuste.setOnClickListener(this);
 
         //Fragment Place 1
         placeautocompletesalida = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocomplete);
@@ -323,127 +194,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-        coche.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-
-                if (irCoche == false && !destino.equals("") && !salida.equals("")) {
-                    irCoche = true;
-                    irBus = false;
-                    irAndando = false;
-                    irBici = false;
-
-                    coche.setImageResource(R.drawable.icons8cocheverde);
-                    bus.setImageResource(R.drawable.icons8autobusgris);
-                    bici.setImageResource(R.drawable.icons8bicigris);
-                    andar.setImageResource(R.drawable.icons8caminargris);
-
-                    if (salida.equals("") || destino.equals("")) {
-
-                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
-
-                    } else {
-
-                        recorridoJson();
-                        movimientoCamara();
-                      
-                    }
-                }
-            }
-        });
-
-        bus.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-
-                if (irBus == false && !destino.equals("") && !salida.equals("")) {
-                    irCoche = false;
-                    irBus = true;
-                    irAndando = false;
-                    irBici = false;
-
-                    coche.setImageResource(R.drawable.icons8cochegris);
-                    bus.setImageResource(R.drawable.icons8autobusverde);
-                    bici.setImageResource(R.drawable.icons8bicigris);
-                    andar.setImageResource(R.drawable.icons8caminargris);
-
-                    if (salida.equals("") || destino.equals("")) {
-
-                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
-
-                    } else {
-
-                        recorridoJson();
-                        movimientoCamara();
-                    }
-
-                }
-            }
-        });
-
-        bici.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-                if (irBici == false && !destino.equals("") && !salida.equals("")) {
-                    irCoche = false;
-                    irBus = false;
-                    irAndando = false;
-                    irBici = true;
-
-                    coche.setImageResource(R.drawable.icons8cochegris);
-                    bus.setImageResource(R.drawable.icons8autobusgris);
-                    bici.setImageResource(R.drawable.icons8biciverde);
-                    andar.setImageResource(R.drawable.icons8caminargris);
-
-                    if (salida.equals("") || destino.equals("")) {
-
-                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
-
-                    } else {
-
-                        recorridoJson();
-                        movimientoCamara();
-                    }
-                }
-            }
-        });
-
-        andar.setOnClickListener(new View.OnClickListener()
-
-        {
-            @Override
-            public void onClick(View v) {
-                if (irAndando == false && !destino.equals("") && !salida.equals("")) {
-                    irCoche = false;
-                    irBus = false;
-                    irAndando = true;
-                    irBici = false;
-
-                    coche.setImageResource(R.drawable.icons8cochegris);
-                    bus.setImageResource(R.drawable.icons8autobusgris);
-                    bici.setImageResource(R.drawable.icons8bicigris);
-                    andar.setImageResource(R.drawable.icons8caminarverde);
-
-                    if (salida.equals("") || destino.equals("")) {
-
-                        Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
-
-                    } else {
-
-                        recorridoJson();
-                        movimientoCamara();
-                    }
-                }
-
-            }
-        });
 
     }
 
@@ -710,8 +460,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }.start();
 
 
-
-
     }
 
 
@@ -785,7 +533,245 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+    @Override
+    public void onClick(View v) {
+        /**
+         * Boton ubi
+         * para encontrar tu ubicacion actual.
+         */
+
+        if (v.equals(ubi)) {
+            new CountDownTimer(4000, 4000) {
+                @Override
+                public void onTick(long l) {
+
+                    //envio al metodo que nos encuentra la UBI
+                    miUbicacion();
+                    Toast.makeText(getApplicationContext(), "Buscando tu ubicacion", Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void onFinish() {
+
+
+                    Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+                    try {
+                        List<Address> addresses = geocoder.getFromLocation(latsal, lonsal, 1);
+                        //seteamos el autocomplete de salida con la direccion escrita de la latitud y longitud de la salida
+                        if (addresses.size() >= 1) {
+                            placeautocompletesalida.setText(addresses.get(0).getAddressLine(0));
+                            salida = addresses.get(0).getAddressLine(0);
+                            latsal = addresses.get(0).getLatitude();
+                            lonsal = addresses.get(0).getLongitude();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No pudimos encontrar su ubicacion revise su conexión y permisos", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }.start();
+        }
+        /**
+         * Boton de ajustes
+         * abre un dialog alert para indicar tipo ajustes de ruta.
+         */
+        if (v.equals(ajuste)) {
+
+            ajuste.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog dialog = new AlertDialog.Builder(MapsActivity.this)
+                            .setTitle("Parametros")
+                            .setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                                    if (isChecked) {
+                                        // If the user checked the item, add it to the selected items
+                                        seletedItems.add(indexSelected);
+                                    } else if (seletedItems.contains(indexSelected)) {
+                                        // Else, if the item is already in the array, remove it
+                                        seletedItems.remove(Integer.valueOf(indexSelected));
+                                    }
+                                }
+                            }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //  Your code when user clicked on OK
+                                    //  You can write the code  to save the selected item here
+
+                                    for (int i = 0; 0 > seletedItems.size(); i++) {
+
+                                        if (seletedItems.get(i).equals(items)) {
+
+                                        }
+                                    }
+
+                                }
+                            }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //  Your code when user clicked on Cancel
+                                    Eautopista = false;
+                                    Epeaje = false;
+                                }
+                            }).create();
+                    dialog.show();
+
+                }
+            });
+        }
+
+        if (v.equals(next)) {
+
+            /**
+             * Boton Next
+             * para seguir al siguiente paso.
+             */
+            if (irCoche == true || irBus == true || irBici == true || irAndando == true && minutosRecorrido > 0) {
+                Intent go = new Intent(getApplicationContext(), Crear_Alarma_Paso3.class);
+
+                //mandamos las variables al next activity
+                go.putExtra("Lunes", lunes);
+                go.putExtra("Martes", martes);
+                go.putExtra("Miercoles", miercoles);
+                go.putExtra("Jueves", jueves);
+                go.putExtra("Viernes", viernes);
+                go.putExtra("Sabado", sabado);
+                go.putExtra("Domingo", domingo);
+                //Hora de llegada al destino
+                go.putExtra("Hora", hora);
+                go.putExtra("HMinuto", minuto);
+                //Tiempo ruta
+                go.putExtra("HorasRecorrido", horaRecorrido);
+                go.putExtra("MinutosRecorridos", minutosRecorrido);
+                // Lugar de salida y llegada
+                go.putExtra("Lsalida", salida);
+                go.putExtra("Lllegada", destino);
+                //Modo Transporte
+                go.putExtra("Coche", irCoche);
+                go.putExtra("Bus", irBus);
+                go.putExtra("Bici", irBici);
+                go.putExtra("Andar", irAndando);
+
+
+                startActivity(go);
+            } else {
+                Toast.makeText(getApplicationContext(), "Debes introducir direcciones y calcular ruta.", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        if (v.equals(coche)) {
+
+            if (irCoche == false && !destino.equals("") && !salida.equals("")) {
+                irCoche = true;
+                irBus = false;
+                irAndando = false;
+                irBici = false;
+
+                coche.setImageResource(R.drawable.icons8cocheverde);
+                bus.setImageResource(R.drawable.icons8autobusgris);
+                bici.setImageResource(R.drawable.icons8bicigris);
+                andar.setImageResource(R.drawable.icons8caminargris);
+
+                if (salida.equals("") || destino.equals("")) {
+
+                    Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    recorridoJson();
+                    movimientoCamara();
+
+                }
+            }
+        }
+
+        if (v.equals(bus)) {
+
+            if (irBus == false && !destino.equals("") && !salida.equals("")) {
+                irCoche = false;
+                irBus = true;
+                irAndando = false;
+                irBici = false;
+
+                coche.setImageResource(R.drawable.icons8cochegris);
+                bus.setImageResource(R.drawable.icons8autobusverde);
+                bici.setImageResource(R.drawable.icons8bicigris);
+                andar.setImageResource(R.drawable.icons8caminargris);
+
+                if (salida.equals("") || destino.equals("")) {
+
+                    Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    recorridoJson();
+                    movimientoCamara();
+                }
+            }
+        }
+
+        if (v.equals(bici)) {
+
+            if (irBici == false && !destino.equals("") && !salida.equals("")) {
+                irCoche = false;
+                irBus = false;
+                irAndando = false;
+                irBici = true;
+
+                coche.setImageResource(R.drawable.icons8cochegris);
+                bus.setImageResource(R.drawable.icons8autobusgris);
+                bici.setImageResource(R.drawable.icons8biciverde);
+                andar.setImageResource(R.drawable.icons8caminargris);
+
+                if (salida.equals("") || destino.equals("")) {
+
+                    Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    recorridoJson();
+                    movimientoCamara();
+                }
+            }
+        }
+
+        if (v.equals(andar)) {
+
+            if (irAndando == false && !destino.equals("") && !salida.equals("")) {
+                irCoche = false;
+                irBus = false;
+                irAndando = true;
+                irBici = false;
+
+                coche.setImageResource(R.drawable.icons8cochegris);
+                bus.setImageResource(R.drawable.icons8autobusgris);
+                bici.setImageResource(R.drawable.icons8bicigris);
+                andar.setImageResource(R.drawable.icons8caminarverde);
+
+                if (salida.equals("") || destino.equals("")) {
+
+                    Toast.makeText(getApplicationContext(), "Introduce las dos direcciones", Toast.LENGTH_LONG).show();
+
+                } else {
+
+                    recorridoJson();
+                    movimientoCamara();
+                }
+            }
+
+        }
+
+    }
+
+
 }
+
+
+
 
 
 

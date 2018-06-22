@@ -35,7 +35,7 @@ public class ListViewInflater extends BaseAdapter {
 
     public ListViewInflater(Context context, List<Alarma>listAlarmas) {
         this.context = context;
-        this.listAlarmas = listAlarmas;
+        ListViewInflater.listAlarmas = listAlarmas;
         db=new Mihelper(context);
 
 
@@ -142,7 +142,7 @@ public class ListViewInflater extends BaseAdapter {
        // viewHolder.imageViewProfilePic.setImageDrawable(getImageDrawable(person.getImageName()));
 
         //Borramos la alarma en la posicion del listview
-        borrar=(ImageView)convertView.findViewById(R.id.buttonEliminar);
+        borrar= convertView.findViewById(R.id.buttonEliminar);
         borrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

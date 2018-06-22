@@ -29,7 +29,7 @@ public class Pasos_Despertar extends AppCompatActivity {
         setContentView(R.layout.pasos_despertar);
         pref=getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
         editor=pref.edit();
-        guardar = (ImageView) findViewById(R.id.guardar);
+        guardar = findViewById(R.id.guardar);
         pasos = findViewById(R.id.numberpickerpasos);
         pasos.setMinValue(10);
         pasos.setMaxValue(50);

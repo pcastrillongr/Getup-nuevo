@@ -167,8 +167,6 @@ public class DirectionsParser {
             br.close();
 
 
-        } catch (MalformedURLException ex) {
-            ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
         } finally {
